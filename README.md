@@ -1,4 +1,4 @@
-# karaoke-list
+# karaoke-project
 
 ## Project setup
 ```

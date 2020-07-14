@@ -1,17 +1,18 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <lista-tag/>
+    <footer-tag/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+// import Lista from './components/lista.vue'
+import Footer from './essencial/footer.vue'
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    'footer-tag':Footer,
+    // 'lista-a':Lista,
   }
 }
 </script>
