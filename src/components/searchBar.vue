@@ -73,6 +73,7 @@ export default {
         this.bdCatalogo();
     },
     mounted(){
+      //Quando montar a instância, chamar o método autocomplete.
         autocomplete(document.getElementById("autoComplete"), autocompleteData);
 
     }
