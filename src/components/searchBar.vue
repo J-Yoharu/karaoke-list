@@ -2,7 +2,7 @@
   <div class="container">
       <div class="row mt-5">
         <div class="col">
-            <input id="autoComplete" class="form-control form-control-lg" style="border-radius:100px 100px 100px 100px" @keyup.enter="search" placeholder="Digite sua música ou cantor"/>
+            <input id="autoComplete" class="form-control form-control-lg" style="border-radius:100px 100px 100px 100px" @keyup.enter="search" @blur="search" placeholder="Digite sua música ou cantor"/>
         </div>
       </div>
       <div class="row mt-4 mb-4">
@@ -10,11 +10,11 @@
           <button class="btn btn-outline-success my-2 my-sm-0" @click="search()">PESQUISAR</button>
         </div>
       </div>
-      <div class="row">
+      <!-- <div class="row">
             <div class="col">
                 <h3>{{title}}</h3>
-             </div>
-      </div>
+           </div> 
+      </div>-->
   </div>
 </template>
 
@@ -51,16 +51,19 @@ export default {
         
     },
     search(){
+      setTimeout(()=>{
       let input = this.normalizeString(document.getElementById("autoComplete").value);
       document.getElementById('autoComplete').value='';
       let musicasFiltradas = this.filterItem(input, 'cantor');
       this.$emit("atualizarLista",musicasFiltradas);
 
       if(musicasFiltradas.length>0){
-          this.title=`Resultados contendo "${input}"`
+          //this.title=`Resultados contendo "${input}"`
       }else{
-          this.title=`Infelizmente achamos nada referente a "${input}"`
+          //this.title=`Infelizmente achamos nada referente a "${input}"`
       }
+      },200);
+      
     },
     filterItem(query){
         return response.data.filter(el => (this.normalizeString(el.titulo).indexOf(query) > -1)||(this.normalizeString(el.cantor).indexOf(query) > -1)); 
@@ -73,12 +76,13 @@ export default {
         this.bdCatalogo();
     },
     mounted(){
-      //Quando montar a instância, chamar o método autocomplete.
+     //Quando montar a instância, chamar o método autocomplete.
         autocomplete(document.getElementById("autoComplete"), autocompleteData);
 
     }
 
 }
+
 /* eslint-disable */
 function autocomplete(inp, arr) {
   /*the autocomplete function takes two arguments,
@@ -111,7 +115,7 @@ function autocomplete(inp, arr) {
           /*execute a function when someone clicks on the item value (DIV element):*/
               b.addEventListener("click", function(e) {
               /*insert the value for the autocomplete text field:*/
-              inp.value = this.getElementsByTagName("input")[0].value;
+              inp.value = this.innerText;
               /*close the list of autocompleted values,
               (or any other open lists of autocompleted values:*/
               closeAllLists();
