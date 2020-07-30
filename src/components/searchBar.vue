@@ -22,6 +22,7 @@
     var response=[];
     var autocompleteData=[];
 export default {
+  props:['nomeLista'],
     data(){
         return{
             title:'',
@@ -53,7 +54,6 @@ export default {
       let input = this.normalizeString(document.getElementById("autoComplete").value);
       document.getElementById('autoComplete').value='';
       let musicasFiltradas = this.filterItem(input, 'cantor');
-      console.log(musicasFiltradas)
       this.$emit("atualizarLista",musicasFiltradas);
 
       if(musicasFiltradas.length>0){
@@ -179,7 +179,7 @@ document.addEventListener("click", function (e) {
 </script>
 
 <style>
-    .autocomplete {
+.autocomplete {
   /*the container must be positioned relative:*/
   position: relative;
   display: inline-block;
@@ -201,6 +201,7 @@ input[type=submit] {
   cursor: pointer;
   background-color: #fff;
   border-bottom: 1px solid #d4d4d4;  
+  text-align:left;
 }
 .autocomplete-items div:hover {
   /*when hovering an item:*/

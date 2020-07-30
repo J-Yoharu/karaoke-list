@@ -25,7 +25,6 @@
 
 <script>
 import searchBar from './searchBar.vue';
-// import autoComplete from "./autoComplete";
 export default {
   components:{
     searchBar,
