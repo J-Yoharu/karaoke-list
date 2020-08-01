@@ -10,10 +10,11 @@
                 <th scope="col">Código</th>
                 <th scope="col">Musica</th>
               </tr>
-              <tr v-for="(musica,index) in musicas" :key="index" :class="{'bg-green': (index%2==0) ? true:false}" @mousedown="addFavorite" @mouseup="cancelF=true" style="transition: all 1s;"> 
+              <tr v-for="(musica,index) in musicas" :key="index" :class="{'bg-green': (index%2==0) ? true:false}" @mousedown="addFavorite" @mouseup="cancelF=true" style="transition: all 0.5s;"> 
                 
                 <td>{{musica.cantor}}</td>
-                <td> <img src="./images/star.svg" style="width:15px"> {{musica.titulo}}</td>
+                <!-- //v-if="val === musica.titulo" -->
+                <td> <img  v-favorite="musica.titulo" src="./images/star.svg" style="width:15px;transition: all 1s"> {{musica.titulo}}</td>
                 <td>{{musica.cod}}</td>
               </tr>
             </table>
@@ -25,8 +26,19 @@
 </template>
 
 <script>
+var val = ['WHISKEY IN THE JAR',' NOTHING ELSE MATTERS'];
 import searchBar from './searchBar.vue';
 export default {
+  directives:{
+    favorite:{
+      bind(el,binding){
+        el.style.display="none";
+        if(val.includes(binding.value)){
+          //el.style.display="inline";
+        }
+      }
+    }
+  },
   components:{
     searchBar,
   },
@@ -35,34 +47,30 @@ export default {
       musicas:'',
       c1:false,
       cancelF:true,
-      val:['banana', 'mexirica'],
     }
   },
   methods:{
     addFavorite($event){
       this.cancelF=false;
       $event.path[1].style.transform = "scale(1.05,1.05)";
-    
       
-      let a = setInterval(()=>{
+      let monitoramento = setInterval(()=>{
         if(this.cancelF){
           $event.path[1].style.transform = "scale(1)";
-          clearInterval(a);
-          clearTimeout(timer);
+          clearInterval(monitoramento);
+          clearTimeout(voltarAoNormal);
+          
         }
       },100);
 
-      var timer = setTimeout(()=>{
-        //$event.path[1].cells[1].innerText
-        this.val.push('PORRA')
-        console.log(this.val)
+      var voltarAoNormal = setTimeout(()=>{
+        //coloca a estrelinha
+        
+        val.push($event.path[1].cells[1].innerText);
+        console.log(val);
         $event.path[1].style.transform = "scale(1)";
-        setTimeout(()=>{
-        this.val = '';
-      },2000)
-      },1000);
+      },500);
 
-      
     }
   }
 }
