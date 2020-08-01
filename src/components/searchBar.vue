@@ -1,15 +1,15 @@
 <template>
   <div class="container">
-      <div class="row mt-5">
+      <div class="row mt-5 mb-4">
         <div class="col">
             <input id="autoComplete" class="form-control form-control-lg" style="border-radius:100px 100px 100px 100px" @keyup.enter="search" @blur="search" placeholder="Digite sua música ou cantor"/>
         </div>
       </div>
-      <div class="row mt-4 mb-4">
+      <!-- <div class="row mt-4 mb-4">
         <div class="col">
           <button class="btn btn-outline-success my-2 my-sm-0" @click="search()">PESQUISAR</button>
         </div>
-      </div>
+      </div> -->
       <!-- <div class="row">
             <div class="col">
                 <h3>{{title}}</h3>
