@@ -1,24 +1,21 @@
 <template>
   <div id="app">
-    <div class="container">
-      <div class="row">
-        <div class="col">
-          <img src="@/Logo.png" alt="">
-        </div>
-      </div>
-    </div>
 
-    <lista-tag/>
+    <home-tag/>
+
     <footer-tag/>
+    
   </div>
 </template>
 
 <script>
 import Footer from './essencial/footer.vue'
+import home from './views/home.vue'
 export default {
   name: 'App',
   components: {
     'footer-tag':Footer,
+    'home-tag':home,
   }
 }
 </script>
@@ -31,8 +28,5 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
-}
-img{
-  width:50%;
 }
 </style>

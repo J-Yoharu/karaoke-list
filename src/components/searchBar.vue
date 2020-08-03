@@ -36,7 +36,7 @@
       search(){
         let input = this.normalizeString(document.getElementById("autoComplete").value);
         document.getElementById('autoComplete').value='';
-        let musicasFiltradas = this.filterItem(input, 'cantor');
+        let musicasFiltradas = this.filterItem(input);
         this.$emit("atualizarLista",musicasFiltradas);
       },
 
