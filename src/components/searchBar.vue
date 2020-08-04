@@ -20,6 +20,7 @@
 
 <script>
   import autoComplete from './autoComplete'
+  //variavel com as musicas;
   var response=[];
   var autocompleteData=[];
   export default {
@@ -36,8 +37,7 @@
       search(){
         let input = this.normalizeString(document.getElementById("autoComplete").value);
         document.getElementById('autoComplete').value='';
-        let musicasFiltradas = this.filterItem(input);
-        this.$emit("atualizarLista",musicasFiltradas);
+        this.$emit("atualizarLista",this.filterItem(input));
       },
 
       filterItem(query){
@@ -48,17 +48,15 @@
         return value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
       },
 
-      async bdCatalogo(){
-
-     
+      async bdCatalogo(){     
           let pesquisa = await fetch('./bd.json',{method:'GET'}).then((resp)=>{ 
           return resp.json();
           });
-         // localStorage.bdCatalogo = JSON.stringify(pesquisa);
-        
-
-         // response = JSON.parse(localStorage.bdCatalogo);
          response = pesquisa;
+
+        //Criando o bd no pai
+        //this.$emit('setData',JSON.stringify(pesquisa));
+
 
           //atribuindo cantores e bandas ao autocomplete
             response.data.map((el)=>{
@@ -77,7 +75,6 @@
         this.autocomplete(document.getElementById("autoComplete"), autocompleteData);
 
     },
-  
   mixins:[autoComplete],
 
   }

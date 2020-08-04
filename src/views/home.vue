@@ -6,7 +6,7 @@
           <img src="@/Logo.png" alt="">
         </div>
       </div>
-        <searchBar @atualizarLista="musicas=$event"/>
+        <searchBar @atualizarLista="musicas=$event" @setData="dataBd=$event"/>
         <lista :musicas="musicas"/>
     </div> 
   </div>
@@ -25,6 +25,16 @@ export default {
       musicas:'',
     }
   },
+  watch:{
+    musicas(){
+      let favoritos = JSON.parse(localStorage.favoritos);
+        this.musicas.map((el)=>{
+          if(favoritos.includes(el.cod)){
+            el.favorito=true;
+          }
+        });
+    }
+  }
 
 }
 </script>

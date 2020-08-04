@@ -12,7 +12,7 @@
               <tr v-for="(musica,index) in musicas" :key="index" :class="{'bg-green': (index%2==0) ? true:false}" @mousedown="addFavorite" @mouseup="cancelF=true" style="transition: all 0.5s;"> 
                 
                 <td>{{musica.cantor}}</td>
-                <td> <img v-if="teste(musica.titulo)" src="./images/star.svg" style="width:15px"> {{musica.titulo}}</td>
+                <td> <img v-if="musica.favorito" src="./images/star.svg" style="width:15px"> {{musica.titulo}}</td>
                 <td>{{musica.cod}}</td>
               </tr>
             </table>
@@ -24,7 +24,6 @@
 </template>
 
 <script>
-var favoritos=[];
 export default {
   props:['musicas'],
   data() {
@@ -49,11 +48,14 @@ export default {
 
       var adicionarFavoritos = setTimeout(()=>{
 
-        favoritos = JSON.parse(localStorage.favoritos);
-        favoritos.push({
-          'cantor':$event.path[1].cells[0].innerText,
-          'musica':$event.path[1].cells[1].innerText,
-          'codigo':$event.path[1].cells[2].innerText
+        let favoritos = JSON.parse(localStorage.favoritos);
+        favoritos.push(
+          $event.path[1].cells[2].innerText
+        );
+         this.musicas.map((el)=>{
+          if(el.cod == $event.path[1].cells[2].innerText){
+            el.favorito=true;
+          }
         });
         
         localStorage.favoritos=JSON.stringify(favoritos);
@@ -62,13 +64,14 @@ export default {
       },500);
 
     },
-    teste(titulo){
-      let favoritos = JSON.parse(localStorage.favoritos);
-      return favoritos.filter((musica)=> musica.musica==titulo).length>0;
-    }
   },
   created(){
-    localStorage.favoritos==undefined ? localStorage.favoritos=JSON.stringify([]):favoritos = JSON.parse(localStorage.favoritos);
+    localStorage.favoritos==undefined ? localStorage.favoritos=JSON.stringify([]):false;
+  },
+  watch:{
+    musicas(){
+      console.log("Atualizou no lista");
+    }
   },
 }
 </script>
