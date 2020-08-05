@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="mt-5">
     <div class="container" style="min-height:100vh">
       <div class="row">
         <div class="col">

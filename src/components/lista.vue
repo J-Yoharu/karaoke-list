@@ -1,19 +1,18 @@
 <template>
   <div id="app">
-    <div class="container" style="min-height:100vh">
+    <div class="container-fluid" style="min-height:100vh">
       <div class="row">
-        <div class="col">
+        <div class="col p-0">
             <table class="table table-bordered table-hover">
               <tr>
-                <th scope="col">Cantor</th>
-                <th scope="col">Musica</th>
+                <th scope="col" colspan="2">Cantor/Musica</th>
+                <!-- <th scope="col">Musica</th> -->
                 <th scope="col">Código</th>
               </tr>
-              <tr v-for="(musica,index) in musicas" :key="index" :class="{'bg-green': (index%2==0) ? true:false}" @mousedown="addFavorite" @mouseup="cancelF=true" style="transition: all 0.5s;"> 
-                
-                <td>{{musica.cantor}}</td>
-                <td> <img v-if="musica.favorito" src="./images/star.svg" style="width:15px"> {{musica.titulo}}</td>
-                <td>{{musica.cod}}</td>
+              <tr v-for="(musica,index) in musicas" :key="index" :class="{'bg-green': (index%2==0) ? true:false}" v-touchdown @mousedown="addFavorite" @mouseup="cancelFavorite" style="cursor:pointer;transition: all 0.5s;"> 
+                <td style="border-right:0"> <img v-if="musica.favorito" src="./images/star.svg" style="width:15px"> </td>
+                <td style="user-select:none;border-left:0;"> <div><img src="./images/microfone.svg" style="width:10px">  {{musica.cantor}}</div><img src="./images/musica.svg" style="width:10px">   {{musica.titulo}}</td>
+                <td style="user-select:none">{{musica.cod}}</td>
               </tr>
             </table>
         </div>
@@ -24,7 +23,18 @@
 </template>
 
 <script>
+var vm;
+/* eslint-disable */
 export default {
+  directives:{
+    touchdown:{
+       bind(el){
+        el.addEventListener('ontouchmove',vm.addFavorite);
+        el.addEventListener('ontouchend',vm.cancelFavorite);
+
+      }
+    }
+  },
   props:['musicas'],
   data() {
     return{
@@ -34,19 +44,6 @@ export default {
   },
   methods:{
     addFavorite($event){
-      this.cancelF=false;
-      $event.path[1].style.transform = "scale(1.05,1.05)";
-      
-      let monitoramento = setInterval(()=>{
-        if(this.cancelF){
-          $event.path[1].style.transform = "scale(1)";
-          clearInterval(monitoramento);
-          clearTimeout(adicionarFavoritos);
-          
-        }
-      },100);
-
-      var adicionarFavoritos = setTimeout(()=>{
 
         let favoritos = JSON.parse(localStorage.favoritos);
         favoritos.push(
@@ -60,13 +57,16 @@ export default {
         
         localStorage.favoritos=JSON.stringify(favoritos);
         console.log(localStorage.favoritos);
-        $event.path[1].style.transform = "scale(1)";
-      },500);
+
 
     },
+    cancelFavorite(){
+      this.cancelF=true
+    }
   },
   created(){
     localStorage.favoritos==undefined ? localStorage.favoritos=JSON.stringify([]):false;
+    vm=this;
   },
   watch:{
     musicas(){
@@ -86,7 +86,7 @@ ul{
 }
 table tr td{
   border:3px solid #EBF1DE;
-  padding:5px;
+  padding:6px;
 }
 
 

@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <menu-tag/>
 
     <home-tag/>
 
@@ -10,12 +11,14 @@
 
 <script>
 import Footer from './essencial/footer.vue'
+import menu from './essencial/menu.vue'
 import home from './views/home.vue'
 export default {
   name: 'App',
   components: {
     'footer-tag':Footer,
     'home-tag':home,
+    'menu-tag':menu,
   }
 }
 </script>
@@ -27,6 +30,5 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>

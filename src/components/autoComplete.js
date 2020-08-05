@@ -41,6 +41,7 @@ export default{
                         }
                         inp.value = text;
                         vm.search();
+                        window.scrollTo(0,0);
                         //console.log('CLICOU  ' + inp.value+ this)                        
                         /*close the list of autocompleted values,
                         (or any other open lists of autocompleted values:*/
