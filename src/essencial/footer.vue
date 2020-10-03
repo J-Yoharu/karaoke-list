@@ -32,10 +32,13 @@
             <a href="https://api.whatsapp.com/send?phone=5511947466026" target="_blank"><img src="./whatsapp.png" style="width:10%" alt=""></a>
           </li>
         </ul>
+  
 
       </div>
       <!-- Grid column -->
-
+      <div class="col-md-3 mb-md-0 mb-3 d-flex align-items-center justify-content-center text-center">
+        <h4 class="p-0 m-0">Atualizado até o cartucho {{this.version}}</h4> 
+      </div>
     </div>
     <!-- Grid row -->
 
@@ -52,14 +55,23 @@
   </div>
   <!-- Footer Links -->
 
-
 </footer>
 <!-- Footer -->
 </template>
 
 <script>
 export default {
-
+  data(){
+    return{
+      version:''
+    }
+  },
+  async mounted(){
+    let bd = await fetch('./bd.json',{method:'GET'}).then((resp)=>{ 
+      return resp.json();
+    });
+    this.version = bd.version;
+  }
 }
 </script>
 

@@ -1,5 +1,5 @@
 {"type":"lista de musica",
-  "version":"até 34C",
+  "version":"34D",
   "data":[
     {
       "cantor": "19",
@@ -89328,6 +89328,326 @@
       "inicio": "I change my world I wanna change...",
       "cartucho": "USAB",
       "favorito": false
+    },
+    {
+      "cantor": "Ana Carolina",
+      "cod": "16886",
+      "titulo": "PRA TERMINAR",
+      "inicio": "Pra começar Dizer que o amor",
+      "cartucho": "34D",
+      "favorito": "false"
+    },
+    {
+      "cantor": "Arnaldo Antunes",
+      "cod": "16894",
+      "titulo": "ENVELHECER",
+      "inicio": "A coisa mais moderna que existe",
+      "cartucho": "34D",
+      "favorito": "false"
+    },
+    {
+      "cantor": "Bezerra da Silva",
+      "cod": "16899",
+      "titulo": "SEQUESTRARAM MINHA SOGRA",
+      "inicio": "Sequestraram minha sogra bem feito",
+      "cartucho": "34D",
+      "favorito": "false"
+    },
+    {
+      "cantor": "Camisa de Vênus",
+      "cod": "16912",
+      "titulo": "HOJE",
+      "inicio": "Ouvi notícias de muito longe",
+      "cartucho": "34D",
+      "favorito": "false"
+    },
+    {
+      "cantor": "Cássia Eller",
+      "cod": "16918",
+      "titulo": "VÁ MORAR COM O DIABO",
+      "inicio": "Ai meu Deus ai meu Deus o que é que há",
+      "cartucho": "34D",
+      "favorito": "false"
+    },
+    {
+      "cantor": "Charlie Brown Jr.",
+      "cod": "16917",
+      "titulo": "SÓ POR UMA NOITE",
+      "inicio": "Eu procurei em outros corpos encontrar você",
+      "cartucho": "34D",
+      "favorito": "false"
+    },
+    {
+      "cantor": "Di Paullo e Paulino - Marília Mendonça",
+      "cod": "16906",
+      "titulo": "ESTRELINHA",
+      "inicio": "Enxugue esse rosto e venha aqui fora",
+      "cartucho": "34D",
+      "favorito": "false"
+    },
+    {
+      "cantor": "Dilsinho - Henrique e Juliano",
+      "cod": "16889",
+      "titulo": "SOGRA",
+      "inicio": "Amor me ajuda que eu sou avoado",
+      "cartucho": "34D",
+      "favorito": "false"
+    },
+    {
+      "cantor": "Diogo Nogueira",
+      "cod": "16893",
+      "titulo": "EMBOLAÊ",
+      "inicio": "Lalaiá...Viu só onde foi que eu cheguei",
+      "cartucho": "34D",
+      "favorito": "false"
+    },
+    {
+      "cantor": "Falamansa",
+      "cod": "16892",
+      "titulo": "CONFIDÊNCIA",
+      "inicio": "Eu tenho um segredo menina",
+      "cartucho": "34D",
+      "favorito": "false"
+    },
+    {
+      "cantor": "Felipe Araújo",
+      "cod": "16888",
+      "titulo": "REINCIDENTE",
+      "inicio": "Eu não vou te olhar senão já era",
+      "cartucho": "34D",
+      "favorito": "false"
+    },
+    {
+      "cantor": "Ferrugem",
+      "cod": "16891",
+      "titulo": "CLIMATIZAR",
+      "inicio": "Pode me esperar que eu tô chegando",
+      "cartucho": "34D",
+      "favorito": "false"
+    },
+    {
+      "cantor": "Giulia Be",
+      "cod": "16916",
+      "titulo": "SE ESSA VIDA FOSSE UM FILME",
+      "inicio": "Se essa vida fosse um filme eu só queria",
+      "cartucho": "34D",
+      "favorito": "false"
+    },
+    {
+      "cantor": "Guilherme e Benuto",
+      "cod": "16901",
+      "titulo": "3 BATIDAS",
+      "inicio": "Eu tô rindo mas é desespero",
+      "cartucho": "34D",
+      "favorito": "false"
+    },
+    {
+      "cantor": "Harmonia do Samba",
+      "cod": "16913",
+      "titulo": "MEUS SENTIMENTOS",
+      "inicio": "Volta pra mim estou sozinho precisando",
+      "cartucho": "34D",
+      "favorito": "false"
+    },
+    {
+      "cantor": "Heróis da Resistência",
+      "cod": "16883",
+      "titulo": "DUBLÊ DE CORPO",
+      "inicio": "Eu não reconheço mais",
+      "cartucho": "34D",
+      "favorito": "false"
+    },
+    {
+      "cantor": "IRA!",
+      "cod": "16915",
+      "titulo": "RUBRO ZORRO",
+      "inicio": "O caminho do crime o atrai",
+      "cartucho": "34D",
+      "favorito": "false"
+    },
+    {
+      "cantor": "Ivan Lins",
+      "cod": "16920",
+      "titulo": "VIESTE",
+      "inicio": "Vieste na hora exata com ares de festa",
+      "cartucho": "34D",
+      "favorito": "false"
+    },
+    {
+      "cantor": "Ivete Sangalo - Vitão",
+      "cod": "16898",
+      "titulo": "NA JANELA",
+      "inicio": "Minha mãe sempre me falou",
+      "cartucho": "34D",
+      "favorito": "false"
+    },
+    {
+      "cantor": "José Augusto",
+      "cod": "16902",
+      "titulo": "A NOITE MAIS LINDA",
+      "inicio": "No princípio foi apenas fantasia",
+      "cartucho": "34D",
+      "favorito": "false"
+    },
+    {
+      "cantor": "Kell Smith",
+      "cod": "16900",
+      "titulo": "VULNERÁVEL",
+      "inicio": "Tanta ironia quanto pintar árvores",
+      "cartucho": "34D",
+      "favorito": "false"
+    },
+    {
+      "cantor": "Luan Santana - Anitta",
+      "cod": "16914",
+      "titulo": "RG",
+      "inicio": "Eu sei quantos passos você dá",
+      "cartucho": "34D",
+      "favorito": "false"
+    },
+    {
+      "cantor": "Ludmilla - DJ. Will 22",
+      "cod": "16882",
+      "titulo": "COBRA VENENOSA",
+      "inicio": "Eu disse limpa limpa ",
+      "cartucho": "34D",
+      "favorito": "false"
+    },
+    {
+      "cantor": "Luiz Gonzaga",
+      "cod": "16907",
+      "titulo": "PAGODE RUSSO",
+      "inicio": "Ontem eu sonhei que estava em Moscou",
+      "cartucho": "34D",
+      "favorito": "false"
+    },
+    {
+      "cantor": "Luiza e Maurílio - Zé Neto e Cristiano",
+      "cod": "16909",
+      "titulo": "S DE SAUDADE",
+      "inicio": "É olha eu aqui na vida de solteiro",
+      "cartucho": "34D",
+      "favorito": "false"
+    },
+    {
+      "cantor": "Maiara e Maraísa - Marília Mendonça",
+      "cod": "16897",
+      "titulo": "MOTEL",
+      "inicio": "Bem que eu notei que tá tudo mudado",
+      "cartucho": "34D",
+      "favorito": "false"
+    },
+    {
+      "cantor": "Mano Walter - Claudia Leitte",
+      "cod": "16905",
+      "titulo": "ENTÃO VEM CÁ",
+      "inicio": "Tanta boca pra poder beijar",
+      "cartucho": "34D",
+      "favorito": "false"
+    },
+    {
+      "cantor": "Matheus e Kauan",
+      "cod": "16885",
+      "titulo": "NEM DOEU",
+      "inicio": "Quando cê pediu pra terminar",
+      "cartucho": "34D",
+      "favorito": "false"
+    },
+    {
+      "cantor": "Monique Kessous",
+      "cod": "16911",
+      "titulo": "FRIO",
+      "inicio": "Cada vez que eu penso em te ver",
+      "cartucho": "34D",
+      "favorito": "false"
+    },
+    {
+      "cantor": "Ney Matogrosso",
+      "cod": "16919",
+      "titulo": "VIDA VIDA",
+      "inicio": "Mora pra lá do outro mundo",
+      "cartucho": "34D",
+      "favorito": "false"
+    },
+    {
+      "cantor": "O Rappa",
+      "cod": "16895",
+      "titulo": "LADO B LADO A",
+      "inicio": "Se eles são Exú eu sou Iemanjá",
+      "cartucho": "34D",
+      "favorito": "false"
+    },
+    {
+      "cantor": "Oswaldo Montenegro",
+      "cod": "16903",
+      "titulo": "A VIDA QUIS ASSIM",
+      "inicio": "Me fale das andanças ex amor",
+      "cartucho": "34D",
+      "favorito": "false"
+    },
+    {
+      "cantor": "Pato Fú",
+      "cod": "16908",
+      "titulo": "POR PERTO",
+      "inicio": "Num velho disco a vida se desfaz",
+      "cartucho": "34D",
+      "favorito": "false"
+    },
+    {
+      "cantor": "Pique Novo",
+      "cod": "16910",
+      "titulo": "SUPRA SUMO DO AMOR",
+      "inicio": "Peço perdão eu não quis foi sem querer",
+      "cartucho": "34D",
+      "favorito": "false"
+    },
+    {
+      "cantor": "Sandro e Cícero - MC Mirela",
+      "cod": "16896",
+      "titulo": "ME ADOTA",
+      "inicio": "Apagou as fotos do seu ex",
+      "cartucho": "34D",
+      "favorito": "false"
+    },
+    {
+      "cantor": "Teodoro e Sampaio",
+      "cod": "16881",
+      "titulo": "AFOGAR O GANSO",
+      "inicio": "Se encher o copo eu bebo",
+      "cartucho": "34D",
+      "favorito": "false"
+    },
+    {
+      "cantor": "Trio Nordestino",
+      "cod": "16887",
+      "titulo": "PROCURANDO TU",
+      "inicio": "Morena diga onde é que tu tava",
+      "cartucho": "34D",
+      "favorito": "false"
+    },
+    {
+      "cantor": "Wesley Safadão",
+      "cod": "16884",
+      "titulo": "EU SENDO EU",
+      "inicio": "Olha eu mais uma vez",
+      "cartucho": "34D",
+      "favorito": "false"
+    },
+    {
+      "cantor": "Zé Neto e Cristiano",
+      "cod": "16890",
+      "titulo": "TEMPESTADE EM COPO DE CERVEJA",
+      "inicio": "E já passou trezentos e sessenta",
+      "cartucho": "34D",
+      "favorito": "false"
+    },
+    {
+      "cantor": "Zé Neto e Cristiano",
+      "cod": "16904",
+      "titulo": "BARZINHO ALEATÓRIO",
+      "inicio": "Mais um comecinho de noite",
+      "cartucho": "34D",
+      "favorito": "false"
     }
   ]
 }

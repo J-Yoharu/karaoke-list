@@ -8,12 +8,12 @@
            </button>
            <div class="collapse navbar-collapse" id="collapsibleNavId">
                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                   <li class="nav-item active">
+                   <!-- <li class="nav-item active">
                        <a class="nav-link">Home </a>
                    </li>
                     <li class="nav-item active">
                        <a class="nav-link">Favoritos</a>
-                   </li>
+                   </li> -->
                </ul>
            </div>
        </nav>

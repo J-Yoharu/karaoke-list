@@ -52,7 +52,7 @@
           let pesquisa = await fetch('./bd.json',{method:'GET'}).then((resp)=>{ 
           return resp.json();
           });
-         response = pesquisa;
+          response = pesquisa;
 
         //Criando o bd no pai
         //this.$emit('setData',JSON.stringify(pesquisa));
