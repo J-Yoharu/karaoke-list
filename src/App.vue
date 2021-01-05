@@ -21,8 +21,8 @@ export default {
   name: "App",
 
   components: {
-    menuBar: () => import("./essencial/menu.vue"),
-    footerBar: () => import("./essencial/footer.vue")
+    menuBar: () => import("./components/essencial/menu.vue"),
+    footerBar: () => import("./components/essencial/footer.vue")
   },
 
   data: () => ({

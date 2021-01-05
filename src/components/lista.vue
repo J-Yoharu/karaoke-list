@@ -19,18 +19,18 @@
               style="cursor: pointer; transition: all 0.5s"
             >
               <td style="border-right: 0">
-                <img
+                <!-- <img
                   v-if="musica.favorito"
                   src="./images/star.svg"
                   style="width: 15px"
-                />
+                /> -->
               </td>
               <td style="user-select: none; border-left: 0">
                 <div>
-                  <img src="./images/microfone.svg" style="width: 10px" />
+                  <!-- <img src="./images/microfone.svg" style="width: 10px" /> -->
                   {{ musica.cantor }}
                 </div>
-                <img src="./images/musica.svg" style="width: 10px" />
+                <!-- <img src="./images/musica.svg" style="width: 10px" /> -->
                 {{ musica.titulo }}
               </td>
               <td style="user-select: none">{{ musica.cod }}</td>
