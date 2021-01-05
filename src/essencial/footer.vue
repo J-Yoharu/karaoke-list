@@ -1,80 +1,51 @@
 <template>
-<!-- Footer -->
-<footer class="page-footer bg-light font-small blue pt-4">
-
-  <!-- Footer Links -->
-  <div class="container-fluid text-center text-md-left">
-
-    <!-- Grid row -->
-    <div class="row">
-
-      <!-- Grid column -->
-      <div class="col-md-6 mt-md-0 mt-3 d-flex align-items-center justify-content-center">
-
-        <!-- Content -->
-        <!-- <img src="@/Logo.png" style="width:40%"> -->
-        <p>Tenha a lista de música para videokê sempre com você!!!</p>
-
-      </div>
-      <!-- Grid column -->
-
-      <hr class="clearfix w-100 d-md-none pb-3">
-      <!-- Grid column -->
-
-      <!-- Grid column -->
-      <div class="col-md-3 mb-md-0 mb-3 text-center">
-
-        <!-- Links -->
-        <h5 class="text-uppercase">Contato</h5>
-
-        <ul class="list-unstyled">
-          <li>
-            <a href="https://api.whatsapp.com/send?phone=5511947466026" target="_blank"><img src="./whatsapp.png" style="width:10%" alt=""></a>
-          </li>
-        </ul>
-  
-
-      </div>
-      <!-- Grid column -->
-      <div class="col-md-3 mb-md-0 mb-3 d-flex align-items-center justify-content-center text-center">
-        <h4 class="p-0 m-0">Atualizado até o cartucho {{this.version}}</h4> 
-      </div>
-    </div>
-    <!-- Grid row -->
-
-    
-  <!-- Copyright -->
-  <div class="row footer-copyright text-center py-3">
-    <div class="col">
-    © 2020 Copyright:
-    <span> J-Yoharu / joaodiadema</span>
-    </div>
-
-  </div>
-  <!-- Copyright -->
-  </div>
-  <!-- Footer Links -->
-
-</footer>
-<!-- Footer -->
+  <v-footer>
+    <v-container fluid class="text-center">
+      <v-row no-gutters>
+        <v-col cols="12" lg="6">
+          <p>Tenha uma lista de mpusica para videokê sempre com você!!!</p>
+        </v-col>
+        <v-col cols="12" lg="2">
+          <h3>contato</h3>
+          <v-icon
+            v-text="icons.mdiWhatsapp"
+            size="50"
+            color="light-green"
+          ></v-icon>
+        </v-col>
+        <v-col cols="12" lg="3">
+          Atualizado até o cartucho {{ version }}
+        </v-col>
+      </v-row>
+      <v-row no-gutters>
+        <v-col cols="12" class="d-flex justify-center">
+          © 2021 Copyright: <span> J-Yoharu / joaodiadema</span>
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-footer>
 </template>
 
 <script>
+import { mdiWhatsapp } from "@mdi/js";
+
 export default {
-  data(){
-    return{
-      version:''
-    }
+  data() {
+    return {
+      icons: {
+        mdiWhatsapp
+      },
+      version: null
+    };
   },
-  async mounted(){
-    let bd = await fetch('./bd.json',{method:'GET'}).then((resp)=>{ 
+  async mounted() {
+    let bd = await fetch("./bd.json", { method: "GET" }).then(resp => {
       return resp.json();
     });
     this.version = bd.version;
   }
-}
+};
 </script>
 
 <style>
-
 </style>
