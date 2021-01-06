@@ -1,8 +1,12 @@
 <template>
   <v-container>
-    <v-row dense>
-      <v-col cols="12">
+    <v-row dense class="d-flex justify-content-center">
+      <v-col cols="12" lg="8">
         <v-text-field
+          rounded
+          outlined
+          dense
+          autocomplete="off"
           v-model="search"
           @keyup.enter="getData()"
           placeholder="Música ou Cantor"
@@ -12,12 +16,12 @@
         >
         </v-text-field>
       </v-col>
-      <v-col cols="12">
+      <v-col cols="12" lg="8">
         <v-list class="col-12 position-absolute p-0 mt-1" style="z-index: 3">
           <v-list-item
             dense
             class="border-bottom"
-            v-for="(singerOrMusic, index) in autoCompleteValue.slice(0, 20)"
+            v-for="(singerOrMusic, index) in autoCompleteValue.slice(0, 10)"
             :key="index"
             @click="getData(singerOrMusic)"
           >
