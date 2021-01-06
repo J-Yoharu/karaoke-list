@@ -29,8 +29,8 @@
           © {{ new Date().getFullYear() }} Copyright
           <div>
             <v-icon v-text="icons.mdiGithub"></v-icon>
-            <a href="https://github.com/j-yoharu">J-Yoharu</a> /
-            <a href="https://github.com/japostulo">Japostulo</a>
+            <a href="https://github.com/j-yoharu" target="_blank">J-Yoharu</a> /
+            <a href="https://github.com/japostulo" target="_blank">Japostulo</a>
           </div>
         </v-col>
       </v-row>
