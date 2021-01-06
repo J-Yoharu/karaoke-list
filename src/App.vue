@@ -1,9 +1,21 @@
 <template>
   <v-app>
-    <v-app-bar app>
-      <v-app-bar-nav-icon>imagem</v-app-bar-nav-icon>
-      <v-app-bar-title> eeeeeeeee dwdw </v-app-bar-title>
-    </v-app-bar>
+    <!-- <v-app-bar app>
+      <v-app-bar-nav-icon></v-app-bar-nav-icon>
+      <v-app-bar-title>
+        <v-img
+          src="./assets/Logo.png"
+          max-width="100"
+          alt="Logo videoke Augusto"
+        ></v-img>
+      </v-app-bar-title>
+      <v-spacer></v-spacer>
+      <v-tabs align-with-title>
+        <v-tab>Tab 1</v-tab>
+        <v-tab>Tab 2</v-tab>
+        <v-tab>Tab 3</v-tab>
+      </v-tabs>
+    </v-app-bar> -->
     <menuBar />
 
     <v-main>

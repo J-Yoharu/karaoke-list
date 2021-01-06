@@ -1,12 +1,12 @@
 <template>
   <v-row>
     <v-col cols="12" class="d-flex justify-center">
-      <v-img
+      <img
         src="../assets/Logo.png"
         max-width="100"
         alt="Logo videoke Augusto"
-      ></v-img
-    ></v-col>
+        style="width: 30vw"
+    /></v-col>
     <v-col cols="12">
       <List />
     </v-col>
