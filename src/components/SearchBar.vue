@@ -78,11 +78,17 @@ export default {
     },
     undecorate(string) {
       if (string != undefined) {
-        string = string.toLowerCase();
+        string = string.toLowerCase().trim();
         string = string.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
         return string;
       }
       return false;
+    },
+    textFormat(text) {
+      return text
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .trim();
     },
     autoComplete() {
       if (this.search.length == 0) {
@@ -118,7 +124,13 @@ export default {
 
   created() {
     this.$axios("./bd.json").then(res => {
-      this.songs = res.data.data;
+      this.songs = res.data.data.map(song => {
+        return {
+          cantor: this.textFormat(song.cantor),
+          titulo: this.textFormat(song.titulo),
+          cod: this.textFormat(song.cod)
+        };
+      });
     });
   },
   watch: {
