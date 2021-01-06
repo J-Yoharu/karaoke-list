@@ -1,34 +1,44 @@
 <template>
-  <div id="app">
-    <menu-tag/>
+  <v-app>
+    <!-- <v-app-bar app>
+      <v-app-bar-nav-icon></v-app-bar-nav-icon>
+      <v-app-bar-title>
+        <v-img
+          src="./assets/Logo.png"
+          max-width="100"
+          alt="Logo videoke Augusto"
+        ></v-img>
+      </v-app-bar-title>
+      <v-spacer></v-spacer>
+      <v-tabs align-with-title>
+        <v-tab>Tab 1</v-tab>
+        <v-tab>Tab 2</v-tab>
+        <v-tab>Tab 3</v-tab>
+      </v-tabs>
+    </v-app-bar> -->
+    <menuBar />
 
-    <home-tag/>
+    <v-main>
+      <v-container>
+        <router-view></router-view>
+      </v-container>
+    </v-main>
 
-    <footer-tag/>
-    
-  </div>
+    <footerBar />
+  </v-app>
 </template>
 
 <script>
-import Footer from './essencial/footer.vue'
-import menu from './essencial/menu.vue'
-import home from './views/home.vue'
 export default {
-  name: 'App',
-  components: {
-    'footer-tag':Footer,
-    'home-tag':home,
-    'menu-tag':menu,
-  }
-}
-</script>
+  name: "App",
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-</style>
+  components: {
+    menuBar: () => import("./components/essencial/menu.vue"),
+    footerBar: () => import("./components/essencial/footer.vue")
+  },
+
+  data: () => ({
+    //
+  })
+};
+</script>
