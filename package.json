@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@mdi/js": "^5.8.55",
+    "axios": "^0.21.1",
     "bootstrap": "^4.5.0",
     "core-js": "^3.6.5",
     "jquery": "^3.5.1",

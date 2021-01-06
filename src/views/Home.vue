@@ -8,37 +8,15 @@
       ></v-img
     ></v-col>
     <v-col cols="12">
-      <searchBar
-        @atualizarLista="musicas = $event"
-        @setData="dataBd = $event"
-      />
-      <lista :musicas="musicas" />
+      <List />
     </v-col>
   </v-row>
 </template>
 
 <script>
-import searchBar from "../components/searchBar.vue";
-import lista from "../components/lista.vue";
 export default {
   components: {
-    searchBar,
-    lista
-  },
-  data() {
-    return {
-      musicas: ""
-    };
-  },
-  watch: {
-    musicas() {
-      let favoritos = JSON.parse(localStorage.favoritos);
-      this.musicas.map(el => {
-        if (favoritos.includes(el.cod)) {
-          el.favorito = true;
-        }
-      });
-    }
+    List: () => import("../components/List.vue")
   }
 };
 </script>
