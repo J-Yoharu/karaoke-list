@@ -8,7 +8,7 @@
           dense
           autocomplete="off"
           v-model="search"
-          @keyup.enter="getData()"
+          @keyup="autoComplete"
           placeholder="Música ou Cantor"
           label="Pesquisar"
           :append-icon="icons.mdiMagnify"
@@ -21,26 +21,21 @@
           <v-list-item
             dense
             class="border-bottom"
-            v-for="(singerOrMusic, index) in autoCompleteValue.slice(0, 10)"
+            v-for="(music, index) in autoCompleteValue.slice(0, 10)"
             :key="index"
-            @click="getData(singerOrMusic)"
+            @click="searchMusic(music)"
           >
-            {{ singerOrMusic }}
+            {{ music.data }} ({{ music.label }})
           </v-list-item>
-        </v-list>
-        <!-- <div
-          class="col-12 bg-danger position-absolute p-0 mt-1"
-          style="z-index: 3"
-        >
-          <div
-            class="d-flex justify-content-start bg-light border p-1"
-            v-for="(singerOrMusic, index) in autoCompleteValue.slice(0, 20)"
-            :key="index"
-            @click="getData(singerOrMusic)"
-          >
-            {{ singerOrMusic }}
+
+          <div v-if="autoCompleteValue.length === 0 && search.length > 1">
+            <v-list-item class="d-flex justify-center">
+              Não achamos nenhum cantor ou música com o nome de
+              <span class="font-weight-bold">: "{{ search }}". </span>
+            </v-list-item>
+            <!-- <v-list-item>Você não quis dizer</v-list-item> -->
           </div>
-        </div> -->
+        </v-list>
       </v-col>
     </v-row>
   </v-container>
@@ -50,6 +45,7 @@
 import { mdiMagnify } from "@mdi/js";
 
 export default {
+  props: ["data"],
   data() {
     return {
       icons: {
@@ -57,89 +53,84 @@ export default {
       },
       search: "",
       autoCompleteValue: "",
-      songs: ""
+      autoCompleteData: []
     };
   },
   methods: {
-    getData(data) {
-      if (data == undefined) {
-        this.search = this.autoCompleteValue[0];
-
-        data = this.search;
-        this.autoCompleteValue = "";
-        // $('#infoModal').modal(options)
-      } else {
-        this.search = data;
-      }
-
-      this.autoCompleteValue = "";
-      this.boolean = false;
-      this.$emit("search", this.search);
+    searchMusic(music) {
+      this.clearAutoComplete();
+      this.$emit("loading", false);
+      const result = this.filter(music);
+      this.$emit("search", result);
+      this.$emit("loading", false);
+    },
+    filter(music) {
+      return this.data.filter(song => {
+        return song[music.type] === music.data;
+      });
     },
     undecorate(string) {
       if (string != undefined) {
-        string = string.toLowerCase().trim();
+        string = string
+          .toLowerCase()
+          .trim()
+          .replace(/\s/g, "");
         string = string.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
         return string;
       }
       return false;
     },
-    textFormat(text) {
-      return text
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .trim();
-    },
     autoComplete() {
+      this.autoCompleteShow = true;
       if (this.search.length == 0) {
         this.autoCompleteValue = "";
-        this.finalValue = "";
         return false;
       }
       // Atribui o autoCompleteValue correspondente do input se encontrado
-      var result = this.songs.map(value => {
-        // newsearch = this.undecorate(this.search)
-        if (
-          this.undecorate(value.cantor).startsWith(this.undecorate(this.search))
-        ) {
-          return value.cantor;
-        }
-
-        if (
-          this.undecorate(value.titulo).startsWith(this.undecorate(this.search))
-        ) {
-          return value.titulo;
+      let result = [];
+      let search = this.undecorate(this.search);
+      this.autoCompleteData.forEach(music => {
+        if (music.search.startsWith(search)) {
+          result.push(music);
         }
       });
-
-      var cantor = [];
-      result.map(v => {
-        if (!cantor.includes(v) && v != undefined) {
-          cantor.push(v);
-        }
-      });
-      this.autoCompleteValue = cantor;
+      this.autoCompleteValue = result;
+    },
+    clearAutoComplete() {
+      this.autoCompleteValue = [];
+      this.search = "";
     }
   },
 
-  created() {
-    this.$axios("./bd.json").then(res => {
-      this.songs = res.data.data.map(song => {
+  created() {},
+  watch: {
+    data() {
+      console.log("chamou o data");
+      this.$emit("loading", true);
+      //Retira cantores repeditos;
+      var singer = [];
+      const musics = [];
+      this.data.forEach(music => {
+        singer.includes(music.cantor) ? false : singer.push(music.cantor);
+        musics.push({
+          search: this.undecorate(music.titulo),
+          data: music.titulo,
+          type: "titulo",
+          label: "Música"
+        });
+      });
+      singer = singer.map(singer => {
         return {
-          cantor: this.textFormat(song.cantor),
-          titulo: this.textFormat(song.titulo),
-          cod: this.textFormat(song.cod)
+          search: this.undecorate(singer),
+          data: singer,
+          type: "cantor",
+          label: "Cantor"
         };
       });
-    });
-  },
-  watch: {
-    search() {
-      if (this.boolean) {
-        this.autoComplete(this.boolean);
-        return false;
-      }
-      this.boolean = true;
+
+      this.autoCompleteData.push(...singer);
+      this.autoCompleteData.push(...musics);
+      this.$emit("loading", false);
     }
   }
 };
