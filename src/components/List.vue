@@ -35,9 +35,6 @@
         </tbody>
       </template>
     </v-data-table>
-    <div class="d-flex justify-center mt-10" v-if="loading">
-      <v-progress-circular indeterminate color="primary"></v-progress-circular>
-    </div>
 
     <div class="fixed-bottom">
       <v-snackbar color="green" :value="snackbar.value" absolute bottom right>
@@ -50,6 +47,7 @@
 <script>
 import { mdiPlus } from "@mdi/js";
 export default {
+  props: ["db"],
   components: {
     SearchBar: () => import("./SearchBar")
   },
@@ -79,14 +77,13 @@ export default {
         },
         {
           text: "favoritar",
-          value: "actions"
+          value: "actions",
+          sortable: false
         }
       ],
       songsFilter: [],
       search: "",
-      selected: "",
-      loading: false,
-      db: []
+      selected: ""
     };
   },
   methods: {
@@ -101,21 +98,6 @@ export default {
         .trim();
     },
 
-    loadSongs() {
-      this.$axios("./bd.json")
-        .then(res => {
-          this.db = res.data.data.map(song => {
-            return {
-              cantor: this.textFormat(song.cantor),
-              titulo: this.textFormat(song.titulo),
-              cod: this.textFormat(song.cod)
-            };
-          });
-        })
-        .finally(() => {
-          this.loading = false;
-        });
-    },
     addFavorite() {
       this.showSnackBar("Musica adicionada aos favoritos com sucesso!");
       console.log("chamou favorito");
@@ -131,10 +113,6 @@ export default {
       this.snackbar.value = false;
       this.snackbar.message = null;
     }
-  },
-  created() {
-    this.loading = true;
-    this.loadSongs();
   }
 };
 </script>
