@@ -26,6 +26,11 @@
             <td>{{ music.cantor }}</td>
             <td>{{ music.titulo }}</td>
             <td>{{ music.cod }}</td>
+            <td class="text-center">
+              <v-btn icon @click="addFavorite">
+                <v-icon v-text="icons.mdiPlus"></v-icon>
+              </v-btn>
+            </td>
           </tr>
         </tbody>
       </template>
@@ -33,16 +38,32 @@
     <div class="d-flex justify-center mt-10" v-if="loading">
       <v-progress-circular indeterminate color="primary"></v-progress-circular>
     </div>
+
+    <div class="fixed-bottom">
+      <v-snackbar color="green" :value="snackbar.value" absolute bottom right>
+        {{ snackbar.message }}
+      </v-snackbar>
+    </div>
   </div>
 </template>
 
 <script>
+import { mdiPlus } from "@mdi/js";
 export default {
   components: {
     SearchBar: () => import("./SearchBar")
   },
   data() {
     return {
+      icons: {
+        mdiPlus
+      },
+
+      snackbar: {
+        value: false,
+        message: null
+      },
+
       headers: [
         {
           text: "Cantor",
@@ -55,6 +76,10 @@ export default {
         {
           text: "Código",
           value: "cod"
+        },
+        {
+          text: "favoritar",
+          value: "actions"
         }
       ],
       songsFilter: [],
@@ -90,6 +115,21 @@ export default {
         .finally(() => {
           this.loading = false;
         });
+    },
+    addFavorite() {
+      this.showSnackBar("Musica adicionada aos favoritos com sucesso!");
+      console.log("chamou favorito");
+    },
+    showSnackBar(message) {
+      this.snackbar.value = true;
+      this.snackbar.message = message;
+      setTimeout(() => {
+        this.clearSnackBar();
+      }, 1000);
+    },
+    clearSnackBar() {
+      this.snackbar.value = false;
+      this.snackbar.message = null;
     }
   },
   created() {
