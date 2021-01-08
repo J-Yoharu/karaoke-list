@@ -9,6 +9,7 @@
           autocomplete="off"
           v-model="search"
           @keyup="autoComplete"
+          @keyup.enter="selectFirstAndSearch()"
           placeholder="Música ou Cantor"
           label="Pesquisar"
           :append-icon="icons.mdiMagnify"
@@ -63,6 +64,13 @@ export default {
       const result = this.filter(music);
       this.$emit("search", result);
       this.$emit("loading", false);
+    },
+    selectFirstAndSearch() {
+      let music = this.autoCompleteValue[0];
+      if (music) {
+        this.searchMusic(music);
+        return;
+      }
     },
     filter(music) {
       return this.data.filter(song => {
