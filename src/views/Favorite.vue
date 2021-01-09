@@ -27,6 +27,12 @@
         </tbody>
       </template>
     </v-data-table>
+    <div v-if="db.length == 0" class="text-center mt-10">
+      Você ainda não tem músicas nos favoritos, vá na tela inicial
+      <router-link to="/" tag="a"> clicando aqui </router-link> e depois e
+      clique no icone de <v-icon icon v-text="icons.mdiPlus"></v-icon> ao lado
+      da música para adicionar músicas aqui!!!
+    </div>
     <div class="fixed-bottom">
       <v-snackbar color="green" :value="snackbar.value" absolute bottom right>
         {{ snackbar.message }}
@@ -36,14 +42,15 @@
 </template>
 
 <script>
-import { mdiStar, mdiDelete } from "@mdi/js";
+import { mdiStar, mdiDelete, mdiPlus } from "@mdi/js";
 export default {
   components: {},
   data() {
     return {
       icons: {
         mdiStar,
-        mdiDelete
+        mdiDelete,
+        mdiPlus
       },
 
       snackbar: {
