@@ -39,9 +39,11 @@ export default {
             return {
               cantor: this.textFormat(song.cantor),
               titulo: this.textFormat(song.titulo),
-              cod: this.textFormat(song.cod)
+              cod: this.textFormat(song.cod),
+              favorite: false
             };
           });
+          localStorage.dbKaraoke = JSON.stringify(this.db);
         })
         .finally(() => {
           this.loading = false;
@@ -55,7 +57,17 @@ export default {
     }
   },
   created() {
-    this.loadSongs();
+    let dbLocalStorage = JSON.stringify(localStorage.dbKaraoke);
+
+    if (dbLocalStorage === undefined || dbLocalStorage === null) {
+      console.log("chamou axios");
+      this.loadSongs();
+      return;
+    }
+    this.db = ["ha"];
+    this.db = JSON.parse(localStorage.dbKaraoke);
+    console.log("Chamou local");
+    return;
   }
 };
 </script>
