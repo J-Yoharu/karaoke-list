@@ -107,17 +107,16 @@ export default {
     clearAutoComplete() {
       this.autoCompleteValue = [];
       this.search = "";
-    }
-  },
-
-  created() {},
-  watch: {
-    data() {
-      console.log("chamou o data");
+    },
+    loadAutoCompleteData() {
+      if (this.data == null) {
+        return;
+      }
       this.$emit("loading", true);
       //Retira cantores repeditos;
       var singer = [];
       const musics = [];
+
       this.data.forEach(music => {
         singer.includes(music.cantor) ? false : singer.push(music.cantor);
         musics.push({
@@ -139,6 +138,17 @@ export default {
       this.autoCompleteData.push(...singer);
       this.autoCompleteData.push(...musics);
       this.$emit("loading", false);
+    }
+  },
+
+  created() {
+    this.loadAutoCompleteData();
+  },
+  watch: {
+    data() {
+      //demora para passar o data, então tem que deixar
+      //monitorando para chamar a funcao de carregar o autocomplete.
+      this.loadAutoCompleteData();
     }
   }
 };
