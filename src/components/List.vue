@@ -10,12 +10,12 @@
     >
       <template v-slot:top>
         <SearchBar
+          v-if="searchable"
           @loading="loading = $event"
           @search="songsFilter = $event"
           :data="db"
         />
       </template>
-
       <template v-slot:body="{ items }">
         <tbody>
           <tr
@@ -27,9 +27,15 @@
             <td>{{ music.titulo }}</td>
             <td>{{ music.cod }}</td>
             <td class="text-center">
-              <v-btn icon @click="addFavorite">
+              <v-btn
+                dense
+                icon
+                @click="addFavorite(index)"
+                v-if="!music.favorite"
+              >
                 <v-icon v-text="icons.mdiPlus"></v-icon>
               </v-btn>
+              <v-icon v-else color="orange" v-text="icons.mdiStar"></v-icon>
             </td>
           </tr>
         </tbody>
@@ -45,16 +51,25 @@
 </template>
 
 <script>
-import { mdiPlus } from "@mdi/js";
+import { mdiPlus, mdiStar } from "@mdi/js";
 export default {
-  props: ["db"],
+  props: {
+    db: Array,
+    searchable: {
+      type: Boolean,
+      default() {
+        return true;
+      }
+    }
+  },
   components: {
     SearchBar: () => import("./SearchBar")
   },
   data() {
     return {
       icons: {
-        mdiPlus
+        mdiPlus,
+        mdiStar
       },
 
       snackbar: {
@@ -65,15 +80,18 @@ export default {
       headers: [
         {
           text: "Cantor",
-          value: "cantor"
+          value: "cantor",
+          sortable: false
         },
         {
           text: "Música",
-          value: "titulo"
+          value: "titulo",
+          sortable: false
         },
         {
           text: "Código",
-          value: "cod"
+          value: "cod",
+          sortable: false
         },
         {
           text: "favoritar",
@@ -98,7 +116,21 @@ export default {
         .trim();
     },
 
-    addFavorite() {
+    addFavorite(index) {
+      let db = JSON.parse(localStorage.dbKaraoke);
+
+      db.forEach(music => {
+        if (music.cod == this.songsFilter[index].cod) {
+          music.favorite = true;
+          //Atualizar no front sem ter que carregar todas músicas novamente.
+          this.songsFilter[index].favorite = true;
+
+          return;
+        }
+      });
+
+      localStorage.dbKaraoke = JSON.stringify(db);
+
       this.showSnackBar("Musica adicionada aos favoritos com sucesso!");
       console.log("chamou favorito");
     },
@@ -116,9 +148,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-.bg-green {
-  background-color: #e1f1de;
-}
-</style>
