@@ -9,6 +9,7 @@
           autocomplete="off"
           v-model="search"
           @keyup="autoComplete"
+          @keyup.enter="selectFirstAndSearch()"
           placeholder="Música ou Cantor"
           label="Pesquisar"
           :append-icon="icons.mdiMagnify"
@@ -64,6 +65,13 @@ export default {
       this.$emit("search", result);
       this.$emit("loading", false);
     },
+    selectFirstAndSearch() {
+      let music = this.autoCompleteValue[0];
+      if (music) {
+        this.searchMusic(music);
+        return;
+      }
+    },
     filter(music) {
       return this.data.filter(song => {
         return song[music.type] === music.data;
@@ -99,17 +107,16 @@ export default {
     clearAutoComplete() {
       this.autoCompleteValue = [];
       this.search = "";
-    }
-  },
-
-  created() {},
-  watch: {
-    data() {
-      console.log("chamou o data");
+    },
+    loadAutoCompleteData() {
+      if (this.data == null) {
+        return;
+      }
       this.$emit("loading", true);
       //Retira cantores repeditos;
       var singer = [];
       const musics = [];
+
       this.data.forEach(music => {
         singer.includes(music.cantor) ? false : singer.push(music.cantor);
         musics.push({
@@ -131,6 +138,17 @@ export default {
       this.autoCompleteData.push(...singer);
       this.autoCompleteData.push(...musics);
       this.$emit("loading", false);
+    }
+  },
+
+  created() {
+    this.loadAutoCompleteData();
+  },
+  watch: {
+    data() {
+      //demora para passar o data, então tem que deixar
+      //monitorando para chamar a funcao de carregar o autocomplete.
+      this.loadAutoCompleteData();
     }
   }
 };

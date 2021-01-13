@@ -2,20 +2,12 @@
   <div>
     <v-data-table
       :headers="headers"
-      :items="songsFilter"
+      :items="db"
       disable-pagination
       :mobile-breakpoint="0"
       hide-default-footer
       no-data-text="Pesquise por um cantor ou música"
     >
-      <template v-slot:top>
-        <SearchBar
-          v-if="searchable"
-          @loading="loading = $event"
-          @search="songsFilter = $event"
-          :data="db"
-        />
-      </template>
       <template v-slot:body="{ items }">
         <tbody>
           <tr
@@ -27,21 +19,20 @@
             <td>{{ music.titulo }}</td>
             <td>{{ music.cod }}</td>
             <td class="text-center">
-              <v-btn
-                dense
-                icon
-                @click="addFavorite(index)"
-                v-if="!music.favorite"
-              >
-                <v-icon v-text="icons.mdiPlus"></v-icon>
+              <v-btn icon @click="removeFavorite(index)">
+                <v-icon v-text="icons.mdiDelete"></v-icon>
               </v-btn>
-              <v-icon v-else color="orange" v-text="icons.mdiStar"></v-icon>
             </td>
           </tr>
         </tbody>
       </template>
     </v-data-table>
-
+    <div v-if="db.length == 0" class="text-center mt-10">
+      Você ainda não tem músicas nos favoritos, vá na tela inicial
+      <router-link to="/" tag="a"> clicando aqui </router-link> e depois e
+      clique no icone de <v-icon icon v-text="icons.mdiPlus"></v-icon> ao lado
+      da música para adicionar músicas aqui!!!
+    </div>
     <div class="fixed-bottom">
       <v-snackbar color="green" :value="snackbar.value" absolute bottom right>
         {{ snackbar.message }}
@@ -51,25 +42,15 @@
 </template>
 
 <script>
-import { mdiPlus, mdiStar } from "@mdi/js";
+import { mdiStar, mdiDelete, mdiPlus } from "@mdi/js";
 export default {
-  props: {
-    db: Array,
-    searchable: {
-      type: Boolean,
-      default() {
-        return true;
-      }
-    }
-  },
-  components: {
-    SearchBar: () => import("./SearchBar")
-  },
+  components: {},
   data() {
     return {
       icons: {
-        mdiPlus,
-        mdiStar
+        mdiStar,
+        mdiDelete,
+        mdiPlus
       },
 
       snackbar: {
@@ -77,62 +58,43 @@ export default {
         message: null
       },
 
+      db: [],
       headers: [
         {
           text: "Cantor",
-          value: "cantor",
-          sortable: false
+          value: "cantor"
         },
         {
           text: "Música",
-          value: "titulo",
-          sortable: false
+          value: "titulo"
         },
         {
           text: "Código",
-          value: "cod",
-          sortable: false
+          value: "cod"
         },
         {
-          text: "favoritar",
+          text: "",
           value: "actions",
           sortable: false
         }
-      ],
-      songsFilter: [],
-      search: "",
-      selected: ""
+      ]
     };
   },
   methods: {
-    searchSongs(data) {
-      this.search = data;
-      this.songs = this.db;
-    },
-    textFormat(text) {
-      return text
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .trim();
-    },
-
-    addFavorite(index) {
+    removeFavorite(index) {
       let db = JSON.parse(localStorage.dbKaraoke);
 
       db.forEach(music => {
-        if (music.cod == this.songsFilter[index].cod) {
-          music.favorite = true;
-          //Atualizar no front sem ter que carregar todas músicas novamente.
-          this.songsFilter[index].favorite = true;
-
-          return;
+        if (music.cod == this.db[index].cod) {
+          music.favorite = false;
+          return true;
         }
       });
+      //remove do front
+      this.db.splice(index, 1);
 
       localStorage.dbKaraoke = JSON.stringify(db);
-
-      this.showSnackBar("Musica adicionada aos favoritos com sucesso!");
-      console.log("chamou favorito");
+      this.showSnackBar("Musica removida dos favoritos com sucesso!");
     },
     showSnackBar(message) {
       this.snackbar.value = true;
@@ -145,6 +107,16 @@ export default {
       this.snackbar.value = false;
       this.snackbar.message = null;
     }
+  },
+  created() {
+    let db = JSON.parse(localStorage.dbKaraoke).filter(music => {
+      return music.favorite == true;
+    });
+    console.log(db);
+    this.db = db;
   }
 };
 </script>
+
+<style>
+</style>
