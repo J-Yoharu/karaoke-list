@@ -35,38 +35,6 @@ export default {
   components: {
     menuBar: () => import("./components/essencial/menu.vue"),
     footerBar: () => import("./components/essencial/footer.vue")
-  },
-  data() {
-    return {};
-  },
-  methods: {
-    compareAndUpdate(current, update) {
-      current.push(...update.splice(current.length, update.length));
-      return current;
-    },
-    getCurrentVersion() {
-      this.$axios("./bd.json").then(resp => {
-        if (resp.data.version == "34D") {
-          console.log("TÁ ATUALIZADO SEU DB!");
-          return;
-        }
-        let updatedDb = this.compareAndUpdate(
-          JSON.parse(localStorage.dbKaraoke),
-          resp.data.data
-        );
-
-        localStorage.dbKaraoke = JSON.stringify(updatedDb);
-      });
-    },
-    textFormat(text) {
-      return text
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .trim();
-    }
-  },
-  created() {
-    this.getCurrentVersion();
   }
 };
 </script>
