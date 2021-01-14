@@ -20,9 +20,7 @@
             </a>
           </div>
         </v-col>
-        <v-col cols="12" lg="3">
-          Atualizado até o cartucho {{ version }}
-        </v-col>
+        <v-col cols="12" lg="3"> Atualizado até o pacote {{ version }} </v-col>
       </v-row>
       <v-row no-gutters>
         <v-col cols="12" class="justify-center">
