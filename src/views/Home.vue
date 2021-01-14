@@ -20,7 +20,10 @@
 </template>
 
 <script>
+import validBd from "../mixins/validBd.js";
+
 export default {
+  mixins: [validBd],
   data() {
     return {
       db: [],
@@ -30,44 +33,8 @@ export default {
   components: {
     List: () => import("../components/List.vue")
   },
-  methods: {
-    async loadSongs() {
-      this.loading = true;
-      this.$axios("./bd.json")
-        .then(res => {
-          this.db = res.data.data.map(song => {
-            return {
-              cantor: this.textFormat(song.cantor),
-              titulo: this.textFormat(song.titulo),
-              cod: this.textFormat(song.cod),
-              favorite: false
-            };
-          });
-          localStorage.dbKaraoke = JSON.stringify(this.db);
-        })
-        .finally(() => {
-          this.loading = false;
-        });
-    },
-    textFormat(text) {
-      return text
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .trim();
-    }
-  },
   created() {
-    let dbLocalStorage = JSON.stringify(localStorage.dbKaraoke);
-
-    if (dbLocalStorage === undefined || dbLocalStorage === null) {
-      console.log("chamou axios");
-      this.loadSongs();
-      return;
-    }
-    this.db = ["ha"];
-    this.db = JSON.parse(localStorage.dbKaraoke);
-    console.log("Chamou local");
-    return;
+    this.valid();
   }
 };
 </script>
