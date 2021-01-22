@@ -10,34 +10,18 @@
         :class="collapse ? 'collapse' : ''"
         id="collapsibleNavId"
       >
-        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-          <router-link
-            to="/"
-            class="nav-link"
-            exact-active-class="active"
-            tag="a"
+        <v-tabs
+          :vertical="$vuetify.breakpoint.xs"
+          :grow="$vuetify.breakpoint.xs"
+        >
+          <v-tab to="/"
+            ><v-icon v-text="icons.mdiHome" class="mr-4"></v-icon>Home</v-tab
           >
-            <li class="nav-item">
-              <v-btn text
-                ><v-icon v-text="icons.mdiHome" class="mr-4"></v-icon>
-                Home</v-btn
-              >
-            </li>
-          </router-link>
-          <router-link
-            to="/favorites"
-            class="nav-link"
-            exact-active-class="active"
-            tag="a"
+          <v-tab to="/favorites">
+            <v-icon v-text="icons.mdiStar" class="mr-4"></v-icon
+            >Favoritos</v-tab
           >
-            <li class="nav-item active">
-              <v-btn text>
-                <v-icon v-text="icons.mdiStar" class="mr-4"></v-icon
-                >Favoritos</v-btn
-              >
-            </li>
-          </router-link>
-        </ul>
+        </v-tabs>
       </div>
     </nav>
   </div>
