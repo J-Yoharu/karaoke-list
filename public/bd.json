@@ -1,6 +1,6 @@
 {
   "type": "lista de musica",
-  "version": "35A",
+  "version": "35C",
   "data": [
     {
       "cantor": "19",
@@ -78723,6 +78723,566 @@
       "titulo": "CARA OU COROA (A CARA O CRUZ)",
       "inicio": "Ela me disse que era eu",
       "cartucho": "35A"
+    },
+    {
+      "cantor": "Amado Batista",
+      "cod": "16993",
+      "titulo": "VEM MORENA",
+      "inicio": "Vem morena vem vem amar ",
+      "cartucho": "35B"
+    },
+    {
+      "cantor": "Anavitória - Duda Beat",
+      "cod": "17019",
+      "titulo": "NÃO PASSA VONTADE",
+      "inicio": "Quando é que você chega amor",
+      "cartucho": "35C"
+    },
+    {
+      "cantor": "Atitude 67 - Ivete Sangalo - Analaga",
+      "cod": "17024",
+      "titulo": "CHEGA DIFERENTE",
+      "inicio": "Ê-iê-iê... Chega diferente sempre na moral",
+      "cartucho": "35C"
+    },
+    {
+      "cantor": "Belo",
+      "cod": "16994",
+      "titulo": "É O QUE EU MEREÇO",
+      "inicio": "Deixa que eu seguro a barra",
+      "cartucho": "35B"
+    },
+    {
+      "cantor": "Bruno e Marrone",
+      "cod": "17012",
+      "titulo": "CORAÇÃO DE PEDRA",
+      "inicio": "Quero você te abraçar te envolver te sentir",
+      "cartucho": "35C"
+    },
+    {
+      "cantor": "Calcinha Preta",
+      "cod": "17013",
+      "titulo": "E O VENTO LEVOU",
+      "inicio": "Desde o dia em que você se foi",
+      "cartucho": "35C"
+    },
+    {
+      "cantor": "Chitãozinho e Xororó",
+      "cod": "16973",
+      "titulo": "PÁGINA VIRADA",
+      "inicio": "Vem que esse orgulho não vai dar em nada",
+      "cartucho": "35B"
+    },
+    {
+      "cantor": "Claudia Leitte - Wesley Safadão",
+      "cod": "16992",
+      "titulo": "RODOU",
+      "inicio": "Tava tão lindo",
+      "cartucho": "35B"
+    },
+    {
+      "cantor": "Cristiano Araújo",
+      "cod": "17035",
+      "titulo": "HOJE EU SOU SEU MEU BEM",
+      "inicio": "Hoje eu sou seu meu bem",
+      "cartucho": "35C"
+    },
+    {
+      "cantor": "Disney Mulan - Sandy",
+      "cod": "16997",
+      "titulo": "LEALDADE CORAGEM VERDADE",
+      "inicio": "Meu destino está nessa guerra",
+      "cartucho": "35B"
+    },
+    {
+      "cantor": "Disney Viva a Vida é uma Festa - Rogério Flausino",
+      "cod": "16967",
+      "titulo": "LEMBRE DE MIM",
+      "inicio": "Se deixar essa canção te embalar",
+      "cartucho": "35B"
+    },
+    {
+      "cantor": "Erikka Rodrigues",
+      "cod": "17023",
+      "titulo": "CARA DE RICA",
+      "inicio": "Ela manda na cidade ela tá dominando",
+      "cartucho": "35C"
+    },
+    {
+      "cantor": "Fágner",
+      "cod": "16976",
+      "titulo": "PEDRAS QUE CANTAM",
+      "inicio": "Quem é rico mora na praia",
+      "cartucho": "35B"
+    },
+    {
+      "cantor": "Felipe Araújo - Marília Mendonça",
+      "cod": "16985",
+      "titulo": "AMANTE FIEL",
+      "inicio": "Ela não reclama quando chego tarde",
+      "cartucho": "35B"
+    },
+    {
+      "cantor": "Fundo de Quintal",
+      "cod": "16974",
+      "titulo": "PARABÉNS PRA VOCÊ",
+      "inicio": "Se o tempo passou e não fui feliz",
+      "cartucho": "35B"
+    },
+    {
+      "cantor": "Giulia Be - Luan Santana",
+      "cod": "16990",
+      "titulo": "INESQUECÍVEL",
+      "inicio": "Vou começar dizendo cê nunca me deu um",
+      "cartucho": "35B"
+    },
+    {
+      "cantor": "Gloria Groove",
+      "cod": "16986",
+      "titulo": "APAGA A LUZ",
+      "inicio": "Apaga a luz e deixa o tempo passar",
+      "cartucho": "35B"
+    },
+    {
+      "cantor": "Guilherme e Santiago",
+      "cod": "16987",
+      "titulo": "CASA AMARELA",
+      "inicio": "E olha eu aqui pela décima vez",
+      "cartucho": "35B"
+    },
+    {
+      "cantor": "Gustavo Mioto",
+      "cod": "17028",
+      "titulo": "MELHOR NEGÓCIO",
+      "inicio": "Quanto custa um lote no seu coração",
+      "cartucho": "35C"
+    },
+    {
+      "cantor": "Gusttavo Lima",
+      "cod": "16963",
+      "titulo": "CAFÉ E AMOR",
+      "inicio": "Não vou te obrigar a ficar aqui",
+      "cartucho": "35B"
+    },
+    {
+      "cantor": "Hojerizah",
+      "cod": "17008",
+      "titulo": "PROS QUE ESTÃO EM CASA",
+      "inicio": "Até bem cedo esperei pelo telefonema",
+      "cartucho": "35C"
+    },
+    {
+      "cantor": "Isabella Taviani",
+      "cod": "16983",
+      "titulo": "SENTIDO CONTRÁRIO",
+      "inicio": "Tudo o que eu queria agora",
+      "cartucho": "35B"
+    },
+    {
+      "cantor": "Ivete Sangalo",
+      "cod": "16965",
+      "titulo": "DURA NA QUEDA",
+      "inicio": "Lalaiê laiá... Aparece do nada e mudou",
+      "cartucho": "35B"
+    },
+    {
+      "cantor": "Ivete Sangalo - MC Zaac",
+      "cod": "17030",
+      "titulo": "NÃO PODE PARAR",
+      "inicio": "Eu tô te entendendo você me querendo",
+      "cartucho": "35C"
+    },
+    {
+      "cantor": "Jads e Jadson - Victor e Leo",
+      "cod": "16964",
+      "titulo": "COLO",
+      "inicio": "Você pode sentar no meu colo",
+      "cartucho": "35B"
+    },
+    {
+      "cantor": "Jão",
+      "cod": "16989",
+      "titulo": "IMATURO",
+      "inicio": "Gosto de ser imaturo com você",
+      "cartucho": "35B"
+    },
+    {
+      "cantor": "João Neto e Frederico",
+      "cod": "17039",
+      "titulo": "MODA DERRAMADA",
+      "inicio": "Se o seu plano era me ver sofrer",
+      "cartucho": "35C"
+    },
+    {
+      "cantor": "Jojo Maronttinni - Du Black - DJ Batata",
+      "cod": "17003",
+      "titulo": "DOMINADA",
+      "inicio": "Dominada sim mas entre quatro paredes",
+      "cartucho": "35C"
+    },
+    {
+      "cantor": "Jonas Esticado",
+      "cod": "16996",
+      "titulo": "INVESTE EM MIM",
+      "inicio": "Sei que você não ama mais ninguém",
+      "cartucho": "35B"
+    },
+    {
+      "cantor": "Jorge Aragão",
+      "cod": "17040",
+      "titulo": "REFLEXÃO",
+      "inicio": "Tem o amor várias maneiras",
+      "cartucho": "35C"
+    },
+    {
+      "cantor": "Jorge e Mateus",
+      "cod": "16979",
+      "titulo": "ANTÔNIMOS",
+      "inicio": "Só queria ter o seu abraço",
+      "cartucho": "35B"
+    },
+    {
+      "cantor": "Jorge e Mateus",
+      "cod": "17027",
+      "titulo": "LANCE INDIVIDUAL",
+      "inicio": "Já namorou noivou",
+      "cartucho": "35C"
+    },
+    {
+      "cantor": "José Augusto - Roupa Nova",
+      "cod": "17014",
+      "titulo": "EU E VOCÊ",
+      "inicio": "Amar você é bom demais",
+      "cartucho": "35C"
+    },
+    {
+      "cantor": "Kid Abelha",
+      "cod": "17020",
+      "titulo": "NO MEIO DA RUA",
+      "inicio": "Como é que a moça passa por aqui",
+      "cartucho": "35C"
+    },
+    {
+      "cantor": "Lagum - Ana Gabriela",
+      "cod": "16980",
+      "titulo": "DEIXA",
+      "inicio": "Acorda mas pode ser sem pressa",
+      "cartucho": "35B"
+    },
+    {
+      "cantor": "Legião Urbana",
+      "cod": "16982",
+      "titulo": "OS ANJOS",
+      "inicio": "Hoje não dá hoje não dá",
+      "cartucho": "35B"
+    },
+    {
+      "cantor": "Luan Santana",
+      "cod": "17036",
+      "titulo": "INCONDICIONAL",
+      "inicio": "Eu vou pedir ao sol pra iluminar nosso",
+      "cartucho": "35C"
+    },
+    {
+      "cantor": "Ludmilla",
+      "cod": "16998",
+      "titulo": "RAINHA DA FAVELA",
+      "inicio": "Foca no meu só no meu",
+      "cartucho": "35B"
+    },
+    {
+      "cantor": "Maiara e Maraísa",
+      "cod": "17033",
+      "titulo": "BENGALA E CROCHÊ",
+      "inicio": "Se já estamos misturando as meias",
+      "cartucho": "35C"
+    },
+    {
+      "cantor": "Manu Gavassi - Gloria Groove",
+      "cod": "17002",
+      "titulo": "DEVE SER HORRÍVEL DORMIR SEM MIM",
+      "inicio": "Larguei até o livro que eu estava começando",
+      "cartucho": "35C"
+    },
+    {
+      "cantor": "Marília Mendonça",
+      "cod": "17025",
+      "titulo": "DEPRÊ",
+      "inicio": "Tá errado hoje deveria ser feriado",
+      "cartucho": "35C"
+    },
+    {
+      "cantor": "Marília Mendonça - Maiara e Maraísa",
+      "cod": "17009",
+      "titulo": "QUERO VOCÊ DO JEITO QUE QUISER",
+      "inicio": "Mesmo que me perguntassem eu não",
+      "cartucho": "35C"
+    },
+    {
+      "cantor": "Markinhos Moura",
+      "cod": "17011",
+      "titulo": "ANJO AZUL",
+      "inicio": "Meu anjo azul onde está você",
+      "cartucho": "35C"
+    },
+    {
+      "cantor": "Matheus e Kauan",
+      "cod": "16995",
+      "titulo": "É PROBLEMA",
+      "inicio": "Tô sentado no boteco",
+      "cartucho": "35B"
+    },
+    {
+      "cantor": "MC Kekel - Mumuzinho - Maiara e Maraísa",
+      "cod": "16988",
+      "titulo": "ELA TÁ PODENDO",
+      "inicio": "Ela sempre rouba a cena em qualquer lugar",
+      "cartucho": "35B"
+    },
+    {
+      "cantor": "Melim",
+      "cod": "17021",
+      "titulo": "AMORES E FLORES",
+      "inicio": "Ô uô... Se eu tinha sorte no amor",
+      "cartucho": "35C"
+    },
+    {
+      "cantor": "Mila - Menor Nico - Petter Ferraz",
+      "cod": "17031",
+      "titulo": "AMOR OU O LITRÃO",
+      "inicio": "Eu achei que eu bebia bem",
+      "cartucho": "35C"
+    },
+    {
+      "cantor": "Milionário e José Rico",
+      "cod": "17037",
+      "titulo": "JOGO DO AMOR",
+      "inicio": "Com o meu dinheiro eu comprei de tudo",
+      "cartucho": "35C"
+    },
+    {
+      "cantor": "Os Barões da Pisadinha",
+      "cod": "17010",
+      "titulo": "RECAIREI",
+      "inicio": "Já faz uma semana que eu tô limpo",
+      "cartucho": "35C"
+    },
+    {
+      "cantor": "Os Barões da Pisadinha",
+      "cod": "16977",
+      "titulo": "TÁ ROCHEDA",
+      "inicio": "Entrei na rua dela com o meu carro rebaixado",
+      "cartucho": "35B"
+    },
+    {
+      "cantor": "Outro Eu - Melim",
+      "cod": "16968",
+      "titulo": "OCEANA",
+      "inicio": "Ná-naná... Eu sei que já passou da hora",
+      "cartucho": "35B"
+    },
+    {
+      "cantor": "Pabllo Vittar - Pocah",
+      "cod": "17022",
+      "titulo": "BANDIDA",
+      "inicio": "Ai como eu tô bandida ai ai como eu tô",
+      "cartucho": "35C"
+    },
+    {
+      "cantor": "Pixote",
+      "cod": "17026",
+      "titulo": "ENCONTRO DE ERROS",
+      "inicio": "De quantos beijos você se lembra",
+      "cartucho": "35C"
+    },
+    {
+      "cantor": "Plebe Rude",
+      "cod": "16991",
+      "titulo": "PROTEÇÃO",
+      "inicio": "Será verdade será que não",
+      "cartucho": "35B"
+    },
+    {
+      "cantor": "Projota",
+      "cod": "17006",
+      "titulo": "MULEQUE DE VILA",
+      "inicio": "Eu falei que era uma questão de tempo",
+      "cartucho": "35C"
+    },
+    {
+      "cantor": "Projota",
+      "cod": "16981",
+      "titulo": "MULHER FEITA",
+      "inicio": "Sei que podia ser bem menos complicado",
+      "cartucho": "35B"
+    },
+    {
+      "cantor": "Raul Seixas",
+      "cod": "17029",
+      "titulo": "METRÔ LINHA 743",
+      "inicio": "Ele ia andando pela rua meio apressado",
+      "cartucho": "35C"
+    },
+    {
+      "cantor": "Renato e Seus Blue Caps",
+      "cod": "17038",
+      "titulo": "MEMÓRIAS",
+      "inicio": "Ouvindo essa música antiga eu retorno",
+      "cartucho": "35C"
+    },
+    {
+      "cantor": "Sampa Crew",
+      "cod": "16971",
+      "titulo": "DESSA VEZ",
+      "inicio": "Já tô sabendo que você tá sem ninguém ",
+      "cartucho": "35B"
+    },
+    {
+      "cantor": "Sandy",
+      "cod": "16969",
+      "titulo": "PILOTO AUTOMÁTICO",
+      "inicio": "Eu nunca fiz questão de estar aqui",
+      "cartucho": "35B"
+    },
+    {
+      "cantor": "Sandy e Júnior",
+      "cod": "16972",
+      "titulo": "LIBERTAR",
+      "inicio": "Libertar devolver ao mundo",
+      "cartucho": "35B"
+    },
+    {
+      "cantor": "Simone e Simaria",
+      "cod": "17015",
+      "titulo": "FOI PÁ PUM",
+      "inicio": "É claro que pra mim doeu",
+      "cartucho": "35C"
+    },
+    {
+      "cantor": "Skank",
+      "cod": "16966",
+      "titulo": "IN (DIG) NAÇÃO",
+      "inicio": "Eu fiquei indignado",
+      "cartucho": "35B"
+    },
+    {
+      "cantor": "Skank",
+      "cod": "17007",
+      "titulo": "O BEIJO E A REZA",
+      "inicio": "Iça iça a vela do barco",
+      "cartucho": "35C"
+    },
+    {
+      "cantor": "Sorriso Maroto",
+      "cod": "17001",
+      "titulo": "ANTES QUE O MUNDO ACABE",
+      "inicio": "Todo dia o mundo acaba",
+      "cartucho": "35C"
+    },
+    {
+      "cantor": "Sorriso Maroto - Belo",
+      "cod": "16984",
+      "titulo": "100 LIKES",
+      "inicio": "Uma foto arrumada e legendada",
+      "cartucho": "35B"
+    },
+    {
+      "cantor": "Soweto",
+      "cod": "17034",
+      "titulo": "BÚZIOS E TARÔ",
+      "inicio": "Olha olha nos meus olhos",
+      "cartucho": "35C"
+    },
+    {
+      "cantor": "Tierry",
+      "cod": "16999",
+      "titulo": "RITA",
+      "inicio": "Sua ausência tá fazendo mais estrago",
+      "cartucho": "35B"
+    },
+    {
+      "cantor": "Tierry - Marília Mendonça",
+      "cod": "17005",
+      "titulo": "HACKEARAM-ME",
+      "inicio": "Joguei as nossas fotos na lixeira",
+      "cartucho": "35C"
+    },
+    {
+      "cantor": "Trio Parada Dura",
+      "cod": "17017",
+      "titulo": "HOMEM DE PEDRA",
+      "inicio": "Já fui um grão de areia",
+      "cartucho": "35C"
+    },
+    {
+      "cantor": "Vicka",
+      "cod": "16975",
+      "titulo": "PAUSA",
+      "inicio": "Será que tem remédio pra curar meu tédio",
+      "cartucho": "35B"
+    },
+    {
+      "cantor": "Vitor Kley",
+      "cod": "16961",
+      "titulo": "AINDA BEM QUE CHEGOU",
+      "inicio": "Fazia tempo que não sentia o meu peito bater",
+      "cartucho": "35B"
+    },
+    {
+      "cantor": "Wesley Safadão",
+      "cod": "16978",
+      "titulo": "TIM TIM",
+      "inicio": "O mundo dá voltas e olha eu por cima",
+      "cartucho": "35B"
+    },
+    {
+      "cantor": "Wesley Safadão - Os Barões da Pisadinha",
+      "cod": "17004",
+      "titulo": "ELE É ELE, EU SOU EU",
+      "inicio": "Não é bem como você pensa",
+      "cartucho": "35C"
+    },
+    {
+      "cantor": "Xand Avião - Dilsinho",
+      "cod": "17000",
+      "titulo": "VOU PARAR",
+      "inicio": "Eu quero me envolver",
+      "cartucho": "35B"
+    },
+    {
+      "cantor": "Xand Avião - Leo Santana",
+      "cod": "17016",
+      "titulo": "FORRÓ 150",
+      "inicio": "Ficar em casa pra quê se tem bailão",
+      "cartucho": "35C"
+    },
+    {
+      "cantor": "Zé Felipe",
+      "cod": "16970",
+      "titulo": "SÓ TEM EU",
+      "inicio": "Cê tá achando que vai",
+      "cartucho": "35B"
+    },
+    {
+      "cantor": "Zé Neto e Cristiano",
+      "cod": "17018",
+      "titulo": "MARCHA DE NÚPCIAS",
+      "inicio": "Tocou a marcha de núpcias",
+      "cartucho": "35C"
+    },
+    {
+      "cantor": "Zé Ramalho",
+      "cod": "17032",
+      "titulo": "BANQUETE DOS SIGNOS",
+      "inicio": "Discutir o cangaço com liberdade",
+      "cartucho": "35C"
+    },
+    {
+      "cantor": "Zeca Pagodinho - Beth Carvalho",
+      "cod": "16962",
+      "titulo": "AINDA É TEMPO PRA SER FELIZ",
+      "inicio": "Me cansei de ficar mudo",
+      "cartucho": "35B"
     }
   ]
 }
