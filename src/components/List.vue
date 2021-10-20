@@ -104,6 +104,11 @@ export default {
       selected: ""
     };
   },
+  watch:{
+    songsFilter(){
+      this.$emit('changeSongs', this.songsFilter);
+    }
+  },
   methods: {
     searchSongs(data) {
       this.search = data;
