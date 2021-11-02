@@ -21,6 +21,10 @@
             <v-icon v-text="icons.mdiStar" class="mr-4"></v-icon
             >Favoritos</v-tab
           >
+          <v-tab to="/updates">
+            <v-icon v-text="icons.mdiUpdate" class="mr-4"></v-icon
+            >Atualizações</v-tab
+          >
         </v-tabs>
       </div>
     </nav>
@@ -28,13 +32,19 @@
 </template>
 
 <script>
-import { mdiHome, mdiStar } from "@mdi/js";
+import { mdiHome, mdiStar, mdiUpdate } from "@mdi/js";
 export default {
+  watch:{
+    $route(){
+      this.collapse = true;
+    }
+  },
   data() {
     return {
       icons: {
         mdiHome,
-        mdiStar
+        mdiStar,
+        mdiUpdate
       },
       collapse: true
     };

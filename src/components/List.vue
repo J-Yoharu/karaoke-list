@@ -1,5 +1,6 @@
 <template>
   <div>
+    
     <v-data-table
       :headers="headers"
       :items="songsFilter"
@@ -12,9 +13,14 @@
         <SearchBar
           v-if="searchable"
           @loading="loading = $event"
-          @search="songsFilter = $event"
+          @search="songsFilter = $event; firstSearch = true"
           :data="db"
         />
+        <div class="text-center" v-if="!firstSearch">
+          <v-chip color="primary" v-if="update.length > 0">
+            {{songsFilter.length}} novas músicas, confira abaixo ou no menu!
+          </v-chip>
+    </div>
       </template>
       <template v-slot:body="{ items }">
         <tbody>
@@ -60,10 +66,20 @@ export default {
       default() {
         return true;
       }
+    },
+    loadingAllDb:{
+      type: Boolean,
+      default: false
     }
   },
   components: {
     SearchBar: () => import("./SearchBar")
+  },
+  created(){
+     if(this.loadingAllDb){
+        this.songsFilter = this.db;
+        return;
+    }
   },
   data() {
     return {
@@ -71,7 +87,7 @@ export default {
         mdiPlus,
         mdiStar
       },
-
+      update:[],
       snackbar: {
         value: false,
         message: null
@@ -100,6 +116,8 @@ export default {
         }
       ],
       songsFilter: [],
+      firstDbLoading: false,
+      firstSearch: false,
       search: "",
       selected: ""
     };
@@ -107,6 +125,14 @@ export default {
   watch:{
     songsFilter(){
       this.$emit('changeSongs', this.songsFilter);
+    },
+    db(){
+      //Quando demorar pra atribuir valor ao db, vai cair nesse watch só uma vez, se não vai pelo created
+      if(this.db.length > 0 && !this.firstDbLoading){
+        this.update = this.db.slice(this.db.length - 120, this.db.length);
+        this.songsFilter = this.update;
+        this.firstDbLoading = true
+      }
     }
   },
   methods: {
