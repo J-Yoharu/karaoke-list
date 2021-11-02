@@ -9,10 +9,6 @@
     /></v-col>
     <v-col cols="12">
       <List :db="db" @changeSongs="disableStamp"/>
-      <div class="stamp" v-if="stamp">
-        Em breve novas músicas
-      
-      </div>
       <div class="d-flex justify-center mt-10" v-if="loading">
         <v-progress-circular
           indeterminate
@@ -43,7 +39,6 @@ export default {
   },
   methods:{
     disableStamp(musics){
-      console.log(musics);
       if(musics.length > 0){
         this.stamp = false;
       }
