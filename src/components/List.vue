@@ -17,7 +17,7 @@
           :data="db"
         />
         <div class="text-center" v-if="!firstSearch">
-          <v-chip color="primary" v-if="update.length > 0">
+          <v-chip color="primary" @click="$router.push({name: 'updates'})">
             {{songsFilter.length}} novas músicas, confira abaixo ou no menu!
           </v-chip>
     </div>
@@ -87,6 +87,7 @@ export default {
         mdiPlus,
         mdiStar
       },
+      qtdLastMusics: 80,
       update:[],
       snackbar: {
         value: false,
@@ -129,8 +130,7 @@ export default {
     db(){
       //Quando demorar pra atribuir valor ao db, vai cair nesse watch só uma vez, se não vai pelo created
       if(this.db.length > 0 && !this.firstDbLoading){
-        this.update = this.db.slice(this.db.length - 120, this.db.length);
-        this.songsFilter = this.update;
+        this.songsFilter = this.db.slice(this.db.length - this.qtdLastMusics, this.db.length);
         this.firstDbLoading = true
       }
     }
