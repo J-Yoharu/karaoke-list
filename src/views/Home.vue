@@ -8,7 +8,7 @@
         style="width: 30vw"
     /></v-col>
     <v-col cols="12">
-      <List :db="db" @changeSongs="disableStamp"/>
+      <List :db="db"/>
       <div class="d-flex justify-center mt-10" v-if="loading">
         <v-progress-circular
           indeterminate
@@ -28,7 +28,6 @@ export default {
     return {
       db: [],
       loading: false,
-      stamp:true
     };
   },
   components: {
@@ -37,31 +36,9 @@ export default {
   created() {
     this.valid();
   },
-  methods:{
-    disableStamp(musics){
-      if(musics.length > 0){
-        this.stamp = false;
-      }
-    }
-  }
 };
 </script>
 
 <style>
-.stamp{
-  border-style: double;
-  border-radius: 10px;
-  text-align: center;
-  transform: rotate(10deg);
-  margin-top: 5rem;
-  max-width: 20rem;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 5rem;
-  padding: 25px;
-  border-width: 15px;
-  font-family:cursive;
-  font-size: 2rem;
-}
 
 </style>
