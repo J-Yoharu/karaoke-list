@@ -2,7 +2,7 @@
 <v-card>
   <v-row justify="end" class="pa-2" align="center">
     <slot name="header-actions"></slot>
-    <v-col cols="12" md="6" class="d-flex text-right align-center">
+    <v-col cols="12" md="6" v-if="hasSearch" class="d-flex text-right align-center">
           <v-text-field
             v-model="query"
             :append-icon="icons.mdiMagnify"
@@ -61,6 +61,10 @@ export default {
     searchPlaceholder: {
       type: String,
       default: '',
+    },
+    hasSearch: {
+      type: Boolean,
+      default: true,
     },
   },
   setup(props) {
