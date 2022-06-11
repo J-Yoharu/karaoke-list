@@ -2,7 +2,7 @@
   <v-row justify="center" style="height:100%" align="center">
     <v-col cols="12" md="8" class="text-center">
       <app-logo class="mb-5" center :width="isMobile ? '100%': '50%'"></app-logo>
-        <v-text-field clearable hide-details="auto" labgitel="Pesquisar" @keypress.enter="search(query)" @click:append="search(query)" v-model="query" :append-icon="icons.mdiMagnify" outlined rounded dense></v-text-field>
+        <v-text-field placeholder="Pesquise por uma música ou cantor" clearable hide-details="auto" labgitel="Pesquisar" @keypress.enter="search(query)" @click:append="search(query)" v-model="query" :append-icon="icons.mdiMagnify" outlined rounded dense></v-text-field>
     </v-col>
   </v-row>
 </template>

@@ -56,6 +56,7 @@
         <slot name="footer"></slot>
       </v-col>
     </v-footer>
+    <v-btn style="position:absolute !important; z-index:1000" absolute right > Voltar </v-btn>
   </v-app>
 </template>
 
