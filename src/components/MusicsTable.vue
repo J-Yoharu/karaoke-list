@@ -1,5 +1,5 @@
 <template>
-  <app-table :groupBy="groupBy" :items="musics" :headers="headers" search-placeholder="Pesquise por cantor ou música">
+  <app-table :hasSearch="hasSearch" :groupBy="groupBy" :items="musics" :headers="headers" search-placeholder="Pesquise por cantor ou música">
     <template #header-actions>
       <v-col :class="{'pb-0': $vuetify.breakpoint.mobile}">
         <v-btn :block="$vuetify.breakpoint.mobile" color="primary" @click="group">Agrupar por cantor</v-btn>
@@ -24,6 +24,10 @@ export default {
     itemsPerPage: {
       type: Number,
       default: 50,
+    },
+    hasSearch: {
+      type: Boolean,
+      default: true,
     },
   },
   setup(props) {

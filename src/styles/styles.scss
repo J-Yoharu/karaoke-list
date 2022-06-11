@@ -24,3 +24,16 @@
     }
   }
 }
+
+@keyframes rotation {
+  33% {
+    transform: rotate(2deg);
+  }
+  66% {
+    transform: rotate(-2deg);
+  }
+}
+
+.animation-rotation {
+  animation: rotation 2s infinite;
+}
