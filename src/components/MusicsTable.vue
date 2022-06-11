@@ -1,5 +1,5 @@
 <template>
-  <app-table :hasSearch="hasSearch" :groupBy="groupBy" :items="musics" :headers="headers" search-placeholder="Pesquise por cantor ou música">
+  <app-table :hasSearch="hasSearch" :groupBy="groupBy" :items="musics" :headers="headers" :search-placeholder="searchPlaceholder">
     <template #header-actions>
       <v-col :class="{'pb-0': $vuetify.breakpoint.mobile}">
         <v-btn :block="$vuetify.breakpoint.mobile" color="primary" @click="group">Agrupar por cantor</v-btn>
@@ -29,6 +29,10 @@ export default {
       type: Boolean,
       default: true,
     },
+    searchPlaceholder: {
+      type: String,
+      default: 'Pesquise por cantor ou música',
+    },
   },
   setup(props) {
     const headers = [
@@ -57,6 +61,258 @@ export default {
       },
     ]
     const musics = [
+      {
+        singer: 'Alfredo',
+        cod: 1235,
+        title: 'Alfredex louco',
+        initial: 'Assim começou o nosso amor querido, meu amor',
+      },
+      {
+        singer: 'Alfredo',
+        cod: 1235,
+        title: 'Alfredex louco',
+        initial: 'Assim começou o nosso amor querido, meu amor',
+      },
+      {
+        singer: 'Frederico',
+        cod: 1235,
+        title: 'Alfredex louco',
+        initial: 'Assim começou o nosso amor querido, meu amor',
+      },
+      {
+        singer: 'Alfredo',
+        cod: 1235,
+        title: 'Alfredex louco',
+        initial: 'Assim começou o nosso amor querido, meu amor',
+      },
+      {
+        singer: 'Alfredo',
+        cod: 1235,
+        title: 'Alfredex louco',
+        initial: 'Assim começou o nosso amor querido, meu amor',
+      },
+      {
+        singer: 'Frederico',
+        cod: 1235,
+        title: 'Alfredex louco',
+        initial: 'Assim começou o nosso amor querido, meu amor',
+      },
+      {
+        singer: 'Alfredo',
+        cod: 1235,
+        title: 'Alfredex louco',
+        initial: 'Assim começou o nosso amor querido, meu amor',
+      },
+      {
+        singer: 'Alfredo',
+        cod: 1235,
+        title: 'Alfredex louco',
+        initial: 'Assim começou o nosso amor querido, meu amor',
+      },
+      {
+        singer: 'Frederico',
+        cod: 1235,
+        title: 'Alfredex louco',
+        initial: 'Assim começou o nosso amor querido, meu amor',
+      },
+      {
+        singer: 'Alfredo',
+        cod: 1235,
+        title: 'Alfredex louco',
+        initial: 'Assim começou o nosso amor querido, meu amor',
+      },
+      {
+        singer: 'Alfredo',
+        cod: 1235,
+        title: 'Alfredex louco',
+        initial: 'Assim começou o nosso amor querido, meu amor',
+      },
+      {
+        singer: 'Frederico',
+        cod: 1235,
+        title: 'Alfredex louco',
+        initial: 'Assim começou o nosso amor querido, meu amor',
+      },
+      {
+        singer: 'Alfredo',
+        cod: 1235,
+        title: 'Alfredex louco',
+        initial: 'Assim começou o nosso amor querido, meu amor',
+      },
+      {
+        singer: 'Alfredo',
+        cod: 1235,
+        title: 'Alfredex louco',
+        initial: 'Assim começou o nosso amor querido, meu amor',
+      },
+      {
+        singer: 'Frederico',
+        cod: 1235,
+        title: 'Alfredex louco',
+        initial: 'Assim começou o nosso amor querido, meu amor',
+      },
+      {
+        singer: 'Alfredo',
+        cod: 1235,
+        title: 'Alfredex louco',
+        initial: 'Assim começou o nosso amor querido, meu amor',
+      },
+      {
+        singer: 'Alfredo',
+        cod: 1235,
+        title: 'Alfredex louco',
+        initial: 'Assim começou o nosso amor querido, meu amor',
+      },
+      {
+        singer: 'Frederico',
+        cod: 1235,
+        title: 'Alfredex louco',
+        initial: 'Assim começou o nosso amor querido, meu amor',
+      },
+      {
+        singer: 'Alfredo',
+        cod: 1235,
+        title: 'Alfredex louco',
+        initial: 'Assim começou o nosso amor querido, meu amor',
+      },
+      {
+        singer: 'Alfredo',
+        cod: 1235,
+        title: 'Alfredex louco',
+        initial: 'Assim começou o nosso amor querido, meu amor',
+      },
+      {
+        singer: 'Frederico',
+        cod: 1235,
+        title: 'Alfredex louco',
+        initial: 'Assim começou o nosso amor querido, meu amor',
+      },
+      {
+        singer: 'Alfredo',
+        cod: 1235,
+        title: 'Alfredex louco',
+        initial: 'Assim começou o nosso amor querido, meu amor',
+      },
+      {
+        singer: 'Alfredo',
+        cod: 1235,
+        title: 'Alfredex louco',
+        initial: 'Assim começou o nosso amor querido, meu amor',
+      },
+      {
+        singer: 'Frederico',
+        cod: 1235,
+        title: 'Alfredex louco',
+        initial: 'Assim começou o nosso amor querido, meu amor',
+      },
+      {
+        singer: 'Alfredo',
+        cod: 1235,
+        title: 'Alfredex louco',
+        initial: 'Assim começou o nosso amor querido, meu amor',
+      },
+      {
+        singer: 'Alfredo',
+        cod: 1235,
+        title: 'Alfredex louco',
+        initial: 'Assim começou o nosso amor querido, meu amor',
+      },
+      {
+        singer: 'Frederico',
+        cod: 1235,
+        title: 'Alfredex louco',
+        initial: 'Assim começou o nosso amor querido, meu amor',
+      },
+      {
+        singer: 'Alfredo',
+        cod: 1235,
+        title: 'Alfredex louco',
+        initial: 'Assim começou o nosso amor querido, meu amor',
+      },
+      {
+        singer: 'Alfredo',
+        cod: 1235,
+        title: 'Alfredex louco',
+        initial: 'Assim começou o nosso amor querido, meu amor',
+      },
+      {
+        singer: 'Frederico',
+        cod: 1235,
+        title: 'Alfredex louco',
+        initial: 'Assim começou o nosso amor querido, meu amor',
+      },
+      {
+        singer: 'Alfredo',
+        cod: 1235,
+        title: 'Alfredex louco',
+        initial: 'Assim começou o nosso amor querido, meu amor',
+      },
+      {
+        singer: 'Alfredo',
+        cod: 1235,
+        title: 'Alfredex louco',
+        initial: 'Assim começou o nosso amor querido, meu amor',
+      },
+      {
+        singer: 'Frederico',
+        cod: 1235,
+        title: 'Alfredex louco',
+        initial: 'Assim começou o nosso amor querido, meu amor',
+      },
+      {
+        singer: 'Alfredo',
+        cod: 1235,
+        title: 'Alfredex louco',
+        initial: 'Assim começou o nosso amor querido, meu amor',
+      },
+      {
+        singer: 'Alfredo',
+        cod: 1235,
+        title: 'Alfredex louco',
+        initial: 'Assim começou o nosso amor querido, meu amor',
+      },
+      {
+        singer: 'Frederico',
+        cod: 1235,
+        title: 'Alfredex louco',
+        initial: 'Assim começou o nosso amor querido, meu amor',
+      },
+      {
+        singer: 'Alfredo',
+        cod: 1235,
+        title: 'Alfredex louco',
+        initial: 'Assim começou o nosso amor querido, meu amor',
+      },
+      {
+        singer: 'Alfredo',
+        cod: 1235,
+        title: 'Alfredex louco',
+        initial: 'Assim começou o nosso amor querido, meu amor',
+      },
+      {
+        singer: 'Frederico',
+        cod: 1235,
+        title: 'Alfredex louco',
+        initial: 'Assim começou o nosso amor querido, meu amor',
+      },
+      {
+        singer: 'Alfredo',
+        cod: 1235,
+        title: 'Alfredex louco',
+        initial: 'Assim começou o nosso amor querido, meu amor',
+      },
+      {
+        singer: 'Alfredo',
+        cod: 1235,
+        title: 'Alfredex louco',
+        initial: 'Assim começou o nosso amor querido, meu amor',
+      },
+      {
+        singer: 'Frederico',
+        cod: 1235,
+        title: 'Alfredex louco',
+        initial: 'Assim começou o nosso amor querido, meu amor',
+      },
       {
         singer: 'Alfredo',
         cod: 1235,

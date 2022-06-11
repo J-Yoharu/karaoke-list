@@ -17,7 +17,7 @@
           ></v-text-field>
         </v-col>
   </v-row>
-  <v-data-table :group-by="groupBy" :items-per-page="itemsPerPage" :items="items" :headers="headers">
+  <v-data-table :search="query" :group-by="groupBy" :items-per-page="itemsPerPage" :items="items" :headers="headers">
 
     <template #group.header="{ group, groupBy }">
       <td colspan="12" class="text-center">

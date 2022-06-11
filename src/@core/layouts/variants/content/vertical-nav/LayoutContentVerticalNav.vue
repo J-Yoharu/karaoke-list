@@ -69,6 +69,7 @@
         <slot name="footer"></slot>
       </div>
     </v-footer>
+    <scroll-button></scroll-button>
   </v-app>
 </template>
 
@@ -78,12 +79,14 @@ import AppContentContainer from '@core/layouts/components/app-content-container/
 import useAppConfig from '@core/@app-config/useAppConfig'
 import VerticalNavMenu from '@core/layouts/components/vertical-nav-menu/VerticalNavMenu.vue'
 import { useWindowScroll } from '@vueuse/core'
+import ScrollButton from '@core/layouts/components/scroll-button/ScrollButton.vue'
 import { getVuetify } from '@/@core/utils'
 
 export default {
   components: {
     AppContentContainer,
     VerticalNavMenu,
+    ScrollButton,
   },
   props: {
     navMenuItems: {

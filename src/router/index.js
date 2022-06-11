@@ -27,12 +27,12 @@ const routes = [
   {
     path: '/favoritos',
     name: 'favorite',
-    component: () => import('@/views/Update.vue'),
+    component: () => import('@/views/Favorite.vue'),
   },
   {
     path: '/atualizacoes',
     name: 'update',
-    component: () => import('@/views/Favorite.vue'),
+    component: () => import('@/views/Update.vue'),
   },
   ...authRoutes,
   {
