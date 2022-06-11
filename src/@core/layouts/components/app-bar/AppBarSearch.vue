@@ -1,5 +1,5 @@
 <template>
-  <div v-if="$route.name != 'home'">
+  <div v-if="$route.meta.search != undefined ? $route.meta.search : true">
     <v-btn
       icon
       small
