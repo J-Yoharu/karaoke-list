@@ -34,6 +34,23 @@
   }
 }
 
+@keyframes rotation2 {
+  33% {
+    transform: rotate(4deg);
+  }
+  66% {
+    transform: rotate(-4deg);
+  }
+}
+
 .animation-rotation {
   animation: rotation 2s infinite;
+}
+
+.animation-rotation-2 {
+  animation: rotation2 1s infinite;
+}
+
+.swal2-popup {
+  font-family: 'themify';
 }

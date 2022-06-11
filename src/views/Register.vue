@@ -28,28 +28,37 @@
         >
           <div class="auth-illustrator-wrapper">
             <!-- triangle bg -->
-            <img
+            <!-- <img
               height="362"
               class="auth-mask-bg"
               :src="require(`@/assets/images/misc/mask-v2-${$vuetify.theme.dark ? 'dark':'light'}.png`)"
-            />
+            /> -->
 
             <!-- tree -->
-            <v-img
+            <!-- <v-img
               height="226"
               width="300"
               class="auth-tree"
               src="@/assets/images/misc/tree-2.png"
-            ></v-img>
+            ></v-img> -->
 
             <!-- 3d character -->
-            <div class="d-flex align-center h-full pa-16 pe-0">
+            <!-- <div class="d-flex align-center h-full pa-16 pe-0">
               <v-img
                 contain
                 max-width="100%"
                 height="710"
                 class="auth-3d-group"
                 :src="require(`@/assets/images/3d-characters/illustration-register-v2-${$vuetify.theme.dark ? 'dark':'light'}.png`)"
+              ></v-img>
+            </div> -->
+            <div class="d-flex align-center h-full ">
+              <v-img
+                contain
+                max-width="100%"
+                height="100%"
+                class="auth-3d-group"
+                :src="require(`@/assets/images/3d-characters/singer.png`)"
               ></v-img>
             </div>
           </div>
@@ -69,33 +78,29 @@
             >
               <v-card flat>
                 <v-card-text>
-                  <p class="text-2xl font-weight-semibold text--primary mb-2">
-                    Adventure starts here 🚀
-                  </p>
-                  <p class="mb-2">
-                    Make your app management easy and fun!
-                  </p>
+                  <div class="d-flex">
+                    <h1 class="text-2xl font-weight-semibold text--primary mb-2 d-flex">
+                      Eleve suas experiências em Karaokê aqui 
+                    </h1>
+                  </div>
+
+                  <p class="mb-2 d-inline">
+                    Faça com que suas buscas por canções fique mais fáceis. Crie a sua conta
+                  </p>  
+                   <p style="display: inline-block" class="animation-rotation-2"> 🎷🎤</p>
+                  
+
                 </v-card-text>
 
                 <!-- login form -->
                 <v-card-text>
-                  <v-form>
+                  <v-form ref="form" @submit.prevent="signUp" lazy-validation>
                     <v-text-field
                       v-model="username"
                       outlined
-                      label="Username"
-                      placeholder="JohnDoe"
-                      hide-details
-                      class="mb-3"
-                    ></v-text-field>
-
-                    <v-text-field
-                      v-model="email"
-                      outlined
                       label="Email"
                       placeholder="john@example.com"
-                      hide-details
-                      class="mb-3"
+                      :rules="[rules.required, rules.email]"
                     ></v-text-field>
 
                     <v-text-field
@@ -105,27 +110,31 @@
                       label="Password"
                       placeholder="············"
                       :append-icon="isPasswordVisible ? icons.mdiEyeOffOutline:icons.mdiEyeOutline"
-                      hide-details
                       @click:append="isPasswordVisible = !isPasswordVisible"
+                      :rules="[rules.required]"
                     ></v-text-field>
 
-                    <v-checkbox
-                      hide-details
-                      class="mt-1"
-                    >
-                      <template #label>
-                        <div class="d-flex align-center flex-wrap">
-                          <span class="me-2">I agree to</span><a href="javascript:void(0)">privacy policy &amp; terms</a>
-                        </div>
-                      </template>
-                    </v-checkbox>
+                    <v-text-field 
+                      v-model="confirmPassword" 
+                      outlined 
+                      :type="isConfirmPasswordVisible ? 'text' : 'password'" 
+                      label="Confirme sua senha" 
+                      :append-icon="isConfirmPasswordVisible ? icons.mdiEyeOffOutline:icons.mdiEyeOutline"
+                      @click:append="isConfirmPasswordVisible = !isConfirmPasswordVisible"
+                      :rules="[rules.required, rules.comparePassword(password, confirmPassword)]"
+                      >
+                      
+                    </v-text-field>
 
                     <v-btn
                       block
                       color="primary"
                       class="mt-6"
+                      type="submit"
+                      :loading="isLoading"
+                      :disabled="isLoading"
                     >
-                      Sign Up
+                      Criar conta
                     </v-btn>
                   </v-form>
                 </v-card-text>
@@ -133,22 +142,22 @@
                 <!-- create new account  -->
                 <v-card-text class="d-flex align-center justify-center flex-wrap mt-2">
                   <span class="me-2">
-                    Already have an account?
+                    Já possui uma conta?
                   </span>
-                  <router-link :to="{name:'auth-login-v2'}">
-                    Sign in instead
+                  <router-link :to="{name:'login'}">
+                    Faça o login
                   </router-link>
                 </v-card-text>
 
                 <!-- divider -->
-                <v-card-text class="d-flex align-center mt-2">
+                <v-card-text class="d-flex align-center mt-2" v-if="false">
                   <v-divider></v-divider>
                   <span class="mx-5">or</span>
                   <v-divider></v-divider>
                 </v-card-text>
 
                 <!-- social links -->
-                <v-card-actions class="d-flex justify-center">
+                <v-card-actions class="d-flex justify-center" v-if="false">
                   <v-btn
                     v-for="link in socialLink"
                     :key="link.icon"
@@ -174,13 +183,24 @@
 import { mdiFacebook, mdiTwitter, mdiGithub, mdiGoogle, mdiEyeOutline, mdiEyeOffOutline } from '@mdi/js'
 import { ref } from '@vue/composition-api'
 import themeConfig from '@themeConfig'
+import { useRouter } from '@core/utils'
+import { signUp as login } from '@/repositories/authRepository'
+import FirebaseException from '@/exceptions/FirebaseException'
+import { required, email, comparePassword } from '@/plugins/validation'
+import store from '@/store'
 
 export default {
-  setup() {
+  setup(initProps, { refs, parent }) {
+    const { router } = useRouter()
+
     const isPasswordVisible = ref(false)
+    const isConfirmPasswordVisible = ref(false)
+    const isLoading = ref(false)
+
     const username = ref('')
-    const email = ref('')
     const password = ref('')
+    const confirmPassword = ref('')
+
     const socialLink = [
       {
         icon: mdiFacebook,
@@ -204,12 +224,44 @@ export default {
       },
     ]
 
-    return {
-      isPasswordVisible,
-      username,
+    const rules = {
+      required,
       email,
+      comparePassword,
+    }
+
+    const signUp = () => {
+      if (refs.form.validate()) {
+        isLoading.value = true
+
+        login(username.value, password.value)
+          .then(res => {
+            store.dispatch('signIn', res)
+            router.push({ name: 'home' })
+            parent.$toast.success('Conta criada com sucesso!')
+          })
+          .catch(error => {
+            error = new FirebaseException(error)
+            parent.$toast.error(error.message)
+          })
+          .finally(() => {
+            isLoading.value = false
+          })
+      }
+    }
+
+    return {
+      signUp,
+
+      isPasswordVisible,
+      isConfirmPasswordVisible,
+      isLoading,
+      username,
       password,
+      confirmPassword,
       socialLink,
+
+      rules,
 
       // themeConfig
       appName: themeConfig.app.name,
