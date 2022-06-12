@@ -27,29 +27,13 @@
           class="d-none d-lg-block position-relative overflow-hidden pa-0"
         >
           <div class="auth-illustrator-wrapper">
-            <!-- triangle bg -->
-            <img
-              height="362"
-              class="auth-mask-bg"
-              :src="require(`@/assets/images/misc/mask-v2-${$vuetify.theme.dark ? 'dark' : 'light'}.png`)"
-            />
-
-            <!-- tree -->
-            <v-img
-              height="226"
-              width="300"
-              class="auth-tree"
-              src="@/assets/images/misc/tree.png"
-            ></v-img>
-
-            <!-- 3d character -->
-            <div class="d-flex align-center h-full pa-16 pe-0">
-              <v-img
+            <div class="d-flex align-center h-full py-16 pe-0" style="position: relative">
+                <v-img
                 contain
                 max-width="100%"
                 height="692"
                 class="auth-3d-group"
-                :src="require(`@/assets/images/3d-characters/illustration-reset-password-${$vuetify.theme.dark ? 'dark' : 'light'}.png`)"
+                :src="require(`@/assets/images/3d-characters/singer.png`)"
               ></v-img>
             </div>
           </div>
@@ -70,45 +54,35 @@
               <v-card flat>
                 <v-card-text>
                   <p class="text-2xl font-weight-semibold text--primary mb-2">
-                    Reset Password 🔒
+                    Redefinir Senha 🔒
                   </p>
                   <p class="mb-2">
-                    Your new password must be different from previously used passwords
+                    Insira seu e-mail que enviaremos um link para você redefinir a sua senha
                   </p>
                 </v-card-text>
 
                 <!-- login form -->
                 <v-card-text>
-                  <v-form>
+                  <v-form ref="form" lazy-validation @submit.prevent="sendEmail">
                     <v-text-field
-                      v-model="password"
+                      v-model="username"
                       outlined
-                      :type="isPasswordVisible ? 'text' : 'password'"
-                      label="New Password"
-                      placeholder="············"
-                      :append-icon="isPasswordVisible ? icons.mdiEyeOffOutline : icons.mdiEyeOutline "
-                      hide-details
+                      label="Insira seu e-mail"
+                      placeholder="joao@exemplo.com"
+                      :append-icon="icons.mdiEmail"
                       class="mb-3"
-                      @click:append="isPasswordVisible = !isPasswordVisible"
-                    ></v-text-field>
-
-                    <v-text-field
-                      v-model="confirmPassword"
-                      outlined
-                      :type="isConfirmPasswordVisible ? 'text' : 'password'"
-                      label="Confirm Password"
-                      placeholder="············"
-                      :append-icon="isConfirmPasswordVisible ? icons.mdiEyeOffOutline:icons.mdiEyeOutline"
-                      hide-details
-                      @click:append="isConfirmPasswordVisible = !isConfirmPasswordVisible"
+                      :rules="[rules.required, rules.emailValidator]"
                     ></v-text-field>
 
                     <v-btn
                       block
                       color="primary"
                       class="mt-4"
+                      type="submit"
+                      :disabled="isLoading"
+                      :loading="isLoading"
                     >
-                      Set New Password
+                      Enviar E-mail
                     </v-btn>
                   </v-form>
                 </v-card-text>
@@ -116,7 +90,7 @@
                 <!-- back to login -->
                 <v-card-actions class="d-flex justify-center align-center mt-2">
                   <router-link
-                    :to="{name:'auth-login-v2'}"
+                    :to="{name:'login'}"
                     class="d-flex align-center text-sm"
                   >
                     <v-icon
@@ -125,7 +99,7 @@
                     >
                       {{ icons.mdiChevronLeft }}
                     </v-icon>
-                    <span>Back to login</span>
+                    <span>Voltar para login</span>
                   </router-link>
                 </v-card-actions>
               </v-card>
@@ -139,31 +113,69 @@
 
 <script>
 // eslint-disable-next-line object-curly-newline
-import { mdiChevronLeft, mdiEyeOutline, mdiEyeOffOutline } from '@mdi/js'
+import { mdiEmail, mdiChevronLeft } from '@mdi/js'
 import { ref } from '@vue/composition-api'
 import themeConfig from '@themeConfig'
+import { useRouter } from '@core/utils'
+import { required, emailValidator } from '@core/utils/validation'
+import { sendEmailResetPassword } from '@/repositories/authRepository'
 
 export default {
-  setup() {
-    const isPasswordVisible = ref(false)
-    const isConfirmPasswordVisible = ref(false)
-    const password = ref('')
-    const confirmPassword = ref('')
+  setup(props, { refs, parent }) {
+    const { router } = useRouter()
+    const username = ref('')
+    const isLoading = ref(false)
+
+    const rules = {
+      required,
+      emailValidator,
+    }
+
+    const sendEmail = () => {
+      const validateForm = refs.form.validate()
+
+      if (validateForm) {
+        isLoading.value = true
+
+        sendEmailResetPassword(username.value)
+          .then(() => {
+            parent.$alert.confirm(
+              () => {
+                router.push({ name: 'login' })
+              },
+              {
+                icon: 'success',
+                title: 'E-mail enviado com sucesso!',
+                html: `<p> O e-mail para redefinir a sua senha foi encaminhado para ${username.value} com sucesso, por favor verifique também a sua caixa de spam </p>`,
+                showConfirmButton: true,
+                showCancelButton: false,
+                confirmButtonText: 'Ok',
+              },
+            )
+          })
+          .catch(error => {
+            console.log({ error })
+          })
+          .finally(() => {
+            isLoading.value = false
+          })
+      }
+    }
 
     return {
-      isPasswordVisible,
-      isConfirmPasswordVisible,
-      password,
-      confirmPassword,
+      username,
+      isLoading,
+
+      sendEmail,
+      rules,
 
       // themeConfig
       appName: themeConfig.app.name,
       appLogo: themeConfig.app.logo,
 
       icons: {
+        mdiEmail,
         mdiChevronLeft,
-        mdiEyeOutline,
-        mdiEyeOffOutline,
       },
     }
   },

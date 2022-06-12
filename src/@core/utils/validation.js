@@ -1,19 +1,20 @@
 import { isEmpty } from './index'
 
-export const required = value => (value && value.length ? true : 'This field is required')
+export const required = value => (value && value.length ? true : 'Este campo é obrigatório')
 export const emailValidator = value => {
   if (isEmpty(value)) {
     return true
   }
 
   // eslint-disable-next-line
-  const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+  const re =
+    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
   if (Array.isArray(value)) {
     return value.every(val => re.test(String(val)))
   }
 
-  return re.test(String(value)) || 'The Email field must be a valid email'
+  return re.test(String(value)) || 'O endereço de e-mail precisa ser válido'
 }
 
 export const passwordValidator = password => {
@@ -25,13 +26,13 @@ export const passwordValidator = password => {
   return (
     // eslint-disable-next-line operator-linebreak
     validPassword ||
-    'Field must contain at least one uppercase, lowercase, special character and digit with min 8 chars'
+    'O campo precisa conter uma letra maiúscula, minuscula, um caractere especial e no mínimo 8 caracteres'
   )
 }
 
 export const confirmedValidator = (value, target) =>
   // eslint-disable-next-line implicit-arrow-linebreak
-  value === target || 'The Confirm Password field confirmation does not match'
+  value === target || 'A senha de confirmação está diferente'
 
 export const between = (value, min, max) => () => {
   const valueAsNumber = Number(value)
@@ -95,6 +96,9 @@ export const lengthValidator = (value, length) => {
 
   return value.length === length || `The Min Character field must be at least ${length} characters`
 }
+
+export const min = (value, length) => value.length >= length || `O campo precisa conter no mínimo ${length} caracteres`
+
 export const alphaDashValidator = value => {
   if (isEmpty(value)) {
     return true

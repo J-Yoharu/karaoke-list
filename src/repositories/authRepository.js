@@ -1,4 +1,9 @@
-import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from 'firebase/auth'
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+  sendPasswordResetEmail,
+  signInWithEmailAndPassword,
+} from 'firebase/auth'
 
 /**
  *
@@ -15,3 +20,10 @@ export const signUp = (username, password) => createUserWithEmailAndPassword(get
  * @returns {Promise}
  */
 export const signIn = (email, password) => signInWithEmailAndPassword(getAuth(), email, password)
+
+/**
+ *
+ * @param {String} email Endereço de e-mail que receberá o link para redefinir a senha
+ * @returns {Promise}
+ */
+export const sendEmailResetPassword = email => sendPasswordResetEmail(getAuth(), email)

@@ -19,7 +19,6 @@
           {{ appName }}
         </h2>
       </router-link>
-      <!--/ brand logo -->
 
       <v-row class="auth-row ma-0">
         <v-col
@@ -27,30 +26,7 @@
           class="d-none d-lg-block position-relative overflow-hidden pa-0"
         >
           <div class="auth-illustrator-wrapper">
-            <!-- triangle bg -->
-            <!-- <img
-              height="362"
-              class="auth-mask-bg"
-              :src="require(`@/assets/images/misc/mask-v2-${$vuetify.theme.dark ? 'dark' : 'light'}.png`)"
-            /> -->
-
-            <!-- tree -->
-            <!-- <v-img
-              height="226"
-              width="300"
-              class="auth-tree"
-              src="@/assets/images/misc/tree-4.png"
-            ></v-img> -->
-
-            <!-- 3d character -->
             <div class="d-flex align-center h-full py-16 pe-0" style="position: relative;">
-              <!-- <v-img
-                contain
-                max-width="100%"
-                height="692"
-                class="auth-3d-group"
-                :src="require(`@/assets/images/3d-characters/group-${$vuetify.theme.dark ? 'dark' : 'light'}.png`)"
-              ></v-img> -->
               <div class="text-image">
                
                 Dessa marra que é gostar de você ieeeee
@@ -96,9 +72,10 @@
                       v-model="username"
                       outlined
                       label="Email"
-                      placeholder="john@example.com"
+                      type="email"
+                      placeholder="joao@exemplo.com"
                       class="mb-3"
-                      :rules="[rules.required, rules.email]"
+                      :rules="[rules.required, rules.emailValidator]"
                     ></v-text-field>
 
                     <v-text-field
@@ -109,7 +86,7 @@
                       placeholder="············"
                       :append-icon="isPasswordVisible ? icons.mdiEyeOffOutline : icons.mdiEyeOutline"
                       @click:append="isPasswordVisible = !isPasswordVisible"
-                      :rules="[rules.required]"
+                      :rules="[rules.required, rules.min(password, 8)]"
                     ></v-text-field>
 
                     <v-btn
@@ -181,8 +158,7 @@ import { mdiFacebook, mdiTwitter, mdiGithub, mdiGoogle, mdiEyeOutline, mdiEyeOff
 import { ref } from '@vue/composition-api'
 import themeConfig from '@themeConfig'
 import { useRouter } from '@core/utils'
-import { signIn as login } from '@/repositories/authRepository'
-import { required, email } from '@/plugins/validation'
+import { required, emailValidator, min } from '@core/utils/validation'
 import FirebaseException from '@/exceptions/FirebaseException'
 import store from '@/store'
 
@@ -219,60 +195,19 @@ export default {
 
     const rules = {
       required,
-      email,
-    }
-
-    const res = {
-      user: {
-        uid: 'OC1Jbbxwv8cJrNzKVsSey5V3Awc2',
-        email: 'joaneto@haoc.com.br',
-        emailVerified: false,
-        isAnonymous: false,
-        providerData: [
-          {
-            providerId: 'password',
-            uid: 'joaneto@haoc.com.br',
-            displayName: null,
-            email: 'joaneto@haoc.com.br',
-            phoneNumber: null,
-            photoURL: null,
-          },
-        ],
-        stsTokenManager: {
-          refreshToken:
-            'AIwUaOlO7-1GmFs6FGPGLnG7dtZ0wZkohx5DjmmcYp0TZZEmjbGN9AHnwWKNBfrZO6CZEqETePki_QcIiwGrRnQDDnn5LZ3GHEnT4JEwIvuCitJnQVcM04E2FIw82LUK-i0T1gkOuWXUFZGS3zkTAInJCx4uhvCSUuaCSDPtNWBOm3MYZy5nxU7D5Q4QiNAvf2FllFX9mFqKX_vSEUx_uf8QC2maJRmdxA',
-          accessToken:
-            'eyJhbGciOiJSUzI1NiIsImtpZCI6IjFhZWY1NjlmNTI0MTRlOWY0YTcxMDRiNmQwNzFmMDY2ZGZlZWQ2NzciLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20va2FyYW9rZS1mOWJmMSIsImF1ZCI6ImthcmFva2UtZjliZjEiLCJhdXRoX3RpbWUiOjE2NTQ5ODU0NjQsInVzZXJfaWQiOiJPQzFKYmJ4d3Y4Y0pyTnpLVnNTZXk1VjNBd2MyIiwic3ViIjoiT0MxSmJieHd2OGNKck56S1ZzU2V5NVYzQXdjMiIsImlhdCI6MTY1NDk4NTQ2NCwiZXhwIjoxNjU0OTg5MDY0LCJlbWFpbCI6ImpvYW5ldG9AaGFvYy5jb20uYnIiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsiam9hbmV0b0BoYW9jLmNvbS5iciJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.w0vjomFIkSd0_fl0g4xTu6bpC5i5LDU4ZLdOOKZAjlHQ8RACSMgQMMyFJ084iNFgpKe5ykBnx96QnZsoftGzkPQF2ig1_RC7zR9xfoRdF3gB0BVuU7pXk1CBi5EXx_g3HcwtYgmq5830NrhrxRDbbwQmT0GAVkI1mIcWFQ34KHUfzdHcGsV2C36wBZp2utl8t5WnkG_nJ2ELLO903rpLwaDYOhXJm-_oToKxgBl0DYvWMsqIb2-lU6TbG4ntAfub--wNtUpJ5WCylLGFoiun2aB363cQwF90Xmpi_u-PMXRagS3bDlj9Xxyf5K1BYIclQ2az0iw8myVAPhYUmkgvFA',
-          expirationTime: 1654989064740,
-        },
-        createdAt: '1654959994303',
-        lastLoginAt: '1654985464633',
-        apiKey: 'AIzaSyAVXY9S7rwzxmDUZvMJd5EF9erYlIU24kA',
-        appName: '[DEFAULT]',
-      },
-      providerId: null,
-      _tokenResponse: {
-        kind: 'identitytoolkit#VerifyPasswordResponse',
-        localId: 'OC1Jbbxwv8cJrNzKVsSey5V3Awc2',
-        email: 'joaneto@haoc.com.br',
-        displayName: '',
-        idToken:
-          'eyJhbGciOiJSUzI1NiIsImtpZCI6IjFhZWY1NjlmNTI0MTRlOWY0YTcxMDRiNmQwNzFmMDY2ZGZlZWQ2NzciLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20va2FyYW9rZS1mOWJmMSIsImF1ZCI6ImthcmFva2UtZjliZjEiLCJhdXRoX3RpbWUiOjE2NTQ5ODU0NjQsInVzZXJfaWQiOiJPQzFKYmJ4d3Y4Y0pyTnpLVnNTZXk1VjNBd2MyIiwic3ViIjoiT0MxSmJieHd2OGNKck56S1ZzU2V5NVYzQXdjMiIsImlhdCI6MTY1NDk4NTQ2NCwiZXhwIjoxNjU0OTg5MDY0LCJlbWFpbCI6ImpvYW5ldG9AaGFvYy5jb20uYnIiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsiam9hbmV0b0BoYW9jLmNvbS5iciJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.w0vjomFIkSd0_fl0g4xTu6bpC5i5LDU4ZLdOOKZAjlHQ8RACSMgQMMyFJ084iNFgpKe5ykBnx96QnZsoftGzkPQF2ig1_RC7zR9xfoRdF3gB0BVuU7pXk1CBi5EXx_g3HcwtYgmq5830NrhrxRDbbwQmT0GAVkI1mIcWFQ34KHUfzdHcGsV2C36wBZp2utl8t5WnkG_nJ2ELLO903rpLwaDYOhXJm-_oToKxgBl0DYvWMsqIb2-lU6TbG4ntAfub--wNtUpJ5WCylLGFoiun2aB363cQwF90Xmpi_u-PMXRagS3bDlj9Xxyf5K1BYIclQ2az0iw8myVAPhYUmkgvFA',
-        registered: true,
-        refreshToken:
-          'AIwUaOlO7-1GmFs6FGPGLnG7dtZ0wZkohx5DjmmcYp0TZZEmjbGN9AHnwWKNBfrZO6CZEqETePki_QcIiwGrRnQDDnn5LZ3GHEnT4JEwIvuCitJnQVcM04E2FIw82LUK-i0T1gkOuWXUFZGS3zkTAInJCx4uhvCSUuaCSDPtNWBOm3MYZy5nxU7D5Q4QiNAvf2FllFX9mFqKX_vSEUx_uf8QC2maJRmdxA',
-        expiresIn: '3600',
-      },
-      operationType: 'signIn',
+      emailValidator,
+      min,
     }
 
     const signIn = () => {
-      if (refs.form.validate()) {
+      const validateForm = refs.form.validate()
+
+      if (validateForm) {
         isLoading.value = true
 
-        login(username.value, password.value)
+        store
+          .dispatch('signIn', { email: username.value, password: password.value })
           .then(res => {
-            store.dispatch('signIn', res)
             router.push({ name: 'home' })
           })
           .catch(error => {

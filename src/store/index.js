@@ -1,8 +1,8 @@
+import { signIn } from '@/repositories/authRepository'
 import appConfigStoreModule from '@core/@app-config/appConfigStoreModule'
 import Vue from 'vue'
 import Vuex from 'vuex'
 import app from './app'
-
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -28,12 +28,7 @@ export default new Vuex.Store({
     },
   },
   mutations: {
-    user(state, user) {
-      state.user = user
-    },
-  },
-  actions: {
-    signIn(context, data) {
+    user(state, data) {
       let userIndexes = ['uid', 'emailVerified', 'isAnonymous', 'createdAt', 'lastLoginAt', 'apiKey', 'appName']
 
       const {
@@ -43,10 +38,23 @@ export default new Vuex.Store({
 
       userIndexes.forEach(index => (user[index] = data.user[index]))
 
-      context.commit('user', { ...user, token })
-
       localStorage.user = JSON.stringify(user)
       localStorage.token = JSON.stringify(token)
+
+      state.user = user
+    },
+  },
+  actions: {
+    signIn(context, data = {}) {
+      let { skipRequest, email, password } = data
+
+      if (skipRequest)
+        return new Promise((res, rej) => {
+          context.commit('user', data)
+          res(data)
+        })
+
+      return signIn(email, password).then(res => context.commit('user', res))
     },
   },
   modules: {

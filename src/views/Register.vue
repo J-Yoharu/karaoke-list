@@ -27,31 +27,6 @@
           class="d-none d-lg-block position-relative overflow-hidden pa-0"
         >
           <div class="auth-illustrator-wrapper">
-            <!-- triangle bg -->
-            <!-- <img
-              height="362"
-              class="auth-mask-bg"
-              :src="require(`@/assets/images/misc/mask-v2-${$vuetify.theme.dark ? 'dark':'light'}.png`)"
-            /> -->
-
-            <!-- tree -->
-            <!-- <v-img
-              height="226"
-              width="300"
-              class="auth-tree"
-              src="@/assets/images/misc/tree-2.png"
-            ></v-img> -->
-
-            <!-- 3d character -->
-            <!-- <div class="d-flex align-center h-full pa-16 pe-0">
-              <v-img
-                contain
-                max-width="100%"
-                height="710"
-                class="auth-3d-group"
-                :src="require(`@/assets/images/3d-characters/illustration-register-v2-${$vuetify.theme.dark ? 'dark':'light'}.png`)"
-              ></v-img>
-            </div> -->
             <div class="d-flex align-center h-full ">
               <v-img
                 contain
@@ -100,7 +75,7 @@
                       outlined
                       label="Email"
                       placeholder="john@example.com"
-                      :rules="[rules.required, rules.email]"
+                      :rules="[rules.required, rules.emailValidator]"
                     ></v-text-field>
 
                     <v-text-field
@@ -111,7 +86,7 @@
                       placeholder="············"
                       :append-icon="isPasswordVisible ? icons.mdiEyeOffOutline:icons.mdiEyeOutline"
                       @click:append="isPasswordVisible = !isPasswordVisible"
-                      :rules="[rules.required]"
+                      :rules="[rules.required, rules.min(password, 8)]"
                     ></v-text-field>
 
                     <v-text-field 
@@ -121,7 +96,7 @@
                       label="Confirme sua senha" 
                       :append-icon="isConfirmPasswordVisible ? icons.mdiEyeOffOutline:icons.mdiEyeOutline"
                       @click:append="isConfirmPasswordVisible = !isConfirmPasswordVisible"
-                      :rules="[rules.required, rules.comparePassword(password, confirmPassword)]"
+                      :rules="[rules.required, rules.confirmedValidator(password, confirmPassword)]"
                       >
                       
                     </v-text-field>
@@ -184,9 +159,11 @@ import { mdiFacebook, mdiTwitter, mdiGithub, mdiGoogle, mdiEyeOutline, mdiEyeOff
 import { ref } from '@vue/composition-api'
 import themeConfig from '@themeConfig'
 import { useRouter } from '@core/utils'
-import { signUp as login } from '@/repositories/authRepository'
+import {
+  required, emailValidator, confirmedValidator, min,
+} from '@core/utils/validation'
+import { signUp as createAccount } from '@/repositories/authRepository'
 import FirebaseException from '@/exceptions/FirebaseException'
-import { required, email, comparePassword } from '@/plugins/validation'
 import store from '@/store'
 
 export default {
@@ -226,17 +203,18 @@ export default {
 
     const rules = {
       required,
-      email,
-      comparePassword,
+      emailValidator,
+      confirmedValidator,
+      min,
     }
 
     const signUp = () => {
       if (refs.form.validate()) {
         isLoading.value = true
 
-        login(username.value, password.value)
+        createAccount(username.value, password.value)
           .then(res => {
-            store.dispatch('signIn', res)
+            store.dispatch('signIn', { ...res, skipRequest: true })
             router.push({ name: 'home' })
             parent.$toast.success('Conta criada com sucesso!')
           })
