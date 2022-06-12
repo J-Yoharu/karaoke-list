@@ -34,6 +34,7 @@
             class="me-4"
           ></app-bar-search>
           <app-bar-theme-switcher></app-bar-theme-switcher>
+          <app-bar-user-menu></app-bar-user-menu>
         </div>
       </div>
       <v-overlay
@@ -76,6 +77,7 @@ import themeConfig from '@themeConfig'
 import { mdiHeartOutline } from '@mdi/js'
 import appBarSearchData from '@/assets/app-bar-search-data'
 import navMenuItems from '@/navigation/horizontal'
+import AppBarUserMenu from '@/@core/layouts/components/app-bar/AppBarUserMenu.vue'
 
 export default {
   components: {
@@ -86,6 +88,7 @@ export default {
     AppBarSearch,
     AppBarThemeSwitcher,
     AppFooter,
+    AppBarUserMenu,
   },
   setup() {
     // Search
