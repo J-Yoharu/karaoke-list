@@ -25,6 +25,10 @@
   }
 }
 
+.undecorate {
+  text-decoration: none;
+}
+
 @keyframes rotation {
   33% {
     transform: rotate(2deg);
