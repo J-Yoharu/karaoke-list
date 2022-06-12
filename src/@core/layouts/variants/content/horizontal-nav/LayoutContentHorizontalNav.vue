@@ -56,19 +56,21 @@
         <slot name="footer"></slot>
       </v-col>
     </v-footer>
-    <v-btn style="position:absolute !important; z-index:1000" absolute right > Voltar </v-btn>
+    <scroll-button></scroll-button>
   </v-app>
 </template>
 
 <script>
 import AppContentContainer from '@core/layouts/components/app-content-container/AppContentContainer.vue'
 import useAppConfig from '@core/@app-config/useAppConfig'
+import ScrollButton from '@core/layouts/components/scroll-button/ScrollButton.vue'
 import HorizontalNavMenu from '@/@core/layouts/components/horizontal-nav-menu/HorizontalNavMenu.vue'
 
 export default {
   components: {
     AppContentContainer,
     HorizontalNavMenu,
+    ScrollButton,
   },
   props: {
     navMenuItems: {

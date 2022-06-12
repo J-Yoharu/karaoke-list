@@ -56,6 +56,10 @@ export default new Vuex.Store({
 
       return signIn(email, password).then(res => context.commit('user', res))
     },
+    signOut(context, data) {
+      localStorage.removeItem('token')
+      localStorage.removeItem('user')
+    },
   },
   modules: {
     appConfig: appConfigStoreModule,
