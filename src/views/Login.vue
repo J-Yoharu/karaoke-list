@@ -27,7 +27,7 @@
         >
           <div class="auth-illustrator-wrapper">
             <div class="d-flex align-center h-full py-16 pe-0" style="position: relative;">
-              <div class="text-image">
+              <div class="text-image" v-if="false">
                
                 Dessa marra que é gostar de você ieeeee
               </div>

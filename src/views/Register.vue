@@ -31,7 +31,7 @@
               <v-img
                 contain
                 max-width="100%"
-                height="100%"
+                height="692"
                 class="auth-3d-group"
                 :src="require(`@/assets/images/3d-characters/singer.png`)"
               ></v-img>
