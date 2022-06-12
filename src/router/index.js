@@ -14,6 +14,7 @@ const routes = [
     component: () => import('@/views/Home.vue'),
     meta: {
       search: false,
+      title: 'Home',
     },
   },
   {
@@ -22,17 +23,24 @@ const routes = [
     component: () => import('@/views/Search.vue'),
     meta: {
       search: false,
+      title: 'Pesquisa',
     },
   },
   {
     path: '/favoritos',
     name: 'favorite',
     component: () => import('@/views/Favorite.vue'),
+    meta: {
+      title: 'Favoritos',
+    },
   },
   {
     path: '/atualizacoes',
     name: 'update',
     component: () => import('@/views/Update.vue'),
+    meta: {
+      title: 'Atualizações',
+    },
   },
   ...authRoutes,
   {
@@ -40,6 +48,7 @@ const routes = [
     component: () => import('@/views/Error404.vue'),
     meta: {
       layout: 'blank',
+      title: 'Página não encontrada',
     },
   },
 ]
@@ -53,4 +62,13 @@ const router = new VueRouter({
   },
 })
 
+router.beforeEach((to, from, next) => {
+  let appName = process.env.VUE_APP_NAME ? process.env.VUE_APP_NAME : 'Lista de músicas'
+  if (to.meta.title) {
+    window.document.title = `${to.meta.title} | ${appName}`
+    return next()
+  }
+  window.document.title = appName
+  next()
+})
 export default router
