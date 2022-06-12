@@ -4,3 +4,11 @@ export const getScrollPercentDistance = element => {
   const { scrollTop } = element
   return (scrollTop * 100) / scrollHeight
 }
+
+export const scrollToTop = element => {
+  element.scroll({
+    behavior: 'smooth',
+    left: 0,
+    top: 0,
+  })
+}
