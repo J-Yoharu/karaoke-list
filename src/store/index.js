@@ -48,6 +48,10 @@ export default new Vuex.Store({
       localStorage.user = JSON.stringify(user)
       localStorage.token = JSON.stringify(token)
     },
+    signOut(context, data) {
+      localStorage.removeItem('token')
+      localStorage.removeItem('user')
+    },
   },
   modules: {
     appConfig: appConfigStoreModule,
