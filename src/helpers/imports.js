@@ -14,7 +14,7 @@ export const importAll = (context, ignoreFiles = []) => {
 
     if (ignoreFiles.some(ignore => ignore == archive)) return
 
-    if (archive) cache[archive] = context(key)
+    if (archive) cache[archive] = context(key).default
   })
 
   return cache
