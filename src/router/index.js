@@ -42,6 +42,14 @@ const routes = [
       title: 'Atualizações',
     },
   },
+  {
+    path: '/musicas',
+    name: 'all-musics',
+    component: () => import('@/views/AllMusics.vue'),
+    meta: {
+      title: 'Todas músicas',
+    },
+  },
   ...authRoutes,
   {
     path: '*',

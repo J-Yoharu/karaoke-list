@@ -8,18 +8,17 @@
 </template>
 
 <script>
-import { computed, ref } from '@vue/composition-api'
+import { ref } from '@vue/composition-api'
 import AppLogo from '@core/components/app-logo/AppLogo.vue'
 import { mdiMagnify } from '@mdi/js'
 import { useRouter } from '@core/utils'
-import vuetify from '@/plugins/vuetify'
+import { isMobile } from '@/helpers/breakpoint'
 
 export default {
   components: {
     AppLogo,
   },
   setup() {
-    const isMobile = computed(() => vuetify.framework.breakpoint.mobile)
     const query = ref('')
     const { router } = useRouter()
     const search = value => {
