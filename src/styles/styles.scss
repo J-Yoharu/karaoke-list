@@ -1,4 +1,8 @@
 .v-data-table {
+  .v-data-table__wrapper {
+    overflow-y: unset !important;
+    overflow-x: unset !important;
+  }
   table {
     padding: 4px;
     padding-bottom: 8px;
@@ -23,6 +27,10 @@
       }
     }
   }
+}
+
+.undecorate {
+  text-decoration: none;
 }
 
 @keyframes rotation {
@@ -53,4 +61,14 @@
 
 .swal2-popup {
   font-family: 'themify';
+}
+
+//vue animations using <transition name="fade"> for example
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active em versões anteriores a 2.1.8 */ {
+  opacity: 0;
 }

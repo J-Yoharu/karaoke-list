@@ -25,6 +25,12 @@
             @update:shallShowFullSearch="handleShallShowFullSearchUpdate(isVerticalNavMenuActive, toggleVerticalNavMenuActive)"
           ></app-bar-search>
         </div>
+        <!-- Right Content: Search -->
+
+        <div class="d-flex align-center">
+         <app-bar-theme-switcher></app-bar-theme-switcher>
+          <app-bar-user-menu></app-bar-user-menu>
+        </div>
       </div>
     </template>
 
@@ -45,11 +51,13 @@ import { getVuetify } from '@core/utils'
 
 // Search Data
 import { ref, watch } from '@vue/composition-api'
+import AppBarThemeSwitcher from '@core/layouts/components/app-bar/AppBarThemeSwitcher.vue'
 import appBarSearchData from '@/assets/app-bar-search-data'
 
 import navMenuItems from '@/navigation/vertical'
 import LayoutContentVerticalNav from '@/@core/layouts/variants/content/vertical-nav/LayoutContentVerticalNav.vue'
 import AppFooter from '@/@core/layouts/components/footer/AppFooter.vue'
+import AppBarUserMenu from '@/@core/layouts/components/app-bar/AppBarUserMenu.vue'
 
 export default {
   components: {
@@ -58,6 +66,8 @@ export default {
     // App Bar Components
     AppBarSearch,
     AppFooter,
+    AppBarUserMenu,
+    AppBarThemeSwitcher,
   },
   setup() {
     const $vuetify = getVuetify()

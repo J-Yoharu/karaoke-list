@@ -7,6 +7,11 @@ export default [
     to: 'home',
   },
   {
+    title: 'Todas as músicas',
+    icon: mdiUpdate,
+    to: 'all-musics',
+  },
+  {
     title: 'Favoritos',
     icon: mdiStarOutline,
     to: 'favorite',

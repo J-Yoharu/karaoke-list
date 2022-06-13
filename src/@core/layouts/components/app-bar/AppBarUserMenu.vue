@@ -1,4 +1,5 @@
 <template>
+<div>
   <v-menu
     v-if="userData"
     offset-y
@@ -107,6 +108,10 @@
       </v-list-item>
     </v-list>
   </v-menu>
+  <router-link class="undecorate" v-else :to="{name: 'login'}">
+    <v-btn color="primary" class="ml-3"  outlined>Fazer Login</v-btn>
+  </router-link>
+</div>
 </template>
 
 <script>

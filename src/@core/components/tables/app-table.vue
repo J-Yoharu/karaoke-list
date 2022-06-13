@@ -24,12 +24,18 @@
         <div> {{headers.find(h => h.value == groupBy).text}}: {{group}}</div>
       </td>
     </template>
+
+    <template #[`${slot.prefix}.${slot.name}`]="props" v-for="slot in computedSlots">
+        <slot :props="{...props}" :name="slot.fullSlotName"></slot>
+    </template>
+
+
   </v-data-table>
 </v-card>
 </template>
 
 <script>
-import { ref } from '@vue/composition-api'
+import { ref, computed } from '@vue/composition-api'
 import { mdiMagnify } from '@mdi/js'
 
 export default {
@@ -67,16 +73,27 @@ export default {
       default: true,
     },
   },
-  setup(props) {
+  setup(props, { slots }) {
     const icons = {
       mdiMagnify,
     }
 
     const query = ref('')
 
+    const computedSlots = computed(() => Object.keys(slots).map(name => {
+      const nameSeparator = name.split('.')
+
+      return {
+        prefix: nameSeparator.splice(0, 1),
+        name: nameSeparator.join('.'),
+        fullSlotName: name,
+      }
+    }))
+
     return {
       query,
       icons,
+      computedSlots,
     }
   },
 }
