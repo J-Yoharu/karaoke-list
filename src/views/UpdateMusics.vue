@@ -1,47 +1,27 @@
 <template>
   <div class="h-full">
     <upload-area v-if="!file" :acceptMimes="['.xlsx']" v-model="file" class="h-full"></upload-area>
-    <v-card v-else>
-      <v-row>
-        <v-col>
-          Seu arquivo
-        </v-col>
-        <v-col>
-          <v-autocomplete :items="sheets"></v-autocomplete>
-
-        </v-col>
-      </v-row>
-    </v-card>
+    <excel-upload-stepper v-else :file="file"></excel-upload-stepper>
   </div>
 </template>
 
 <script>
-import { ref, watch } from '@vue/composition-api'
+import { ref } from '@vue/composition-api'
 import UploadArea from '@/components/UploadArea.vue'
-import Excel from '@/helpers/Excel'
+import FilePresenter from '@/components/FilePresenter.vue'
+import ExcelUploadStepper from '@/components/ExcelUploadStepper.vue'
 
 export default {
   components: {
     UploadArea,
+    FilePresenter,
+    ExcelUploadStepper,
   },
   setup() {
     const file = ref(null)
-    const sheets = ref([])
-    watch(file, async () => {
-      console.log(file)
-      const excel = await new Excel(file.value).build()
-
-      sheets.value = excel.sheets
-
-      // excel.toJson({
-      //   headers: ['singer', 'cod', 'title'],
-      //   headerIndex: 1,
-      // });
-    })
 
     return {
       file,
-      sheets,
     }
   },
 }

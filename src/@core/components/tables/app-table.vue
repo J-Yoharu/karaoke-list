@@ -17,7 +17,7 @@
           ></v-text-field>
         </v-col>
   </v-row>
-  <v-data-table :search="query" :group-by="groupBy" :items-per-page="itemsPerPage" :items="items" :headers="headers">
+  <v-data-table :mobile-breakpoint="mobileBreakPoint" :hide-default-header="hideDefaultHeader" :search="query" :group-by="groupBy" :items-per-page="itemsPerPage" :items="items" :headers="headers">
 
     <template #group.header="{ group, groupBy }">
       <td colspan="12" class="text-center">
@@ -25,7 +25,7 @@
       </td>
     </template>
 
-    <template #[`${slot.prefix}.${slot.name}`]="props" v-for="slot in computedSlots">
+    <template #[getSlotName(slot)]="props" v-for="slot in computedSlots">
         <slot :props="{...props}" :name="slot.fullSlotName"></slot>
     </template>
 
@@ -72,6 +72,14 @@ export default {
       type: Boolean,
       default: true,
     },
+    hideDefaultHeader: {
+      type: Boolean,
+      default: false,
+    },
+    mobileBreakPoint: {
+      type: Number,
+      default: 600,
+    },
   },
   setup(props, { slots }) {
     const icons = {
@@ -90,10 +98,13 @@ export default {
       }
     }))
 
+    const getSlotName = slot => (slot.name ? `${slot.prefix}.${slot.name}` : `${slot.fullSlotName}`)
+
     return {
       query,
       icons,
       computedSlots,
+      getSlotName,
     }
   },
 }

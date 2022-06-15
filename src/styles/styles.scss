@@ -1,8 +1,4 @@
 .v-data-table {
-  .v-data-table__wrapper {
-    overflow-y: unset !important;
-    overflow-x: unset !important;
-  }
   table {
     padding: 4px;
     padding-bottom: 8px;
@@ -71,4 +67,8 @@
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active em versões anteriores a 2.1.8 */ {
   opacity: 0;
+}
+
+.hoverTranslate:hover {
+  transform: scale(1.1);
 }
