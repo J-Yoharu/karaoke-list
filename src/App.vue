@@ -15,7 +15,7 @@
 
 <script>
 // eslint-disable-next-line object-curly-newline
-import { computed } from '@vue/composition-api'
+import { computed, onMounted } from '@vue/composition-api'
 // eslint-disable-next-line import/no-unresolved
 import useAppConfig from '@core/@app-config/useAppConfig'
 import { useRouter } from '@core/utils'
@@ -26,6 +26,9 @@ import useDynamicVh from '@core/utils/useDynamicVh'
 import LayoutContentVerticalNav from '@/layouts/variants/content/vertical-nav/LayoutContentVerticalNav.vue'
 import LayoutContentHorizontalNav from '@/layouts/variants/content/horizontal-nav/LayoutContentHorizontalNav.vue'
 import LayoutBlank from '@/layouts/variants/blank/LayoutBlank.vue'
+
+import { setTimeoutExpirationTime } from '@/plugins/auth/index'
+import store from '@/store'
 
 // Dynamic vh
 
@@ -53,6 +56,16 @@ export default {
     })
 
     useDynamicVh()
+
+    onMounted(() => {
+      if (!store.state.user) return
+
+      const { expirationTime } = store.state.user.token
+
+      setTimeoutExpirationTime(expirationTime, ms => {
+        store.dispatch('signOut')
+      })
+    })
 
     return {
       resolveLayoutVariant,

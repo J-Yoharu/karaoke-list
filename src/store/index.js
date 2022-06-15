@@ -7,40 +7,10 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    user: {
-      providerId: null,
-      uid: null,
-      displayName: null,
-      email: null,
-      phoneNumber: null,
-      photoURL: null,
-      emailVerified: null,
-      isAnonymous: null,
-      createdAt: null,
-      lastLoginAt: null,
-      apiKey: null,
-      appName: null,
-      token: {
-        refreshToken: null,
-        accessToken: null,
-        expirationTime: null,
-      },
-    },
+    user: localStorage.user ? JSON.parse(localStorage.user) : null,
   },
   mutations: {
-    user(state, data) {
-      let userIndexes = ['uid', 'emailVerified', 'isAnonymous', 'createdAt', 'lastLoginAt', 'apiKey', 'appName']
-
-      const {
-        providerData: { 0: user },
-        stsTokenManager: token,
-      } = data.user
-
-      userIndexes.forEach(index => (user[index] = data.user[index]))
-
-      localStorage.user = JSON.stringify(user)
-      localStorage.token = JSON.stringify(token)
-
+    user(state, user) {
       state.user = user
     },
   },
@@ -54,11 +24,25 @@ export default new Vuex.Store({
           res(data)
         })
 
-      return signIn(email, password).then(res => context.commit('user', res))
+      return signIn(email, password).then(res => {
+        let userIndexes = ['uid', 'emailVerified', 'isAnonymous', 'createdAt', 'lastLoginAt', 'apiKey', 'appName']
+
+        let {
+          providerData: { 0: user },
+          stsTokenManager: token,
+        } = res.user
+
+        userIndexes.forEach(index => (user[index] = res.user[index]))
+
+        user = { ...user, token }
+
+        localStorage.user = JSON.stringify(user)
+        context.commit('user', user)
+      })
     },
     signOut(context, data) {
-      localStorage.removeItem('token')
       localStorage.removeItem('user')
+      context.commit('user', null)
     },
   },
   modules: {

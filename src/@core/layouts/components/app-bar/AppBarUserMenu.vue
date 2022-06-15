@@ -127,7 +127,7 @@ import {
 } from '@mdi/js'
 import { useRouter } from '@core/utils'
 import { getCurrentInstance } from '@vue/composition-api'
-import { initialAbility } from '@/plugins/acl/config'
+import { initialAbility } from '@/plugins/auth/acl/config'
 import store from '@/store'
 
 export default {
