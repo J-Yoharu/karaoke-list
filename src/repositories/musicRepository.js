@@ -55,7 +55,7 @@ function createManyRef(data = [], keyId = '') {
     let slice = items.splice(0, maxRefPerBatch)
 
     slice.forEach(item => {
-      const ref = doc(firestore, collectionName, item[keyId])
+      const ref = doc(firestore, collectionName, `${item[keyId]}`)
       batch.set(ref, { ...item, created_at: serverTimestamp(), updated_at: serverTimestamp() })
     })
 
@@ -74,7 +74,7 @@ function createManyRef(data = [], keyId = '') {
 
 function createRef(data = {}, keyId = null) {
   if (keyId) {
-    return setDoc(doc(firestore, collectionName, data[keyId]), {
+    return setDoc(doc(firestore, collectionName, `${data[keyId]}`), {
       ...data,
       created_at: serverTimestamp(),
       updated_at: serverTimestamp(),
