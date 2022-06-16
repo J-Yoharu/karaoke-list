@@ -57,7 +57,7 @@
           >
             <v-img
               v-if="userData.photoURL"
-              src="@/assets/images/avatars/1.png"
+              :src="userData.photoURL"
             ></v-img>
             <v-icon
               v-else
@@ -82,14 +82,14 @@
       <v-divider></v-divider>
 
       <!-- Profile -->
-      <v-list-item :to="{ name: 'apps-user-view', params: { id: 21 } }">
+      <v-list-item :to="{ name: 'user-profile' }">
         <v-list-item-icon class="me-2">
           <v-icon size="22">
             {{ icons.mdiAccountOutline }}
           </v-icon>
         </v-list-item-icon>
         <v-list-item-content>
-          <v-list-item-title>Profile</v-list-item-title>
+          <v-list-item-title>Perfil</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
 
@@ -103,7 +103,7 @@
           </v-icon>
         </v-list-item-icon>
         <v-list-item-content>
-          <v-list-item-title>Logout</v-list-item-title>
+          <v-list-item-title>Sair</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
     </v-list>

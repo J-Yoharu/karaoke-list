@@ -58,6 +58,14 @@ const routes = [
       title: 'Atualizar banco',
     },
   },
+  {
+    path: '/perfil',
+    name: 'user-profile',
+    component: () => import('@/views/UserProfile.vue'),
+    meta: {
+      title: 'Perfil',
+    },
+  },
   ...authRoutes,
   {
     path: '*',

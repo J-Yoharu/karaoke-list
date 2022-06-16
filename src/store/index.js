@@ -7,7 +7,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    user: localStorage.user ? JSON.parse(localStorage.user) : null,
+    user: localStorage.user ? JSON.parse(localStorage.user) : {},
   },
   mutations: {
     user(state, user) {
@@ -21,6 +21,7 @@ export default new Vuex.Store({
       if (skipRequest)
         return new Promise((res, rej) => {
           context.commit('user', data)
+          localStorage.user = JSON.stringify(data)
           res(data)
         })
 
@@ -42,7 +43,7 @@ export default new Vuex.Store({
     },
     signOut(context, data) {
       localStorage.removeItem('user')
-      context.commit('user', null)
+      context.commit('user', {})
     },
   },
   modules: {

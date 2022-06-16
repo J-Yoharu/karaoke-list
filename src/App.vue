@@ -58,7 +58,7 @@ export default {
     useDynamicVh()
 
     onMounted(() => {
-      if (!store.state.user) return
+      if (!store.state.user.token) return
 
       const { expirationTime } = store.state.user.token
 
