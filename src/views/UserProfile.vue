@@ -9,7 +9,7 @@
             <v-row>
               <v-col cols="12" md="2" class="d-flex justify-center">
                 <v-avatar size="100px" color="primary" class="v-avatar-light-bg primary--text">
-                  <v-img v-if="user.photoURL" :src="user.photoURL"></v-img>
+                  <v-img v-if="user.photo" :src="user.photo"></v-img>
                   <v-icon v-else color="primary" size="28">
                     {{ icons.mdiAccountOutline }}
                   </v-icon>
@@ -23,7 +23,7 @@
                     </v-list-item-icon>
                     <v-list-item-content>
                       <div>
-                        <copy-label :text="user.uid" />
+                        <copy-label :text="user.id" />
                       </div>
                     </v-list-item-content>
                   </v-list-item>
@@ -44,16 +44,16 @@
                     </v-list-item-icon>
                     <v-list-item-content>
                       <div>
-                        <copy-label :text="user.phoneNumber" v-if="user.phoneNumber" />
+                        <copy-label :text="user.phone" v-if="user.phone" />
                         <span v-else> Celular não Cadastrado </span>
                       </div>
                     </v-list-item-content>
                   </v-list-item>
                 </v-list>
 
-                <v-text-field label="Nome" v-model="user.displayName" outlined dense> </v-text-field>
+                <v-text-field label="Nome" v-model="user.name" outlined dense> </v-text-field>
 
-                <v-text-field label="Link Foto" v-model="user.photoURL" outlined dense> </v-text-field>
+                <v-text-field label="Link Foto" v-model="user.photo" outlined dense> </v-text-field>
 
                 <div class="d-flex justify-end">
                   <v-btn color="primary" @click="save" :loading="isLoading" :disabled="isLoading">Salvar</v-btn>

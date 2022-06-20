@@ -2,18 +2,8 @@
   <div class="auth-wrapper auth-v2">
     <div class="auth-inner">
       <!-- brand logo -->
-      <router-link
-        to="/"
-        class="brand-logo d-flex align-center"
-      >
-        <v-img
-          :src="appLogo"
-          max-height="30px"
-          max-width="30px"
-          alt="logo"
-          contain
-          class="me-3 "
-        ></v-img>
+      <router-link to="/" class="brand-logo d-flex align-center">
+        <v-img :src="appLogo" max-height="30px" max-width="30px" alt="logo" contain class="me-3"></v-img>
 
         <h2 class="text--primary">
           {{ appName }}
@@ -21,16 +11,10 @@
       </router-link>
 
       <v-row class="auth-row ma-0">
-        <v-col
-          lg="8"
-          class="d-none d-lg-block position-relative overflow-hidden pa-0"
-        >
+        <v-col lg="8" class="d-none d-lg-block position-relative overflow-hidden pa-0">
           <div class="auth-illustrator-wrapper">
-            <div class="d-flex align-center h-full py-16 pe-0" style="position: relative;">
-              <div class="text-image" v-if="false">
-               
-                Dessa marra que é gostar de você ieeeee
-              </div>
+            <div class="d-flex align-center h-full py-16 pe-0" style="position: relative">
+              <div class="text-image" v-if="false">Dessa marra que é gostar de você ieeeee</div>
               <v-img
                 contain
                 max-width="100%"
@@ -42,27 +26,13 @@
           </div>
         </v-col>
 
-        <v-col
-          lg="4"
-          cols="12"
-          class="d-flex align-center auth-bg pt-16"
-        >
+        <v-col lg="4" cols="12" class="d-flex align-center auth-bg pt-16">
           <v-row>
-            <v-col
-              cols="12"
-              sm="8"
-              md="6"
-              lg="12"
-              class="mx-auto"
-            >
+            <v-col cols="12" sm="8" md="6" lg="12" class="mx-auto">
               <v-card flat>
                 <v-card-text>
-                  <p class="text-2xl font-weight-semibold text--primary mb-2">
-                    Bem vindo a sua lista de música! 👋🏻
-                  </p>
-                  <p class="mb-2">
-                    Por favor faça autenticação para iniciarmos sua experiência 😎
-                  </p>
+                  <p class="text-2xl font-weight-semibold text--primary mb-2">Bem vindo a sua lista de música! 👋🏻</p>
+                  <p class="mb-2">Por favor faça autenticação para iniciarmos sua experiência 😎</p>
                 </v-card-text>
 
                 <!-- login form -->
@@ -89,38 +59,21 @@
                       :rules="[rules.required, rules.min(password, 8)]"
                     ></v-text-field>
 
-                    <v-btn
-                      block
-                      class="mt-6"
-                      color="primary"
-                      type="submit"
-                      :disabled="isLoading"
-                      :loading="isLoading"
-                    >
+                    <v-btn block class="mt-6" color="primary" type="submit" :disabled="isLoading" :loading="isLoading">
                       Login
                     </v-btn>
                   </v-form>
                 </v-card-text>
 
                 <!-- create new account  -->
-                <v-card-text >
-                   <div class="d-flex align-center justify-center flex-wrap">
-                      <!-- forget link -->
-                      <router-link
-                        :to="{ name: 'reset-password' }"
-                        class="mt-1"
-                      >
-                        Esqueceu sua senha?
-                      </router-link>
-                    </div>
+                <v-card-text>
                   <div class="d-flex align-center justify-center flex-wrap">
-                  <span class="me-2">
-                    Ainda não possui sua conta?
-                  </span>
-                  <router-link :to="{ name: 'register'} ">
-                    Clique aqui!
-                  </router-link>
-
+                    <!-- forget link -->
+                    <router-link :to="{ name: 'reset-password' }" class="mt-1"> Esqueceu sua senha? </router-link>
+                  </div>
+                  <div class="d-flex align-center justify-center flex-wrap">
+                    <span class="me-2"> Ainda não possui sua conta? </span>
+                    <router-link :to="{ name: 'register' }"> Clique aqui! </router-link>
                   </div>
                 </v-card-text>
                 <!-- divider -->
@@ -132,12 +85,7 @@
 
                 <!-- socail links -->
                 <v-card-actions class="d-flex justify-center" v-if="false">
-                  <v-btn
-                    v-for="link in socialLink"
-                    :key="link.icon"
-                    icon
-                    class="ms-1"
-                  >
+                  <v-btn v-for="link in socialLink" :key="link.icon" icon class="ms-1">
                     <v-icon :color="$vuetify.theme.dark ? link.colorInDark : link.color">
                       {{ link.icon }}
                     </v-icon>
@@ -159,7 +107,6 @@ import { ref } from '@vue/composition-api'
 import themeConfig from '@themeConfig'
 import { useRouter } from '@core/utils'
 import { required, emailValidator, min } from '@core/utils/validation'
-import FirebaseException from '@/exceptions/FirebaseException'
 import store from '@/store'
 
 export default {
@@ -211,8 +158,7 @@ export default {
             router.push({ name: 'home' })
           })
           .catch(error => {
-            error = new FirebaseException(error)
-            parent.$toast.error(error.message)
+            parent.$toast.error(error.response.data)
           })
           .finally(() => {
             isLoading.value = false

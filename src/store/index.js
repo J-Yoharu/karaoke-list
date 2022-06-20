@@ -26,17 +26,7 @@ export default new Vuex.Store({
         })
 
       return signIn(email, password).then(res => {
-        let userIndexes = ['uid', 'emailVerified', 'isAnonymous', 'createdAt', 'lastLoginAt', 'apiKey', 'appName']
-
-        let {
-          providerData: { 0: user },
-          stsTokenManager: token,
-        } = res.user
-
-        userIndexes.forEach(index => (user[index] = res.user[index]))
-
-        user = { ...user, token }
-
+        const { data: user } = res.data
         localStorage.user = JSON.stringify(user)
         context.commit('user', user)
       })
