@@ -13,3 +13,13 @@ export const capitalize = name => {
     .map(n => n.charAt(0).toUpperCase() + n.slice(1))
     .join(' ')
 }
+
+export const isNumber = char => {
+  const charCode = char.charCodeAt()
+  return charCode >= 48 && charCode <= 57 ? true : false
+}
+
+export const isString = char => {
+  const charCode = char.charCodeAt()
+  return charCode >= 65 && charCode <= 121 ? true : false
+}

@@ -1,4 +1,5 @@
 import '@/bootstrap'
+import '@/directives'
 import '@/plugins/vue-composition-api'
 import '@/styles/styles.scss'
 import Vue from 'vue'
