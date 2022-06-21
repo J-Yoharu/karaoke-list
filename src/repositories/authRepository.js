@@ -1,9 +1,4 @@
-import {
-  createUserWithEmailAndPassword,
-  getAuth,
-  sendPasswordResetEmail,
-  signInWithEmailAndPassword,
-} from 'firebase/auth'
+import client from '@/plugins/client'
 
 /**
  *
@@ -11,7 +6,7 @@ import {
  * @param {String} password Senha do usuário
  * @returns {Promise}
  */
-export const signUp = (username, password) => createUserWithEmailAndPassword(getAuth(), username, password)
+export const signUp = (username, password) => client.post('/login', { email: username, password })
 
 /**
  *
@@ -19,7 +14,7 @@ export const signUp = (username, password) => createUserWithEmailAndPassword(get
  * @param {String} password Senha para autenticação
  * @returns {Promise}
  */
-export const signIn = (email, password) => signInWithEmailAndPassword(getAuth(), email, password)
+export const signIn = (email, password) => client.post('/login', { email, password })
 
 /**
  *

@@ -1,3 +1,5 @@
-import { getAuth, updateProfile } from 'firebase/auth'
+import client from '@/plugins/client'
 
-export const updateUser = (data = {}) => updateProfile(getAuth().currentUser, data)
+const prefix = 'users'
+
+export const createUser = (data = {}) => client.post(`${prefix}`, data)

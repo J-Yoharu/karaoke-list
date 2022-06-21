@@ -45,14 +45,15 @@
                 <v-card-text>
                   <v-form ref="form" @submit.prevent="signUp" lazy-validation>
                     <v-text-field
-                      v-model="username"
+                      v-model="user.email"
                       outlined
                       label="Email"
                       placeholder="john@example.com"
                       :rules="[rules.required, rules.emailValidator]"
                     ></v-text-field>
+
                     <v-text-field
-                      v-model="name"
+                      v-model="user.name"
                       ref="displayName"
                       v-format:capitalize
                       outlined
@@ -61,14 +62,14 @@
                     ></v-text-field>
 
                     <v-text-field
-                      v-model="password"
+                      v-model="user.password"
                       outlined
                       :type="isPasswordVisible ? 'text' : 'password'"
                       label="Password"
                       placeholder="············"
                       :append-icon="isPasswordVisible ? icons.mdiEyeOffOutline : icons.mdiEyeOutline"
                       @click:append="isPasswordVisible = !isPasswordVisible"
-                      :rules="[rules.required, rules.min(password, 8)]"
+                      :rules="[rules.required, rules.min(user.password, 8)]"
                     ></v-text-field>
 
                     <v-text-field
@@ -78,9 +79,11 @@
                       label="Confirme sua senha"
                       :append-icon="isConfirmPasswordVisible ? icons.mdiEyeOffOutline : icons.mdiEyeOutline"
                       @click:append="isConfirmPasswordVisible = !isConfirmPasswordVisible"
-                      :rules="[rules.required, rules.confirmedValidator(password, confirmPassword)]"
+                      :rules="[rules.required, rules.confirmedValidator(user.password, confirmPassword)]"
                     >
                     </v-text-field>
+
+                    <phone-field v-model="user.phone" :rules="[rules.required]" />
 
                     <v-btn block color="primary" class="mt-6" type="submit" :loading="isLoading" :disabled="isLoading">
                       Criar conta
@@ -121,26 +124,29 @@
 <script>
 // eslint-disable-next-line object-curly-newline
 import { mdiFacebook, mdiTwitter, mdiGithub, mdiGoogle, mdiEyeOutline, mdiEyeOffOutline } from '@mdi/js'
-import { ref } from '@vue/composition-api'
+import { reactive, ref } from '@vue/composition-api'
 import themeConfig from '@themeConfig'
 import { useRouter } from '@core/utils'
 import { required, emailValidator, confirmedValidator, min } from '@core/utils/validation'
-import { signUp as createAccount } from '@/repositories/authRepository'
-import { updateUser } from '@/repositories/userRepository'
-import FirebaseException from '@/exceptions/FirebaseException'
-import store from '@/store'
+import { createUser as createAccount } from '@/repositories/userRepository'
+import PhoneField from '@/components/PhoneInput.vue'
 
 export default {
+  components: {
+    PhoneField,
+  },
   setup(initProps, { refs, parent }) {
     const { router } = useRouter()
-
     const isPasswordVisible = ref(false)
     const isConfirmPasswordVisible = ref(false)
     const isLoading = ref(false)
 
-    const username = ref('')
-    const password = ref('')
-    const name = ref('')
+    const user = reactive({
+      name: '',
+      email: '',
+      password: '',
+      phone: '',
+    })
 
     const confirmPassword = ref('')
 
@@ -178,20 +184,13 @@ export default {
       if (refs.form.validate()) {
         isLoading.value = true
 
-        createAccount(username.value, password.value)
-          .then(res => {
-            const user = { ...res, displayName: name.value }
-
-            updateUser({ displayName: user.displayName })
-
-            store.dispatch('signIn', { ...user, skipRequest: true })
-
-            router.push({ name: 'home' })
+        createAccount({ ...user })
+          .then(() => {
+            router.push({ name: 'login' })
             parent.$toast.success('Conta criada com sucesso!')
           })
           .catch(error => {
-            error = new FirebaseException(error)
-            parent.$toast.error(error.message)
+            parent.$toast.error(error.response.data)
           })
           .finally(() => {
             isLoading.value = false
@@ -201,13 +200,10 @@ export default {
 
     return {
       signUp,
-
+      user,
       isPasswordVisible,
       isConfirmPasswordVisible,
       isLoading,
-      username,
-      password,
-      name,
       confirmPassword,
       socialLink,
 
