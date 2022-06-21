@@ -7,7 +7,10 @@
         return-object
         :items="countries"
         item-text="country"
+<<<<<<< HEAD
         @change="updateValue"
+=======
+>>>>>>> 0f774ed1c1e727e87b705d04b2121e7583963a17
         outlined
         label="DDI"
         class="mr-2"
@@ -42,7 +45,11 @@
 
 <script>
 import CountryFlag from 'vue-country-flag'
+<<<<<<< HEAD
 import { ref, computed, onMounted, watch } from '@vue/composition-api'
+=======
+import { ref, computed, onMounted } from '@vue/composition-api'
+>>>>>>> 0f774ed1c1e727e87b705d04b2121e7583963a17
 import { unformat } from '@/directives/mask'
 export default {
   components: {
@@ -1202,6 +1209,7 @@ export default {
       },
     ]
 
+<<<<<<< HEAD
     watch(phone, value => {
       updateValue(value)
     })
@@ -1210,15 +1218,22 @@ export default {
       emit('input', props.formatModel ? value : phoneComputed.value)
     }
 
+=======
+>>>>>>> 0f774ed1c1e727e87b705d04b2121e7583963a17
     return {
       countries,
       country,
       phone,
       phoneMask,
       menu,
+<<<<<<< HEAD
       phoneComputed,
       unformat,
       updateValue,
+=======
+      unformat,
+      phoneComputed,
+>>>>>>> 0f774ed1c1e727e87b705d04b2121e7583963a17
     }
   },
 }
