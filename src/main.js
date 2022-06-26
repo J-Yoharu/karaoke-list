@@ -1,6 +1,7 @@
 import '@/bootstrap'
 import '@/directives'
 import '@/plugins/vue-composition-api'
+import '@/registerServiceWorker'
 import '@/styles/styles.scss'
 import Vue from 'vue'
 import App from './App.vue'

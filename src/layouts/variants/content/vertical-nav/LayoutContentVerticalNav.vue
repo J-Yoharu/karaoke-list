@@ -4,17 +4,10 @@
 
     <!-- Slot: Navbar -->
     <template #navbar="{ isVerticalNavMenuActive, toggleVerticalNavMenuActive }">
-      <div
-        class="navbar-content-container"
-        :class="{'expanded-search': shallShowFullSearch}"
-      >
+      <div class="navbar-content-container" :class="{ 'expanded-search': shallShowFullSearch }">
         <!-- Left Content: Search -->
         <div class="d-flex align-center">
-          <v-icon
-            v-if="$vuetify.breakpoint.mdAndDown"
-            class="me-3"
-            @click="toggleVerticalNavMenuActive"
-          >
+          <v-icon v-if="$vuetify.breakpoint.mdAndDown" class="me-3" @click="toggleVerticalNavMenuActive">
             {{ icons.mdiMenu }}
           </v-icon>
           <app-bar-search
@@ -22,13 +15,17 @@
             :data="appBarSearchData"
             :filter="searchFilterFunc"
             :search-query.sync="appBarSearchQuery"
-            @update:shallShowFullSearch="handleShallShowFullSearchUpdate(isVerticalNavMenuActive, toggleVerticalNavMenuActive)"
+            @update:shallShowFullSearch="
+              handleShallShowFullSearchUpdate(isVerticalNavMenuActive, toggleVerticalNavMenuActive)
+            "
           ></app-bar-search>
         </div>
         <!-- Right Content: Search -->
 
         <div class="d-flex align-center">
-         <app-bar-theme-switcher></app-bar-theme-switcher>
+          <ShareButton :icon="true" class="mr-2" />
+          <InstallButton :icon="true" class="mr-2" />
+          <app-bar-theme-switcher></app-bar-theme-switcher>
           <app-bar-user-menu></app-bar-user-menu>
         </div>
       </div>
@@ -52,6 +49,8 @@ import { getVuetify } from '@core/utils'
 // Search Data
 import { ref, watch } from '@vue/composition-api'
 import AppBarThemeSwitcher from '@core/layouts/components/app-bar/AppBarThemeSwitcher.vue'
+import ShareButton from '@/components/ShareButton.vue'
+import InstallButton from '@/components/InstallButton.vue'
 import appBarSearchData from '@/assets/app-bar-search-data'
 
 import navMenuItems from '@/navigation/vertical'
@@ -68,6 +67,8 @@ export default {
     AppFooter,
     AppBarUserMenu,
     AppBarThemeSwitcher,
+    ShareButton,
+    InstallButton,
   },
   setup() {
     const $vuetify = getVuetify()

@@ -5,19 +5,11 @@
 
     <!-- Navbar -->
     <template #navbar>
-      <div
-        class="navbar-content-container"
-        :class="{'expanded-search': shallShowFullSearch}"
-      >
+      <div class="navbar-content-container" :class="{ 'expanded-search': shallShowFullSearch }">
         <!-- Left Content: Search -->
         <div class="d-flex align-center">
-          <v-app-bar-nav-icon
-            v-if="$vuetify.breakpoint.mdAndDown"
-          ></v-app-bar-nav-icon>
-          <router-link
-            to="/"
-            class="d-flex align-center text-decoration-none"
-          >
+          <v-app-bar-nav-icon v-if="$vuetify.breakpoint.mdAndDown"></v-app-bar-nav-icon>
+          <router-link to="/" class="d-flex align-center text-decoration-none">
             <h2 class="app-title text--primary">
               {{ appName }}
             </h2>
@@ -33,6 +25,8 @@
             :search-query.sync="appBarSearchQuery"
             class="me-4"
           ></app-bar-search>
+          <ShareButton />
+          <InstallButton />
           <app-bar-theme-switcher></app-bar-theme-switcher>
           <app-bar-user-menu></app-bar-user-menu>
         </div>
@@ -51,10 +45,7 @@
     </template>
 
     <!-- App Content -->
-    <template
-      v-if="false"
-      #v-app-content
-    >
+    <template v-if="false" #v-app-content>
       <app-customizer class="d-none d-md-block"></app-customizer>
     </template>
   </layout-content-horizontal-nav>
@@ -67,6 +58,8 @@ import AppFooter from '@core/layouts/components/footer/AppFooter.vue'
 
 // App Bar Components
 import AppBarSearch from '@core/layouts/components/app-bar/AppBarSearch.vue'
+import ShareButton from '@/components/ShareButton.vue'
+import InstallButton from '@/components/InstallButton.vue'
 import AppBarThemeSwitcher from '@core/layouts/components/app-bar/AppBarThemeSwitcher.vue'
 
 // Search Data
@@ -89,6 +82,8 @@ export default {
     AppBarThemeSwitcher,
     AppFooter,
     AppBarUserMenu,
+    ShareButton,
+    InstallButton,
   },
   setup() {
     // Search
