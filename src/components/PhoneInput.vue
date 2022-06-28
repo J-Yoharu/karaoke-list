@@ -11,7 +11,7 @@
         outlined
         label="DDI"
         class="mr-2"
-        :rules="[...rules]"
+        :rules="[internalRules.required]"
       >
         <template #item="{ item }">
           <country-flag :country="item.alpha2" /> <span class="ml-2">{{ item.country }} </span>
@@ -25,9 +25,9 @@
         outlined
         v-model="phone"
         label="Celular"
-        placeholder="DDD"
+        placeholder="DDD + Número"
         v-mask:number="phoneMask"
-        :rules="[...rules]"
+        :rules="[...rules, internalRules.min(phoneComputed, phoneLength)]"
         type="tel"
       >
         <template #prepend-inner>
@@ -44,6 +44,8 @@
 import CountryFlag from 'vue-country-flag'
 import { ref, computed, onMounted, watch } from '@vue/composition-api'
 import { unformat } from '@/directives/mask'
+import { required, min } from '@core/utils/validation'
+
 export default {
   components: {
     CountryFlag,
@@ -67,7 +69,9 @@ export default {
       country.value = countries.find(c => c.alpha2 == alpha2) ?? {}
     })
 
-    const phoneComputed = computed(() => unformat(`${country.value.ddi}${phone.value}`, phoneMask))
+    const phoneComputed = computed(() => unformat(`${phone.value}`, phoneMask))
+    const phoneLength = computed(() => phoneMask.match(/#/g).length)
+
     const phone = ref('')
     const phoneMask = '(##) #####-####'
 
@@ -1207,7 +1211,12 @@ export default {
     })
 
     const updateValue = value => {
-      emit('input', props.formatModel ? value : phoneComputed.value)
+      emit('input', props.formatModel ? value : `${country.value.ddi}${phoneComputed.value}`)
+    }
+
+    const internalRules = {
+      required,
+      min,
     }
 
     return {
@@ -1219,6 +1228,8 @@ export default {
       phoneComputed,
       unformat,
       updateValue,
+      phoneLength,
+      internalRules,
     }
   },
 }
