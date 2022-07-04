@@ -10,6 +10,7 @@ export default [
     title: 'Todas as músicas',
     icon: mdiUpdate,
     to: 'all-musics',
+    disable: true,
   },
   {
     title: 'Favoritos',
@@ -25,5 +26,6 @@ export default [
     title: 'Atualizar músicas',
     icon: mdiUpdate,
     to: 'update-musics',
+    disable: true,
   },
-]
+].filter(item => (item.disable && item.disable == true ? false : true))

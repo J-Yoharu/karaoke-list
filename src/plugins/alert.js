@@ -52,7 +52,7 @@ const Toast = Swal.mixin({
   },
 })
 
-Vue.prototype.$toast = {
+const toasts = {
   success: title => {
     Toast.fire({
       icon: 'success',
@@ -71,3 +71,5 @@ Vue.prototype.$toast = {
     })
   },
 }
+Vue.prototype.$toast = toasts
+export default toasts
