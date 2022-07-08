@@ -101,6 +101,7 @@ export default {
 
     const emitSearch = value => {
       emit('search', value)
+      document.getElementById('textfield-search').blur()
       hideSuggestions()
     }
     watch(

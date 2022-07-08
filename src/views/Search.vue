@@ -18,7 +18,10 @@
         ></search-autocomplete>
       </v-col>
     </v-row>
-    <v-row v-if="!musics.length">
+    <div v-if="onLoading" class="text-center">
+      <v-progress-circular indeterminate></v-progress-circular>
+    </div>
+    <v-row v-else-if="!musics.length">
       <v-col cols="12" md="8">
         Sua pesquisa não retornou nenhum resultado, certifique-se que você digitou corretamente ou tente utilizar um
         termo mais genérico
@@ -51,11 +54,15 @@ export default {
     }
     const query = ref('')
     const musics = ref([])
+    const onLoading = ref(true)
     const search = value => {
+      onLoading.value = true
       pushQueryParams({ query: value })
-      searchMusic(query.value).then(resp => {
-        musics.value = resp.data
-      })
+      searchMusic(query.value)
+        .then(resp => {
+          musics.value = resp.data
+        })
+        .finally(() => (onLoading.value = false))
     }
 
     const appLogo = themeConfig.app.logo
@@ -65,7 +72,9 @@ export default {
       if (route.value.query.query) {
         query.value = route.value.query.query
         search(query.value)
+        return
       }
+      onLoading.value = false
     })
 
     return {
@@ -74,6 +83,7 @@ export default {
       search,
       appLogo,
       musics,
+      onLoading,
     }
   },
 }
