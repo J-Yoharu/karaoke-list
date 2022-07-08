@@ -8,6 +8,7 @@
       :headers="headers"
       :search-placeholder="searchPlaceholder"
     >
+      <template #[`item.singer`]="{ props }"> {{ props.value }} </template>
       <template #header-actions>
         <v-col :class="{ 'pb-0': $vuetify.breakpoint.mobile }">
           <v-btn :block="$vuetify.breakpoint.mobile" color="primary" @click="group">Agrupar por cantor</v-btn>
@@ -57,7 +58,7 @@ export default {
       },
       {
         text: 'Cod',
-        value: 'cod',
+        value: 'id',
         groupable: false,
         width: '10%',
       },
@@ -69,7 +70,7 @@ export default {
       },
       {
         text: 'Inicio',
-        value: 'initial',
+        value: 'begins',
         groupable: false,
         width: '40%',
       },
@@ -111,4 +112,10 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped lang="scss">
+::v-deep {
+  .v-data-table > .v-data-table__wrapper .v-data-table__mobile-table-row {
+    border-bottom: 1px solid #b1abab;
+  }
+}
+</style>
