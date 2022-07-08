@@ -41,7 +41,8 @@
                         {{ item.title }}
                       </p>
 
-                      <v-text-field
+                      <component
+                        :is="field.component"
                         v-for="(field, i) in item.fields"
                         :key="i"
                         v-model="user[field.model]"
@@ -53,7 +54,8 @@
                         :append-icon="field.appendIcon"
                         class="mb-3"
                         :rules="field.rules"
-                      ></v-text-field>
+                      ></component>
+
                       <v-btn
                         block
                         color="primary"
@@ -103,6 +105,9 @@ import {
 import { pushQueryParams } from '@/helpers/route'
 
 export default {
+  components: {
+    VTextFieldC: () => import('vuetify/lib/components/VTextField'),
+  },
   setup(props, { refs, parent }) {
     onMounted(() => {
       const params = new URLSearchParams(window.location.search)
@@ -130,11 +135,11 @@ export default {
     const email = ref('')
 
     watch(user, current => {
-      let curr = { ...current }
-      delete curr.password
-      delete curr.confirmPassword
+      let currentUserData = { ...current }
+      delete currentUserData.password
+      delete currentUserData.confirmPassword
 
-      pushQueryParams(curr)
+      pushQueryParams(currentUserData)
     })
 
     const isLoading = ref(false)
@@ -217,6 +222,7 @@ export default {
         fields: [
           {
             model: 'email',
+            component: 'VTextFieldC',
             label: 'Insira seu e-mail',
             placeholder: 'joao@exemplo.com',
             appendIcon: icons.mdiEmail,
@@ -233,6 +239,7 @@ export default {
         fields: [
           {
             model: 'code',
+            component: 'VTextFieldC',
             label: 'Insira o código',
             type: 'number',
             placeholder: '00000',
@@ -250,6 +257,7 @@ export default {
         fields: [
           {
             model: 'password',
+            component: 'VTextFieldC',
             label: 'Nova Senha',
             type: 'password',
             placeholder: '',
@@ -258,6 +266,7 @@ export default {
           },
           {
             model: 'confirmPassword',
+            component: 'VTextFieldC',
             label: 'Confirme a nova senha',
             type: 'password',
             placeholder: '',
