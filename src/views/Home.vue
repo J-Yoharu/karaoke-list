@@ -1,25 +1,31 @@
 <template>
-  <v-row justify="center" style="height:100%" align="center">
+  <v-row justify="center" style="height: 100%" align="center">
     <v-col cols="12" md="8" class="text-center">
-      <app-logo class="mb-5" center :width="isMobile ? '100%': '50%'"></app-logo>
-        <v-text-field placeholder="Pesquise por uma música ou cantor" clearable hide-details="auto" labgitel="Pesquisar" @keypress.enter="search(query)" @click:append="search(query)" v-model="query" :append-icon="icons.mdiMagnify" outlined rounded dense></v-text-field>
+      <app-logo class="mb-5" center :width="isMobile ? '100%' : '50%'"></app-logo>
+      <search-autocomplete
+        autocomplete-absolute
+        @click:item="search($event.result)"
+        @search="search($event)"
+        @enter="search($event)"
+        v-model="query"
+      ></search-autocomplete>
     </v-col>
   </v-row>
 </template>
 
 <script>
-import { ref } from '@vue/composition-api'
 import AppLogo from '@core/components/app-logo/AppLogo.vue'
-import { mdiMagnify } from '@mdi/js'
-import { useRouter } from '@core/utils'
-import { isMobile } from '@/helpers/breakpoint'
+import SearchAutocomplete from '@/components/SearchAutocomplete.vue'
 
+import { useRouter } from '@core/utils'
+import { ref } from '@vue/composition-api'
+import { isMobile } from '@/helpers/breakpoint'
 export default {
   components: {
     AppLogo,
+    SearchAutocomplete,
   },
   setup() {
-    const query = ref('')
     const { router } = useRouter()
     const search = value => {
       router.push({
@@ -29,19 +35,13 @@ export default {
         },
       })
     }
-    const icons = {
-      mdiMagnify,
-    }
+    const query = ref('')
 
     return {
       isMobile,
-      query,
       search,
-      icons,
+      query,
     }
   },
 }
 </script>
-
-<style>
-</style>
