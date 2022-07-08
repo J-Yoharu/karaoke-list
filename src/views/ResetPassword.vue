@@ -2,18 +2,8 @@
   <div class="auth-wrapper auth-v2">
     <div class="auth-inner">
       <!-- brand logo -->
-      <router-link
-        to="/"
-        class="brand-logo d-flex align-center"
-      >
-        <v-img
-          :src="appLogo"
-          max-height="30px"
-          max-width="30px"
-          alt="logo"
-          contain
-          class="me-3 "
-        ></v-img>
+      <router-link to="/" class="brand-logo d-flex align-center">
+        <v-img :src="appLogo" max-height="30px" max-width="30px" alt="logo" contain class="me-3"></v-img>
 
         <h2 class="text--primary">
           {{ appName }}
@@ -22,13 +12,10 @@
       <!--/ brand logo -->
 
       <v-row class="auth-row ma-0">
-        <v-col
-          lg="8"
-          class="d-none d-lg-block position-relative overflow-hidden pa-0"
-        >
+        <v-col lg="8" class="d-none d-lg-block position-relative overflow-hidden pa-0">
           <div class="auth-illustrator-wrapper">
             <div class="d-flex align-center h-full py-16 pe-0" style="position: relative">
-                <v-img
+              <v-img
                 contain
                 max-width="100%"
                 height="692"
@@ -39,64 +26,55 @@
           </div>
         </v-col>
 
-        <v-col
-          lg="4"
-          class="d-flex align-center auth-bg pt-16"
-        >
+        <v-col lg="4" class="d-flex align-center auth-bg pt-16">
           <v-row>
-            <v-col
-              cols="12"
-              sm="8"
-              md="6"
-              lg="12"
-              class="mx-auto"
-            >
-              <v-card flat>
+            <v-col cols="12" sm="8" md="6" lg="12" class="mx-auto">
+              <v-card flat class="ma-0">
                 <v-card-text>
-                  <p class="text-2xl font-weight-semibold text--primary mb-2">
-                    Redefinir Senha 🔒
-                  </p>
-                  <p class="mb-2">
-                    Insira seu e-mail que enviaremos um link para você redefinir a sua senha
-                  </p>
+                  <p class="text-2xl font-weight-semibold text--primary mb-2 text-center">Redefinir Senha 🔒</p>
                 </v-card-text>
-
                 <!-- login form -->
                 <v-card-text>
                   <v-form ref="form" lazy-validation @submit.prevent="sendEmail">
-                    <v-text-field
-                      v-model="username"
-                      outlined
-                      label="Insira seu e-mail"
-                      placeholder="joao@exemplo.com"
-                      :append-icon="icons.mdiEmail"
-                      class="mb-3"
-                      :rules="[rules.required, rules.emailValidator]"
-                    ></v-text-field>
+                    <div v-for="(item, index) in steppers" :key="index" :step="index">
+                      <p v-if="step == index">
+                        {{ item.title }}
+                      </p>
 
-                    <v-btn
-                      block
-                      color="primary"
-                      class="mt-4"
-                      type="submit"
-                      :disabled="isLoading"
-                      :loading="isLoading"
-                    >
-                      Enviar E-mail
-                    </v-btn>
+                      <v-text-field
+                        v-for="(field, i) in item.fields"
+                        :key="i"
+                        v-model="user[field.model]"
+                        v-if="step == index"
+                        outlined
+                        :type="field.type || 'text'"
+                        :label="field.label"
+                        :placeholder="field.placeholder"
+                        :append-icon="field.appendIcon"
+                        class="mb-3"
+                        :rules="field.rules"
+                      ></v-text-field>
+                      <v-btn
+                        block
+                        color="primary"
+                        class="mt-4"
+                        @click="item.action.value"
+                        :disabled="isLoading"
+                        :loading="isLoading"
+                        v-if="step == index"
+                      >
+                        {{ item.action.text }}
+                      </v-btn>
+                    </div>
+
+                    <v-btn block color="error" class="mt-4 ml-0" @click="step = 0"> Cancelar </v-btn>
                   </v-form>
                 </v-card-text>
 
                 <!-- back to login -->
                 <v-card-actions class="d-flex justify-center align-center mt-2">
-                  <router-link
-                    :to="{name:'login'}"
-                    class="d-flex align-center text-sm"
-                  >
-                    <v-icon
-                      size="24"
-                      color="primary"
-                    >
+                  <router-link :to="{ name: 'login' }" class="d-flex align-center text-sm">
+                    <v-icon size="24" color="primary">
                       {{ icons.mdiChevronLeft }}
                     </v-icon>
                     <span>Voltar para login</span>
@@ -110,73 +88,207 @@
     </div>
   </div>
 </template>
-
 <script>
 // eslint-disable-next-line object-curly-newline
-import { mdiEmail, mdiChevronLeft } from '@mdi/js'
-import { ref } from '@vue/composition-api'
+import { mdiEmail, mdiChevronLeft, mdiKey } from '@mdi/js'
+import { reactive, ref, watch, onMounted, computed } from '@vue/composition-api'
 import themeConfig from '@themeConfig'
 import { useRouter } from '@core/utils'
 import { required, emailValidator } from '@core/utils/validation'
-import { sendEmailResetPassword } from '@/repositories/authRepository'
+import {
+  sendResetPasswordNotification,
+  validCode,
+  resetPassword as resetPasswordRepository,
+} from '@/repositories/authRepository'
+import { pushQueryParams } from '@/helpers/route'
 
 export default {
   setup(props, { refs, parent }) {
+    onMounted(() => {
+      const params = new URLSearchParams(window.location.search)
+
+      let userWithoutPassword = { ...user }
+      delete userWithoutPassword.password
+      delete userWithoutPassword.confirmPassword
+
+      Object.keys(user).forEach(key => {
+        user[key] = params.get(key) || ''
+      })
+
+      if (user.email || user.phone) step.value++
+
+      if (user.code) step.value++
+    })
     const { router } = useRouter()
-    const username = ref('')
+
+    const user = reactive({ email: '', code: '', phone: '', password: '', confirmPassword: '' })
+
+    const sendType = ref('email')
+
+    const typeValue = computed(() => (sendType.value == 'email' ? user.email : user.phone))
+
+    const email = ref('')
+
+    watch(user, current => {
+      let curr = { ...current }
+      delete curr.password
+      delete curr.confirmPassword
+
+      pushQueryParams(curr)
+    })
+
     const isLoading = ref(false)
+    const step = ref(0)
 
     const rules = {
       required,
       emailValidator,
+      confirmPassword: () => {
+        return user.password == user.confirmPassword ? true : 'A senha de confirmação está diferente'
+      },
+    }
+
+    const icons = {
+      mdiEmail,
+      mdiChevronLeft,
+      mdiKey,
+    }
+
+    const isCurrentStep = index => {
+      step.value == index
     }
 
     const sendEmail = () => {
-      const validateForm = refs.form.validate()
+      console.log(refs.form.validate())
 
-      if (validateForm) {
-        isLoading.value = true
+      if (!refs.form.validate()) return
 
-        sendEmailResetPassword(username.value)
-          .then(() => {
-            parent.$alert.confirm(
-              () => {
-                router.push({ name: 'login' })
-              },
-              {
-                icon: 'success',
-                title: 'E-mail enviado com sucesso!',
-                html: `<p> O e-mail para redefinir a sua senha foi encaminhado para ${username.value} com sucesso, por favor verifique também a sua caixa de spam </p>`,
-                showConfirmButton: true,
-                showCancelButton: false,
-                confirmButtonText: 'Ok',
-              },
-            )
-          })
-          .catch(error => {
-            console.log({ error })
-          })
-          .finally(() => {
-            isLoading.value = false
-          })
-      }
+      isLoading.value = true
+
+      sendResetPasswordNotification({ type: 'email', value: typeValue.value })
+        .then(res => {
+          step.value += 1
+        })
+        .catch(error => {
+          parent.$toast.error(error.response.data)
+        })
+        .finally(_ => {
+          isLoading.value = false
+        })
     }
 
+    const confirmCode = () => {
+      if (!refs.form.validate()) return
+
+      isLoading.value = true
+
+      validCode({ code: user.code, value: typeValue.value })
+        .then(res => {
+          step.value += 1
+        })
+        .catch(error => {
+          parent.$toast.error(error.response.data)
+        })
+        .finally(_ => {
+          isLoading.value = false
+        })
+    }
+
+    const resetPassword = () => {
+      if (!refs.form.validate()) return
+
+      isLoading.value = true
+      resetPasswordRepository({ code: user.code, value: typeValue.value, password: user.password })
+        .then(res => {
+          router.push({ name: 'login' })
+          parent.$toast.success('Senha redefinida com sucessso!')
+        })
+        .catch(error => {
+          parent.$toast.error(error.response.data)
+        })
+        .finally(_ => {
+          isLoading.value = false
+        })
+    }
+
+    const steppers = [
+      {
+        title: 'Insira seu e-mail que enviaremos um código para você redefinir a sua senha',
+        fields: [
+          {
+            model: 'email',
+            label: 'Insira seu e-mail',
+            placeholder: 'joao@exemplo.com',
+            appendIcon: icons.mdiEmail,
+            rules: [rules.required, rules.emailValidator],
+          },
+        ],
+        action: {
+          text: 'Enviar E-mail',
+          value: sendEmail,
+        },
+      },
+      {
+        title: 'Insira o código que você recebeu em seu e-mail, verifique também a sua caixa de spam',
+        fields: [
+          {
+            model: 'code',
+            label: 'Insira o código',
+            type: 'number',
+            placeholder: '00000',
+            appendIcon: icons.mdiKey,
+            rules: [rules.required],
+          },
+        ],
+        action: {
+          text: 'Validar código',
+          value: confirmCode,
+        },
+      },
+      {
+        title: 'Insira a sua nova senha e repita ela no próximo campo',
+        fields: [
+          {
+            model: 'password',
+            label: 'Nova Senha',
+            type: 'password',
+            placeholder: '',
+            appendIcon: icons.mdiKey,
+            rules: [rules.required],
+          },
+          {
+            model: 'confirmPassword',
+            label: 'Confirme a nova senha',
+            type: 'password',
+            placeholder: '',
+            appendIcon: icons.mdiKey,
+            rules: [rules.required, rules.confirmPassword],
+          },
+        ],
+        action: {
+          text: 'Redefinir Senha',
+          value: resetPassword,
+        },
+      },
+    ]
+
     return {
-      username,
+      user,
+      email,
       isLoading,
 
       sendEmail,
+      confirmCode,
+      isCurrentStep,
       rules,
 
       // themeConfig
       appName: themeConfig.app.name,
       appLogo: themeConfig.app.logo,
 
-      icons: {
-        mdiEmail,
-        mdiChevronLeft,
-      },
+      icons,
+      step,
+      steppers,
     }
   },
 }

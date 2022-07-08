@@ -18,7 +18,21 @@ export const signIn = (email, password) => client.post('/login', { email, passwo
 
 /**
  *
- * @param {String} email Endereço de e-mail que receberá o link para redefinir a senha
+ * @param {Object} data Valores para a identificação do usuário, deve-se passar value e type=sms|email
  * @returns {Promise}
  */
-export const sendEmailResetPassword = email => sendPasswordResetEmail(getAuth(), email)
+export const sendResetPasswordNotification = (data = {}) => client.post('/reset-password/send-notification', data)
+
+/**
+ *
+ * @param {Object} data Valor para a identifacão do código, objeto de code e value
+ * @returns {Promise}
+ */
+export const validCode = (data = {}) => client.post('/reset-password/valid-code', data)
+
+/**
+ *
+ * @param {Object} data Valores necessários para redefinir a senha, ex: code, value, password
+ * @returns {Promise}
+ */
+export const resetPassword = (data = {}) => client.post('/reset-password', data)
