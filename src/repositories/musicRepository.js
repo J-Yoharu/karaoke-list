@@ -8,7 +8,7 @@ export const musicsPackages = (params = {}) => {
   // client.get(`${prefix}/packages`, { params })
 }
 export const autocomplete = text => axios.get(`/${prefix}/autocomplete`, { params: { text } })
-export const searchMusic = text => axios.get(`/${prefix}/search`, { params: { text } })
+export const searchMusic = (page = 1, text) => axios.get(`/${prefix}/search?page=${page}`, { params: { text } })
 export default {
   musicsPackages,
 }

@@ -29,19 +29,28 @@
         </v-img>
       </v-col>
     </v-row>
-    <musics-table v-else :query="query" :musics="musics" :has-search="false"></musics-table>
+    <musics-table
+      v-else
+      :query="query"
+      :musics="musics"
+      :has-search="false"
+      :pagination.sync="pagination"
+      @pagination="search(query, $event)"
+    >
+    </musics-table>
   </div>
 </template>
 
 <script>
 import { mdiMagnify } from '@mdi/js'
-import { ref, onMounted, watch } from '@vue/composition-api'
+import { ref, onMounted } from '@vue/composition-api'
 import themeConfig from '@themeConfig'
 import { useRouter } from '@core/utils'
 import musicsTable from '@/components/MusicsTable.vue'
 import SearchAutocomplete from '@/components/SearchAutocomplete.vue'
 import { pushQueryParams } from '@/helpers/route.js'
 import { searchMusic } from '@/repositories/musicRepository'
+import { resolvePagination } from '@/helpers/request'
 
 export default {
   components: {
@@ -55,23 +64,33 @@ export default {
     const query = ref('')
     const musics = ref([])
     const onLoading = ref(true)
-    const search = value => {
+    const { route } = useRouter()
+    const appLogo = themeConfig.app.logo
+    const pagination = ref({
+      total: null,
+      current: 1,
+      perPage: null,
+    })
+
+    const search = (value, page = 1) => {
       onLoading.value = true
-      pushQueryParams({ query: value })
-      searchMusic(query.value)
-        .then(resp => {
-          musics.value = resp.data
+
+      pushQueryParams({ query: value, page })
+
+      searchMusic(page, query.value)
+        .then(({ data }) => {
+          musics.value = data.data
+          pagination.value = resolvePagination(data)
         })
         .finally(() => (onLoading.value = false))
     }
 
-    const appLogo = themeConfig.app.logo
-
-    const { route } = useRouter()
     onMounted(() => {
+      if (route.value.query.page) pagination.value.current = route.value.query.page
+
       if (route.value.query.query) {
         query.value = route.value.query.query
-        search(query.value)
+        search(query.value, pagination.value.current)
         return
       }
       onLoading.value = false
@@ -84,6 +103,7 @@ export default {
       appLogo,
       musics,
       onLoading,
+      pagination,
     }
   },
 }

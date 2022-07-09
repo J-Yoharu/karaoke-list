@@ -9,7 +9,6 @@ export const pushQueryParams = params => {
     url.searchParams.set(key, value)
   })
   history.replaceState(history.state, null, url)
-  console.log('aqui')
 }
 
 export default {

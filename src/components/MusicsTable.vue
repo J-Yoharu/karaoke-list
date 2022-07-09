@@ -1,5 +1,6 @@
 <template>
-  <div style="position: relative" class="d-flex">
+  <div style="position: relative">
+    <div class="text-end">Resultados: {{ pagination.to }} / {{ pagination.total }}</div>
     <app-table
       class="w-full"
       :hasSearch="hasSearch"
@@ -17,6 +18,16 @@
 
       <template #[`${slot.prefix}.${slot.name}`]="{ props }" v-for="slot in computedSlots">
         <slot :name="slot.fullSlotName" :props="{ ...props }"></slot>
+      </template>
+
+      <template #footer>
+        <v-pagination
+          v-model="pagination.current"
+          @input="$emit('pagination', pagination.current)"
+          total-visible="8"
+          class="my-4"
+          :length="pagination.lastPage"
+        ></v-pagination>
       </template>
     </app-table>
   </div>
@@ -47,6 +58,9 @@ export default {
     searchPlaceholder: {
       type: String,
       default: 'Pesquise por cantor ou música',
+    },
+    pagination: {
+      type: Object,
     },
   },
   setup(props, { slots }) {
