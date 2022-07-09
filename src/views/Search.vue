@@ -37,12 +37,21 @@
       :pagination.sync="pagination"
       @pagination="search(query, $event)"
     >
+      <template #item.favority="{ props }">
+        <v-btn icon v-if="isFavority(props.item)" color="warning" @click="removeToFavority(props.item)">
+          <v-icon>{{ icons.mdiStar }}</v-icon>
+        </v-btn>
+
+        <v-btn v-else icon @click="addToFavority(props.item)">
+          <v-icon>{{ icons.mdiStar }}</v-icon>
+        </v-btn>
+      </template>
     </musics-table>
   </div>
 </template>
 
 <script>
-import { mdiMagnify } from '@mdi/js'
+import { mdiMagnify, mdiStar, mdiPlus } from '@mdi/js'
 import { ref, onMounted } from '@vue/composition-api'
 import themeConfig from '@themeConfig'
 import { useRouter } from '@core/utils'
@@ -60,6 +69,8 @@ export default {
   setup() {
     const icons = {
       mdiMagnify,
+      mdiStar,
+      mdiPlus,
     }
     const query = ref('')
     const musics = ref([])
@@ -85,6 +96,12 @@ export default {
         .finally(() => (onLoading.value = false))
     }
 
+    const favorities = ref(localStorage.favorities ? JSON.parse(localStorage.favorities) : [])
+
+    const isFavority = music => {
+      return favorities.value.find(m => music.id == m.id) ? true : false
+    }
+
     onMounted(() => {
       if (route.value.query.page) pagination.value.current = route.value.query.page
 
@@ -96,12 +113,27 @@ export default {
       onLoading.value = false
     })
 
+    const addToFavority = music => {
+      favorities.value.push(music)
+      localStorage.favorities = JSON.stringify(favorities.value)
+    }
+
+    const removeToFavority = music => {
+      let removeIndex = favorities.value.findIndex(m => music.id == m.id)
+      favorities.value.splice(removeIndex, 1)
+      localStorage.setItem('favorities', JSON.stringify(favorities.value))
+    }
+
     return {
       icons,
       query,
       search,
       appLogo,
       musics,
+      favorities,
+      isFavority,
+      addToFavority,
+      removeToFavority,
       onLoading,
       pagination,
     }

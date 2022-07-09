@@ -1,13 +1,6 @@
 <template>
-  <component
-    :is="resolveLayoutVariant"
-    :class="`skin-variant--${appSkinVariant}`"
-  >
-    <transition
-      :name="appRouteTransition"
-      mode="out-in"
-      appear
-    >
+  <component :is="resolveLayoutVariant" :class="`skin-variant--${appSkinVariant}`">
+    <transition :name="appRouteTransition" mode="out-in" appear>
       <router-view></router-view>
     </transition>
   </component>
@@ -29,6 +22,7 @@ import LayoutBlank from '@/layouts/variants/blank/LayoutBlank.vue'
 
 import { setTimeoutExpirationTime } from '@/plugins/auth/index'
 import store from '@/store'
+import { index } from '@/repositories/musicRepository'
 
 // Dynamic vh
 
@@ -58,6 +52,8 @@ export default {
     useDynamicVh()
 
     onMounted(() => {
+      migrateOldFavoritiesSongs()
+
       if (!store.state.user.token) return
 
       const { expirationTime } = store.state.user.token
@@ -67,10 +63,24 @@ export default {
       })
     })
 
+    const migrateOldFavoritiesSongs = () => {
+      if (localStorage.favorities) return
+
+      let musicsDb = JSON.parse(localStorage.dbKaraoke)
+
+      const ids = musicsDb.filter(music => music.favorite == true).map(music => music.cod)
+      console.log({ ids })
+
+      index({ ids, withOutPagination: true }).then(({ data }) =>
+        localStorage.setItem('favorities', JSON.stringify(data)),
+      )
+    }
+
     return {
       resolveLayoutVariant,
       appSkinVariant,
       appRouteTransition,
+      migrateOldFavoritiesSongs,
     }
   },
 }

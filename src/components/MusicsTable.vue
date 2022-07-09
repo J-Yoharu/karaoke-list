@@ -1,6 +1,6 @@
 <template>
   <div style="position: relative">
-    <div class="text-end">Resultados: {{ pagination.to }} / {{ pagination.total }}</div>
+    <div class="text-end" v-if="pagination">Resultados: {{ pagination.to }} / {{ pagination.total }}</div>
     <app-table
       class="w-full"
       :hasSearch="hasSearch"
@@ -8,6 +8,7 @@
       :items="musics"
       :headers="headers"
       :search-placeholder="searchPlaceholder"
+      :disable-pagination="disablePagination"
     >
       <template #[`item.singer`]="{ props }"> {{ props.value }} </template>
       <template #header-actions>
@@ -22,6 +23,7 @@
 
       <template #footer>
         <v-pagination
+          v-if="disablePagination"
           v-model="pagination.current"
           @input="$emit('pagination', pagination.current)"
           total-visible="8"
@@ -62,6 +64,10 @@ export default {
     pagination: {
       type: Object,
     },
+    disablePagination: {
+      type: Boolean,
+      default: false,
+    },
   },
   setup(props, { slots }) {
     const headers = [
@@ -87,6 +93,12 @@ export default {
         value: 'begins',
         groupable: false,
         width: '40%',
+      },
+      {
+        text: 'Favoritar',
+        value: 'favority',
+        groupable: false,
+        width: '20%',
       },
     ]
 
