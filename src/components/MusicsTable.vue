@@ -21,9 +21,24 @@
         <slot :name="slot.fullSlotName" :props="{ ...props }"></slot>
       </template>
 
+      <template #item.favority="{ props }">
+        <v-btn
+          icon
+          v-if="isFavority(props.item)"
+          :color="removeFavoriteIconColor"
+          @click="removeToFavority(props.item)"
+        >
+          <v-icon>{{ removeFavoriteIcon }}</v-icon>
+        </v-btn>
+
+        <v-btn v-else icon @click="addToFavority(props.item)">
+          <v-icon>{{ icons.mdiStar }}</v-icon>
+        </v-btn>
+      </template>
+
       <template #footer>
         <v-pagination
-          v-if="disablePagination"
+          v-if="!disablePagination"
           v-model="pagination.current"
           @input="$emit('pagination', pagination.current)"
           total-visible="8"
@@ -39,6 +54,7 @@
 import { ref, computed } from '@vue/composition-api'
 import appTable from '@core/components/tables/app-table.vue'
 import { isMobile } from '@/helpers/breakpoint'
+import { mdiStar } from '@mdi/js'
 
 export default {
   components: {
@@ -68,8 +84,15 @@ export default {
       type: Boolean,
       default: false,
     },
+    removeFavoriteIcon: {
+      default: mdiStar,
+    },
+    removeFavoriteIconColor: {
+      type: String,
+      default: 'warning',
+    },
   },
-  setup(props, { slots }) {
+  setup(props, { slots, emit }) {
     const headers = [
       {
         text: 'Cantor',
@@ -101,6 +124,9 @@ export default {
         width: '20%',
       },
     ]
+    const icons = {
+      mdiStar,
+    }
 
     const groupBy = ref(undefined)
     const group = () => {
@@ -123,8 +149,28 @@ export default {
       }),
     )
 
+    const favorities = ref(localStorage.favorities ? JSON.parse(localStorage.favorities) : [])
+
+    const isFavority = music => {
+      return favorities.value.find(m => music.id == m.id) ? true : false
+    }
+
+    const addToFavority = music => {
+      favorities.value.push(music)
+      localStorage.favorities = JSON.stringify(favorities.value)
+      emit('add:favorite', { music })
+    }
+
+    const removeToFavority = music => {
+      let removeIndex = favorities.value.findIndex(m => music.id == m.id)
+      favorities.value.splice(removeIndex, 1)
+      localStorage.setItem('favorities', JSON.stringify(favorities.value))
+      emit('remove:favorite', { music, index: removeIndex })
+    }
+
     return {
       headers,
+      icons,
       groupBy,
       group,
 
@@ -133,6 +179,11 @@ export default {
       loading,
       computedSlots,
       isMobile,
+
+      favorities,
+      addToFavority,
+      removeToFavority,
+      isFavority,
     }
   },
 }

@@ -4,10 +4,13 @@
       search-placeholder="Pesquise em suas músicas favoritas"
       :musics="musics"
       :pagination="pagination"
-      :disable-pagination="false"
+      :disable-pagination="true"
+      @remove:favorite="removeFavorite"
+      :remove-favorite-icon="icons.mdiTrashCan"
+      remove-favorite-icon-color="error"
     >
       <template #item.favority="{ props }">
-        <v-btn icon @click="removeFavority(props.item)">
+        <v-btn icon @click="removeFavorite(props.item)">
           <v-icon>{{ icons.mdiTrashCan }}</v-icon>
         </v-btn>
       </template>
@@ -38,17 +41,13 @@ export default {
       }
     })
 
-    const removeFavority = music => {
-      let removeIndex = musics.value.findIndex(m => music.id == m.id)
-      musics.value.splice(removeIndex, 1)
-      localStorage.setItem('favorities', JSON.stringify(musics.value))
-    }
+    const removeFavorite = ({ index }) => musics.value.splice(index, 1)
 
     return {
       musics,
       pagination,
       icons,
-      removeFavority,
+      removeFavorite,
     }
   },
 }

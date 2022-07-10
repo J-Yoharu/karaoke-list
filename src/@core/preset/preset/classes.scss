@@ -564,6 +564,16 @@ $font-sizes: (
   }
 }
 
+.theme--light.v-data-table .v-row-group__header,
+.theme--light.v-data-table .v-row-group__summary {
+  background: #d8e6f2 !important;
+}
+
+.theme--dark.v-data-table .v-row-group__header,
+.theme--dark.v-data-table .v-row-group__summary {
+  background: #006db27d !important;
+}
+
 // ————————————————————————————————————
 //* ——— Badge
 // ————————————————————————————————————

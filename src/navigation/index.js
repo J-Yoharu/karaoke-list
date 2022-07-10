@@ -21,6 +21,7 @@ export default [
     title: 'Atualizações',
     icon: mdiUpdate,
     to: 'update',
+    disable: true,
   },
   {
     title: 'Atualizar músicas',

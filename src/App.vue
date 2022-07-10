@@ -69,11 +69,12 @@ export default {
       let musicsDb = JSON.parse(localStorage.dbKaraoke)
 
       const ids = musicsDb.filter(music => music.favorite == true).map(music => music.cod)
-      console.log({ ids })
 
-      index({ ids, withOutPagination: true }).then(({ data }) =>
-        localStorage.setItem('favorities', JSON.stringify(data)),
-      )
+      index({ ids, withOutPagination: true }).then(({ data }) => {
+        localStorage.setItem('favorities', JSON.stringify(data))
+        localStorage.setItem('favoritiesIds', JSON.stringify(ids))
+        localStorage.removeItem('dbKaraoke')
+      })
     }
 
     return {

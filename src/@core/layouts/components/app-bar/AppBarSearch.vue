@@ -1,22 +1,13 @@
 <template>
-  <div v-if="$route.meta.search != undefined ? $route.meta.search : true">
-    <v-btn
-      icon
-      small
-      class="app-bar-search-toggler"
-      @click="shallShowFullSearchLocal = true"
-    >
+  <div v-if="$route.meta.search != undefined ? $route.meta.search : true && false">
+    <v-btn icon small class="app-bar-search-toggler" @click="shallShowFullSearchLocal = true">
       <v-icon>
         {{ icons.mdiMagnify }}
       </v-icon>
     </v-btn>
 
     <!-- This is clever hack to hide scrolling 😉 -->
-    <v-dialog
-      :value="shallShowFullSearchLocal"
-      hide-overlay
-      persistent
-    ></v-dialog>
+    <v-dialog :value="shallShowFullSearchLocal" hide-overlay persistent></v-dialog>
     <v-expand-transition>
       <v-autocomplete
         v-show="shallShowFullSearchLocal"
@@ -44,10 +35,7 @@
         <template #selection></template>
 
         <template #prepend-inner>
-          <v-icon
-            size="22"
-            class="mr-1"
-          >
+          <v-icon size="22" class="mr-1">
             {{ icons.mdiMagnify }}
           </v-icon>
         </template>
@@ -63,34 +51,19 @@
         <template #item="{ item }">
           <div class="w-full">
             <!-- Section: Pages -->
-            <div
-              v-if="getSearchResultType(item) === 'pages'"
-              class="d-flex align-content-end"
-            >
-              <v-icon
-                size="20px"
-                class="me-3"
-              >
+            <div v-if="getSearchResultType(item) === 'pages'" class="d-flex align-content-end">
+              <v-icon size="20px" class="me-3">
                 {{ item.icon }}
               </v-icon>
               <span class="text-sm">{{ item.title }}</span>
             </div>
 
             <!-- Section: Files -->
-            <div
-              v-else-if="getSearchResultType(item) === 'files'"
-              class="d-flex align-center py-2"
-            >
-              <v-icon
-                size="20px"
-                class="me-3"
-              >
+            <div v-else-if="getSearchResultType(item) === 'files'" class="d-flex align-center py-2">
+              <v-icon size="20px" class="me-3">
                 {{ item.icon }}
               </v-icon>
-              <div
-                class="d-flex flex-column flex-grow-1"
-                :class="{'align-start': $vuetify.rtl}"
-              >
+              <div class="d-flex flex-column flex-grow-1" :class="{ 'align-start': $vuetify.rtl }">
                 <span class="d-block">{{ item.title }}</span>
                 <small class="text--secondary text-xs">by {{ item.by }}</small>
               </div>
@@ -98,14 +71,8 @@
             </div>
 
             <!-- Contact -->
-            <div
-              v-else-if="getSearchResultType(item) === 'contacts'"
-              class="d-flex align-center py-2"
-            >
-              <v-avatar
-                class="me-3"
-                size="40"
-              >
+            <div v-else-if="getSearchResultType(item) === 'contacts'" class="d-flex align-center py-2">
+              <v-avatar class="me-3" size="40">
                 <v-img :src="item.avatar"></v-img>
               </v-avatar>
               <div class="d-flex flex-column flex-grow-1">
