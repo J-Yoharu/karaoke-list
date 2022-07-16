@@ -1,0 +1,74 @@
+.v-data-table {
+  table {
+    padding: 4px;
+    padding-bottom: 8px;
+
+    th {
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    td {
+      border-bottom: 0 !important;
+    }
+
+    tbody {
+      tr {
+        transition: box-shadow 0.2s, transform 0.2s;
+
+        &:not(.v-data-table__selected):hover {
+          box-shadow: 0 3px 15px -2px rgba(0, 0, 0, 0.12);
+          transform: translateY(-4px);
+        }
+      }
+    }
+  }
+}
+
+.undecorate {
+  text-decoration: none;
+}
+
+@keyframes rotation {
+  33% {
+    transform: rotate(2deg);
+  }
+  66% {
+    transform: rotate(-2deg);
+  }
+}
+
+@keyframes rotation2 {
+  33% {
+    transform: rotate(4deg);
+  }
+  66% {
+    transform: rotate(-4deg);
+  }
+}
+
+.animation-rotation {
+  animation: rotation 2s infinite;
+}
+
+.animation-rotation-2 {
+  animation: rotation2 1s infinite;
+}
+
+.swal2-popup {
+  font-family: 'themify';
+}
+
+//vue animations using <transition name="fade"> for example
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active em versões anteriores a 2.1.8 */ {
+  opacity: 0;
+}
+
+.hoverTranslate:hover {
+  transform: scale(1.1);
+}

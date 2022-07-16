@@ -1,44 +1,47 @@
 <template>
-  <v-row>
-    <v-col cols="12" class="d-flex justify-center">
-      <img
-        src="../assets/Logo.png"
-        max-width="100"
-        alt="Logo videoke Augusto"
-        style="width: 30vw"
-    /></v-col>
-    <v-col cols="12">
-      <List :db="db"/>
-      <div class="d-flex justify-center mt-10" v-if="loading">
-        <v-progress-circular
-          indeterminate
-          color="primary"
-        ></v-progress-circular>
-      </div>
+  <v-row justify="center" style="height: 100%" align="center">
+    <v-col cols="12" md="8" class="text-center">
+      <app-logo class="mb-5" center :width="isMobile ? '100%' : '50%'"></app-logo>
+      <search-autocomplete
+        autocomplete-absolute
+        @click:item="search($event.result)"
+        @search="search($event)"
+        @enter="search($event)"
+        v-model="query"
+      ></search-autocomplete>
     </v-col>
   </v-row>
 </template>
 
 <script>
-import validBd from "../mixins/validBd.js";
+import AppLogo from '@core/components/app-logo/AppLogo.vue'
+import SearchAutocomplete from '@/components/SearchAutocomplete.vue'
 
+import { useRouter } from '@core/utils'
+import { ref } from '@vue/composition-api'
+import { isMobile } from '@/helpers/breakpoint'
 export default {
-  mixins: [validBd],
-  data() {
-    return {
-      db: [],
-      loading: false,
-    };
-  },
   components: {
-    List: () => import("../components/List.vue")
+    AppLogo,
+    SearchAutocomplete,
   },
-  created() {
-    this.valid();
+  setup() {
+    const { router } = useRouter()
+    const search = value => {
+      router.push({
+        name: 'search',
+        query: {
+          query: value,
+        },
+      })
+    }
+    const query = ref('')
+
+    return {
+      isMobile,
+      search,
+      query,
+    }
   },
-};
+}
 </script>
-
-<style>
-
-</style>
