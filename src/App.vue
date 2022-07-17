@@ -65,7 +65,7 @@ export default {
 
     const migrateOldFavoritiesSongs = () => {
       if (localStorage.favorities) return
-
+      if (!localStorage.dbKaraoke) return
       let musicsDb = JSON.parse(localStorage.dbKaraoke)
 
       const ids = musicsDb.filter(music => music.favorite == true).map(music => music.cod)
