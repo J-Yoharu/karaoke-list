@@ -40,7 +40,7 @@ export default {
         return {
           title: 'Lista de Música',
           text: 'O melhor lugar para encontrar suas músicas favoritas',
-          url: 'https://listademusicas.com.br',
+          url: process.env.BASE_URL,
           files: [],
         }
       },

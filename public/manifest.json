@@ -2,7 +2,7 @@
     "id": "/home",
     "name": "Lista de Músicas",
     "short_name": "Lista de Músicas",
-    "start_url": "/--",
+    "start_url": "/",
     "display": "fullscreen",
     "description": "O melhor lugar para encontrar suas músicas favoritas",
     "lang": "BR",

@@ -19,7 +19,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
         env:
           ENVP: ${{ secrets.ENVPROD }}
-      - run: 'echo "VUE_APP_API=http://api.listademusicas.com.br/api" >> .env'
+      - run: 'echo "VUE_APP_API=https://api.listademusicas.com.br/api" >> .env'
       - run: npm install && npm run build
       - run: git config --global user.email "jonathas_a.a@hotmail.com" && git config --global user.name "Automation"
       - run: cd dist && echo "$ENVP" > .env && echo "listademusicas.com.br" > CNAME && git init && git add -A && git commit -m 'deploy' && git push -f https://j-yoharu:${{ secrets.GITHUB_TOKEN }}@github.com/J-Yoharu/karaoke-list.git master:aws
