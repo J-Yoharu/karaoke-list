@@ -25,7 +25,14 @@
             <v-icon v-text="icons.mdiUpdate" class="mr-4"></v-icon
             >Atualizações</v-tab
           >
+          <v-tab to="/news">
+            <v-icon v-text="icons.mdiUpdate" class="mr-4"></v-icon
+            >Sobre a nova versão</v-tab
+          >
         </v-tabs>
+        <div class="d-flex justify-center">
+          <v-btn class="m-auto" color="primary" @click="redirectToHomolog">Mudar para nova versão</v-btn>
+        </div>
       </div>
     </nav>
   </div>
@@ -48,6 +55,11 @@ export default {
       },
       collapse: true
     };
+  },
+  methods: {
+    redirectToHomolog() {
+      window.location = 'https://homolog.listademusicas.com.br'
+    }
   }
 };
 </script>
